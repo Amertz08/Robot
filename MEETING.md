@@ -53,7 +53,7 @@ Nick
 - Need to finish Raspbian install and start Pi-> arduino communication
 
 Haozhan
-- [#22](https://github.com/Amertz08/Robot/issues/22) Motor drive test sketch
+- [#22](https://github.com/Amertz08/Robot/issues/22) - Motor drive test sketch
 - Keep working on web interface
 
 Collin
