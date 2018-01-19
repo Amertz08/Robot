@@ -15,6 +15,11 @@ Adam
 - Soldered screw connector blocks onto motor shields
 - Soldered headers onto 1 of 2 motor shields
 
+Nick
+- Worked on ultrasonic sensor with Colin
+- Created Gantt Tasks Document
+- Started work with Raspbian
+
 **General Notes**
 
 Adam
