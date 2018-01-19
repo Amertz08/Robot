@@ -11,14 +11,14 @@ COMMAND=$(AB) -hardware ${ARDUINO_HARDWARE_DIR} \
 
 ultra:
 	$(COMMAND) \
-	-build-path $(shell pwd)/ultra/build \
-	$(shell pwd)/ultra/ultra.ino
+	-build-path $(shell pwd)/sensors/ultra/build \
+	$(shell pwd)/sensors/ultra/ultra.ino
 
 line:
 	$(COMMAND) \
-	-build-path $(shell pwd)/linefollower/build \
-	$(shell pwd)/linefollower/MostBasicFollower.ino
+	-build-path $(shell pwd)/sensors/linefollower/build \
+	$(shell pwd)/sensors/linefollower/MostBasicFollower.ino
 
 clean:
-	rm -rf ./*/build
-	mkdir ./ultra/build ./linefollower/build
+	rm -rf ./sensors/*/build
+	mkdir ./sensors/ultra/build ./sensors/linefollower/build
