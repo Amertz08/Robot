@@ -5,6 +5,8 @@ Progress and notes for the week starting on the given date (Mon-Sun).
 ## Week of 1/15/17
 
 **Progress**
+
+Adam
 - [#1](https://github.com/Amertz08/Robot/issues/1) - Added contribution guidelines
 - [#3](https://github.com/Amertz08/Robot/issues/3) - Setup initial directory structure
 - [#5](https://github.com/Amertz08/Robot/issues/5) - Include old line follower code
@@ -15,4 +17,5 @@ Progress and notes for the week starting on the given date (Mon-Sun).
 
 **General Notes**
 
-Adam - Need to get a motor wired up and running with new motor shields
+Adam
+- Need to get a motor wired up and running with new motor shields
