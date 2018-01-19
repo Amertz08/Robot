@@ -4,7 +4,7 @@ Progress and notes from the previous lab up to the end of the lab for the given 
 
 ## Week of 1/19/17
 
-**Progress**
+### Progress
 
 Adam
 - [#1](https://github.com/Amertz08/Robot/issues/1) - Added contribution guidelines
@@ -29,7 +29,7 @@ Haozhan
 
 Collin
 
-**WIP**
+### WIP
 
 Adam
 - [#20](https://github.com/Amertz08/Robot/issues/20) - Solder headers to motor shields
@@ -43,8 +43,7 @@ Haozhan
 Collin
 
 
-
-**Plans**
+### Plans
 
 Adam
 - Need to get a motor wired up and running with new motor shields
