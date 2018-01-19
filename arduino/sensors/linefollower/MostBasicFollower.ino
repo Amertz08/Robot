@@ -31,7 +31,7 @@ The wheel direction polarity can be switched with RIGHT/LEFT_WHEEL_POL (or by fl
   #define LEFT_WHEEL_POL 1
 To check, hold the bot centered over a line so that the two middle sensors detect
   then observe.  Does the bot try to drive forward?
-  
+
 Resources:
 sensorbar.h
 
@@ -40,7 +40,7 @@ arduino > v1.6.4
 hw v1.0
 
 This code is released under the [MIT License](http://opensource.org/licenses/MIT).
-Please review the LICENSE.md file included with this example. If you have any questions 
+Please review the LICENSE.md file included with this example. If you have any questions
 or concerns with licensing, please contact techsupport@sparkfun.com.
 Distributed as-is; no warranty is given.
 ******************************************************************************/
@@ -87,7 +87,7 @@ void setup()
   Serial.begin(9600);  // start serial for output
   Serial.println("Program started.");
   Serial.println();
-  
+
   //Default: the IR will only be turned on during reads.
   mySensorBar.setBarStrobe();
   //Other option: Command to run all the time
@@ -97,15 +97,12 @@ void setup()
   mySensorBar.clearInvertBits();
   //Other option: light line on dark
   //mySensorBar.setInvertBits();
-  
+
   //Don't forget to call .begin() to get the bar ready.  This configures HW.
   uint8_t returnStatus = mySensorBar.begin();
-  if(returnStatus)
-  {
+  if(returnStatus) {
 	  Serial.println("sx1509 IC communication OK");
-  }
-  else
-  {
+  } else {
 	  Serial.println("sx1509 IC communication FAILED!");
   }
   Serial.println();
@@ -129,26 +126,19 @@ void loop()
     break;
   case READ_LINE:
 //    Serial.println(state);
-    if( mySensorBar.getDensity() < 8 && mySensorBar.getDensity() > 0)
-    {
+    if( mySensorBar.getDensity() < 8 && mySensorBar.getDensity() > 0) {
 //      Serial.println(mySensorBar.getDensity());
       nextState = GO_FORWARD;
       Serial.println(mySensorBar.getPosition());
-      if( mySensorBar.getPosition() < -50 )
-      {
+      if( mySensorBar.getPosition() < -50 ) {
         nextState = GO_LEFT;
       }
-      if( mySensorBar.getPosition() > 50 )
-      {
+      if( mySensorBar.getPosition() > 50 ) {
         nextState = GO_RIGHT;
       }
-    }
-    else if(mySensorBar.getDensity() == 0)
-    {
+    } else if(mySensorBar.getDensity() == 0) {
       nextState = findline();
-    }
-    else
-    {
+    } else {
       nextState = IDLE_STATE;
     }
     prevState = READ_LINE;
@@ -188,10 +178,11 @@ void driveBot( int16_t driveInput )
 	leftVar =  driveInput * LEFT_WHEEL_POL;
 	rightMotor->setSpeed(MAX_SPEED);
   leftMotor->setSpeed(MAX_SPEED);
-	
+
 }
 
-void stopMotors() {
+void stopMotors()
+{
   rightMotor->setSpeed(0);
   leftMotor->setSpeed(0);
 }
@@ -208,7 +199,7 @@ void driveTurnBot( int16_t driveInput, float turnInput )
 	{
 		turnInput *= -1;
 	}
-	
+
 	//If turn is positive
 	if( turnInput > 0 )
 	{
@@ -222,9 +213,9 @@ void driveTurnBot( int16_t driveInput, float turnInput )
 	}
 
 	rightMotor->setSpeed(rightVar);
-    leftMotor->setSpeed(leftVar);
-		delay(5);
-		
+  leftMotor->setSpeed(leftVar);
+	delay(5);
+
 }
 
 //When using turnBot( float turnInput ), pass + for spin right.
@@ -247,16 +238,18 @@ void turnBot( float turnInput )
 	}
 
 	rightMotor->setSpeed(rightVar);
-    leftMotor->setSpeed(leftVar);
+  leftMotor->setSpeed(leftVar);
 	delay(5);
-	
 }
-void leftTurn() {
+
+void leftTurn()
+{
   leftMotor->setSpeed(0);
   rightMotor->setSpeed(MAX_SPEED+25);
 }
 
-void rightTurn() {
+void rightTurn()
+{
   leftMotor->setSpeed(MAX_SPEED+25);
   rightMotor->setSpeed(0);
 }
@@ -280,7 +273,4 @@ uint8_t findline()
       {
         return GO_RIGHT;
       }
-  
 }
-
-
