@@ -12,6 +12,11 @@ Adam
 - [#5](https://github.com/Amertz08/Robot/issues/5) - Include old line follower code
 - [#7](https://github.com/Amertz08/Robot/issues/7) - Added example ultrasonic script
 - [#9](https://github.com/Amertz08/Robot/issues/9) - Added example Monster Motor shield code
+- [#13](https://github.com/Amertz08/Robot/issues/13) - Ordered Chassis
+- [#14](https://github.com/Amertz08/Robot/issues/14) - Ordered HDMI cable
+- [#15](https://github.com/Amertz08/Robot/issues/15) - Ordered JST connector/cables
+- [#16](https://github.com/Amertz08/Robot/issues/16) - Ordered power step down
+- [#17](https://github.com/Amertz08/Robot/issues/17) - Bought Uno's
 - Soldered screw connector blocks onto motor shields
 - Soldered headers onto 1 of 2 motor shields
 
