@@ -19,6 +19,11 @@ line:
 	-build-path $(shell pwd)/sensors/linefollower/build \
 	$(shell pwd)/sensors/linefollower/MostBasicFollower.ino
 
+monster:
+	$(COMMAND) \
+	-build-path $(shell pwd)/drive/MonsterExp/build \
+	$(shell pwd)/drive/MonsterExp/Monster.ino
+
 clean:
 	rm -rf ./sensors/*/build
 	mkdir ./sensors/ultra/build ./sensors/linefollower/build
