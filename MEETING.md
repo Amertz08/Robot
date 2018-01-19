@@ -1,8 +1,8 @@
 ## Meeting/Progress Notes
 
-Progress and notes for the week starting on the given date (Mon-Sun).
+Progress and notes from the previous lab up to the end of the lab for the given date.
 
-## Week of 1/15/17
+## Week of 1/19/17
 
 **Progress**
 
