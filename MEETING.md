@@ -15,4 +15,4 @@ Progress and notes for the week starting on the given date (Mon-Sun).
 
 **General Notes**
 
-Add any general notes here
+Adam - Need to get a motor wired up and running with new motor shields
