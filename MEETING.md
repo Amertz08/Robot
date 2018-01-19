@@ -35,7 +35,7 @@ Adam
 - [#20](https://github.com/Amertz08/Robot/issues/20) - Solder headers to motor shields
 
 Nick
-
+- [#23](https://github.com/Amertz08/Robot/issues/23) - create smoothing library
 
 Haozhan
 
@@ -49,7 +49,7 @@ Adam
 - Need to get a motor wired up and running with new motor shields
 
 Nick
-
+- Need to finish Raspbian install and start Pi-> arduino communication
 
 Haozhan
 
