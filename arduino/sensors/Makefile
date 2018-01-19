@@ -8,4 +8,5 @@ ultra:
 	-fqbn $(BOARD) \
 	-libraries ${ARDUINO_LIB_DIR} \
 	-warnings all \
-	$(shell pwd)/ultra.ino
+	-build-path $(shell pwd)/ultra/build \
+	$(shell pwd)/ultra/ultra.ino
