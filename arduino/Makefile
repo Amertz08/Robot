@@ -25,5 +25,5 @@ monster:
 	$(shell pwd)/drive/MonsterExp/Monster.ino
 
 clean:
-	rm -rf ./sensors/*/build
-	mkdir ./sensors/ultra/build ./sensors/linefollower/build
+	rm -rf ./sensors/*/build ./drive/*/build
+	mkdir ./sensors/ultra/build ./sensors/linefollower/build ./drive/MonsterExp/build
