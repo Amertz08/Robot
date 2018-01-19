@@ -12,3 +12,7 @@ Progress and notes for the week starting on the given date (Mon-Sun).
 - [#9](https://github.com/Amertz08/Robot/issues/9) - Added example Monster Motor shield code
 - Soldered screw connector blocks onto motor shields
 - Soldered headers onto 1 of 2 motor shields
+
+**General Notes**
+
+Add any general notes here
