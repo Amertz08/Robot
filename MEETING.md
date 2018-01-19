@@ -17,15 +17,42 @@ Adam
 - [#15](https://github.com/Amertz08/Robot/issues/15) - Ordered JST connector/cables
 - [#16](https://github.com/Amertz08/Robot/issues/16) - Ordered power step down
 - [#17](https://github.com/Amertz08/Robot/issues/17) - Bought Uno's
-- Soldered screw connector blocks onto motor shields
-- Soldered headers onto 1 of 2 motor shields
+- [#19](https://github.com/Amertz08/Robot/issues/17) - Soldered Screw terminals to motor shield
 
 Nick
 - Worked on ultrasonic sensor with Colin
 - Created Gantt Tasks Document
 - Started work with Raspbian
 
-**General Notes**
+Haozhan
+
+
+Collin
+
+**WIP**
+
+Adam
+- [#20](https://github.com/Amertz08/Robot/issues/20) - Solder headers to motor shields
+
+Nick
+
+
+Haozhan
+
+
+Collin
+
+
+
+**Plans**
 
 Adam
 - Need to get a motor wired up and running with new motor shields
+
+Nick
+
+
+Haozhan
+
+
+Collin
