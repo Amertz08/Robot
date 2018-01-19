@@ -25,7 +25,8 @@ Nick
 - Started work with Raspbian
 
 Haozhan
-
+- Reserached web interface for Raspberry Pi
+- Started working on web interface
 
 Collin
 
@@ -38,7 +39,7 @@ Nick
 - [#23](https://github.com/Amertz08/Robot/issues/23) - create smoothing library
 
 Haozhan
-
+- [#22](https://github.com/Amertz08/Robot/issues/22) - Motor drive test sketch
 
 Collin
 
@@ -52,6 +53,7 @@ Nick
 - Need to finish Raspbian install and start Pi-> arduino communication
 
 Haozhan
-
+- [#22] Motor drive test sketch
+- Keep working on web interface
 
 Collin
