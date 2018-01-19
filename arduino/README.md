@@ -10,6 +10,7 @@ Must have [arduino-builder](https://github.com/arduino/arduino-builder) installe
 
 Set the following environmental variables so `Makefiles` work
 
+- `ARDUINO_BASE_DIR`
 - `ARDUINO_HARDWARE_DIR`
 - `ARDUINO_LIB_DIR`
 - `ARDUINO_TOOLS_DIR`
