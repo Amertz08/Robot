@@ -1,0 +1,31 @@
+version: '3.2'
+services:
+  qlogd:
+    build: ./qlogd
+    volumes:
+      - source: ./qlogd
+        target: /code
+        type: bind
+
+  cli:
+    build: ./cli
+    volumes:
+      - source: ./cli
+        target: /code
+        type: bind
+
+  broker:
+    image: cyrilix/rabbitmq-mqtt:3.6
+    ports:
+      - "15672:15672"
+      - "1883:1883"
+      - "8883:8883"
+      - "4369:4369"
+      - "5671:5671"
+      - "5672:5572"
+      - "25672:25672"
+
+  db:
+    image: mongo:3.6-jessie
+    ports:
+      - "27017:27017"
