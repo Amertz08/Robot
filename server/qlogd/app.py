@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import logging
 import pprint
 
 import paho.mqtt.client as mqtt
@@ -14,10 +15,21 @@ DB_PORT = os.getenv('DB_PORT') or 27017
 db_client = MongoClient(DB_HOST, DB_PORT)
 db = db_client.test
 
+FORMAT = '%(asctime)s | %(module)s | %(funcName)s | %(message)s'
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+formatter = logging.Formatter(FORMAT)
+fh = logging.FileHandler('/var/qlogd.log')
+fh.setFormatter(formatter)
+logger.addHandler(fh)
+
 def on_connect(client, userdata, flags, rc):
     '''On connection callback'''
-    print(f'Connected with code: {rc}')
-    client.subscribe('#')
+    logger.info(f'Connected with code: {rc}')
+    topic = '#'
+    client.subscribe(topic)
+    logger.info(f'Subscribed to topic: {topic}')
+
 
 def on_disconnect(client, userdata, rc):
     pass
@@ -38,15 +50,15 @@ def on_message(client, userdata, msg):
     '''On message callback'''
     topic = str(msg.topic)
     data = json.loads(msg.payload)
-    print(f'Message recieved: topic = {topic}')
+    logger.info(f'Message recieved: topic = {topic}')
     pprint.pprint(data)
 
     if topic == 'bot/log':
         logs = db.logs
         logs.insert_one(data)
-        print('Inserted bot/log')
+        logger.info('Inserted bot/log')
 
-    print('Message logged')
+    logger.info('Message logged to db')
 
 
 
@@ -55,6 +67,7 @@ def main():
     client = mqtt.Client()
     client.on_connect = on_connect
     client.on_message = on_message
+    client.enable_logger(logger)
 
     client.connect('broker', int(BROKER_PORT), 60)
     try:
