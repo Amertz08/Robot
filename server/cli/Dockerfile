@@ -7,6 +7,7 @@ RUN pip install \
 
 RUN mkdir /code
 ADD app.py /code
+ADD setup.py /code
 WORKDIR /code
 
 CMD ["/bin/bash"]
