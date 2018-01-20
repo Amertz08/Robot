@@ -1,5 +1,6 @@
 DC=docker-compose
 DK=docker
+DLS=$(shell docker ps -aq)
 
 # Build images
 build:
@@ -14,13 +15,26 @@ up:
 down:
 	$(DC) down
 
-# Run test command on CLI
-test:
-	$(DC) run cli python app.py test
-
 # List containers running
 ps:
 	$(DC) ps
+
+# List images
+img:
+	$(DK) images
+
+# Remove all containers
+rm:
+	docker stop $(DLS)
+	$(DK) rm $(DLS)
+
+# Remove untagged images
+rmn:
+	$(DK) rmi $(shell $(DK) images -a | grep "^<none>" | awk '{print $3}')
+
+# Run test command on CLI
+test:
+	$(DC) run cli python app.py test
 
 # Run qlogd services
 runq:
