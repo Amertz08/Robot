@@ -6,6 +6,8 @@ services:
       - source: ./qlogd
         target: /code
         type: bind
+    environment:
+      - BROKER_PORT=1883
 
   cli:
     build: ./cli
@@ -13,6 +15,8 @@ services:
       - source: ./cli
         target: /code
         type: bind
+    environment:
+      - BROKER_PORT=1883
 
   broker:
     image: cyrilix/rabbitmq-mqtt:3.6

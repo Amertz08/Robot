@@ -1,7 +1,10 @@
+import os
 import json
 import pprint
 
 import paho.mqtt.client as mqtt
+
+BROKER_PORT = os.getenv('BROKER_PORT') or 1883
 
 def on_connect(client, userdata, flags, rc):
     '''On connection callback'''
@@ -26,7 +29,7 @@ def on_log(client, userdata, level, buf):
 def on_message(client, userdata, msg):
     '''On message callback'''
     data = json.loads(msg.payload)
-    print(f'Message Recieved:')
+    print('Message Recieved:')
     pprint.pprint(data)
 
 
@@ -35,8 +38,8 @@ def main():
     client = mqtt.Client()
     client.on_connect = on_connect
     client.on_message = on_message
-
-    client.connect('broker', 1883, 60)
+    
+    client.connect('broker', int(BROKER_PORT), 60)
     client.loop_forever()
 
 if __name__ == '__main__':
