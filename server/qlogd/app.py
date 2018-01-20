@@ -15,7 +15,7 @@ DB_PORT = os.getenv('DB_PORT') or 27017
 db_client = MongoClient(DB_HOST, DB_PORT)
 db = db_client.test
 
-FORMAT = '%(asctime)s | %(process)d | %(processName)s | %(module)s | %(funcName)s | %(lineno)d | %(message)s'
+FORMAT = '%(asctime)s | %(levelname)s | %(module)s | %(funcName)s | %(lineno)d | %(message)s'
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 formatter = logging.Formatter(FORMAT)
