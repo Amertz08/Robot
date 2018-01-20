@@ -18,4 +18,6 @@ $ git checkout -b 1-contribution-guide
 
 ## Pull Requests
 
-Must be reviewed by 1 team member. When branch resolves an issue it should be mentioned in the description `closes #ISSUE` to automatically close the issue on merge. PRs should delete branch on merge.
+Must be reviewed by 2 team member. When branch resolves an issue it should be mentioned in the description `closes #ISSUE` to automatically close the issue on merge. PRs should delete branch on merge.
+
+PRs for meeting notes or contribution guidelines should be reviewed by all team members.
