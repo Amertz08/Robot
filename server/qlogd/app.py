@@ -1,4 +1,5 @@
 import os
+import sys
 import json
 import pprint
 
@@ -40,7 +41,11 @@ def main():
     client.on_message = on_message
 
     client.connect('broker', int(BROKER_PORT), 60)
-    client.loop_forever()
+    try:
+        client.loop_forever()
+    except KeyboardInterrupt:
+        print('\nExiting...')
+        sys.exit()
 
 if __name__ == '__main__':
     main()
