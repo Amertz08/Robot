@@ -1,6 +1,7 @@
 import os
 import json
 
+import arrow
 import click
 import paho.mqtt.publish as publish
 
@@ -15,8 +16,10 @@ def cli():
 def test():
     data = {
         'device_id': '1',
-        'message': 'HHELLOO'
+        'message': 'HHELLOO',
+        'timestamp': arrow.now().timestamp
     }
+    print('Sent', data)
     publish.single('bot/log', json.dumps(data),
         hostname='broker', port=int(BROKER_PORT))
 
