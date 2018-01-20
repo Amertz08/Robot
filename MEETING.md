@@ -29,6 +29,8 @@ Haozhan
 - Started working on web interface
 
 Collin
+- Worked on Ultrasonic sensors with Nick (Bread boarding etc.)
+- Began brainstorming concept for route solving
 
 ### WIP
 
@@ -42,8 +44,7 @@ Haozhan
 - [#22](https://github.com/Amertz08/Robot/issues/22) - Motor drive test sketch
 
 Collin
-
-
+- [#30] (https://github.com/Amertz08/Robot/issues/30) - Create Basic Route Solver
 ### Plans
 
 Adam
@@ -57,3 +58,5 @@ Haozhan
 - Keep working on web interface
 
 Collin
+- [#30] (https://github.com/Amertz08/Robot/issues/30) - Create Basic Route Solver
+- Determine best sensors for our collision detection
