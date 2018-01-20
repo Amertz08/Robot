@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.4'
 services:
   qlogd:
     build: ./qlogd
@@ -33,3 +33,8 @@ services:
     image: mongo:3.6-jessie
     ports:
       - "27017:27017"
+    volumes:
+      - "mongo-data:/data/db"
+
+volumes:
+  mongo-data:
