@@ -9,7 +9,7 @@ BROKER_PORT = os.getenv('BROKER_PORT') or 1883
 def on_connect(client, userdata, flags, rc):
     '''On connection callback'''
     print(f'Connected with code: {rc}')
-    client.subscribe('blah/blah')
+    client.subscribe('#')
 
 def on_disconnect(client, userdata, rc):
     pass
@@ -29,7 +29,7 @@ def on_log(client, userdata, level, buf):
 def on_message(client, userdata, msg):
     '''On message callback'''
     data = json.loads(msg.payload)
-    print('Message Recieved:')
+    print(f'Message recieved topic: {msg.topic}')
     pprint.pprint(data)
 
 
@@ -38,7 +38,7 @@ def main():
     client = mqtt.Client()
     client.on_connect = on_connect
     client.on_message = on_message
-    
+
     client.connect('broker', int(BROKER_PORT), 60)
     client.loop_forever()
 
