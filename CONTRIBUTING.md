@@ -4,7 +4,7 @@ This file sets out to establish common operating procedures when contributing to
 
 ## Issues
 
-All issues should be documented, tagged, and assigned.
+All issues should be documented, tagged, and assigned. They should have clearly stated requirements and be a finite work product.
 
 ## Branches
 
