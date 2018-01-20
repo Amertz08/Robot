@@ -6,6 +6,7 @@ services:
       - source: ./qlogd
         target: /code
         type: bind
+      - "bot-logs:/var/app"
     environment:
       - BROKER_PORT=1883
 
@@ -38,3 +39,4 @@ services:
 
 volumes:
   mongo-data:
+  bot-logs:

@@ -19,7 +19,7 @@ FORMAT = '%(asctime)s | %(levelname)s | %(module)s | %(funcName)s | %(lineno)d |
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 formatter = logging.Formatter(FORMAT)
-fh = logging.FileHandler('/var/qlogd.log')
+fh = logging.FileHandler('/var/app/qlogd.log')
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 
