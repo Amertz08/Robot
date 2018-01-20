@@ -17,7 +17,7 @@ def test():
         'device_id': '1',
         'message': 'HHELLOO'
     }
-    publish.single('blah/blah', json.dumps(data),
+    publish.single('bot/log', json.dumps(data),
         hostname='broker', port=int(BROKER_PORT))
 
 
