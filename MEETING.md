@@ -44,7 +44,7 @@ Haozhan
 - [#22](https://github.com/Amertz08/Robot/issues/22) - Motor drive test sketch
 
 Collin
-- [#30] (https://github.com/Amertz08/Robot/issues/30) - Create Basic Route Solver
+- [#30](https://github.com/Amertz08/Robot/issues/30) - Create Basic Route Solver
 ### Plans
 
 Adam
@@ -58,5 +58,5 @@ Haozhan
 - Keep working on web interface
 
 Collin
-- [#30] (https://github.com/Amertz08/Robot/issues/30) - Create Basic Route Solver
+- [#30](https://github.com/Amertz08/Robot/issues/30) - Create Basic Route Solver
 - Determine best sensors for our collision detection
