@@ -32,6 +32,6 @@ int SMOOTHING::smooth(int newValue)
 		readIndex = 0;
 	}
 
-	newAvg = total/numReadings;
+	newAvg = total / numReadings;
 	return newAvg;
 }
