@@ -15,7 +15,7 @@
 #define EN_PIN_2 1
 #define STAT_PIN 13
 #define MIN_SPEED 0
-#define MAX_SPEED 1023
+#define MAX_SPEED 255
 
 
 class Monster {
