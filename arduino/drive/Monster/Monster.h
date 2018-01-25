@@ -29,6 +29,7 @@ private:
 
 public:
   Monster();
+  ~Monster();
   void stopA();
   void stopB();
   void stop();

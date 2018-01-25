@@ -16,6 +16,10 @@ Monster::Monster()
   }
 }
 
+Monster::~Monster() {
+  this->stop();
+}
+
 void Monster::stopA()
 {
   digitalWrite(this->_inApin[0], LOW);
