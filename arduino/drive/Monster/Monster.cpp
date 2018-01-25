@@ -46,14 +46,25 @@ void Monster::startB()
   digitalWrite(this->_inBpin[1], HIGH);
 }
 
+bool Monster::_validateSpeed(uint8_t speed)
+{
+  return (MIN_SPEED <= speed && speed <= MAX_SPEED);
+}
+
 void Monster::setSpeedA(uint8_t speed)
 {
+  if (!this->_validateSpeed(speed)) {
+    throw Exception("Invalid speed");
+  }
   this->startA();
   analogWrite(this->_pwmpin[0], speed);
 }
 
 void Monster::setSpeedB(uint8_t speed)
 {
+  if (!this->_validateSpeed(speed)) {
+    throw Exception("Invalid speed");
+  }
   this->startB();
   analogWrite(this->_pwmpin[1], speed);
 }

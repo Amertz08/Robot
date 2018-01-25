@@ -14,6 +14,8 @@
 #define EN_PIN_1 0
 #define EN_PIN_2 1
 #define STAT_PIN 13
+#define MIN_SPEED 0
+#define MAX_SPEED 1023
 
 
 class Monster {
@@ -23,6 +25,7 @@ private:
   const int _pwmpin[2] = { PWM_PIN_1, PWM_PIN_2 };
   const int _cspin[2] = { CS_PIN_1, CS_PIN_2 };
   const int _enpin[2] = { EN_PIN_1, EN_PIN_2 };
+  bool _validateSpeed(uint8_t speed);
 
 public:
   Monster();
