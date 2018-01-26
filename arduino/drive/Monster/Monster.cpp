@@ -1,7 +1,8 @@
 #include "Monster.h"
 
-Monster::Monster()
+Monster::Monster(uint8_t mode)
 {
+  this->_mode = mode;
   pinMode(STAT_PIN, OUTPUT);
 
   for (int i = 0; i < 2; i++) {
@@ -48,6 +49,46 @@ void Monster::setSpeed(uint8_t motor, uint8_t speed)
     throw Exception("Invalid speed");
   }
   analogWrite(this->_pwmpin[motor], speed);
+}
+
+void Monster::forward(uint8_t speed)
+{
+  switch (this->_mode) {
+    case MIXED:
+      this->driveMotor(0, CW, speed);
+      this->driveMotor(1, CCW, speed);
+      break
+    case LEFT:
+      this->driveMotor(0, CW, speed);
+      this->driveMotor(1, CW, speed);
+      break;
+    case RIGHT:
+      this->driveMotor(0, CCW, speed);
+      this->driveMotor(1, CCW, speed);
+      break;
+    default:
+      throw Exception("Invalid Mode");
+  }
+}
+
+void Monster::backward(uint8_t speed)
+{
+  switch (this->_mode) {
+    case MIXED:
+      this->driveMotor(0, CCW, speed);
+      this->driveMotor(1, CW, speed);
+      break
+    case LEFT:
+      this->driveMotor(0, CCW, speed);
+      this->driveMotor(1, CCW, speed);
+      break;
+    case RIGHT:
+      this->driveMotor(0, CW, speed);
+      this->driveMotor(1, CW, speed);
+      break;
+    default:
+      throw Exception("Invalid Mode");
+  }
 }
 
 void Monster::driveMotor(uint8_t motor, uint8_t direction, uint8_t speed)

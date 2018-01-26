@@ -30,9 +30,14 @@
 #define STAT_PIN 13
 #define MIN_SPEED 0
 #define MAX_SPEED 255
+// Direction
 #define BRAKE 0
 #define CW 1
 #define CCW 2
+// Modes
+#define MIXED 0
+#define LEFT 1
+#define RIGHT 2
 
 
 class Monster {
@@ -42,11 +47,12 @@ private:
   const int _pwmpin[2] = { PWM_PIN_1, PWM_PIN_2 };
   const int _cspin[2] = { CS_PIN_1, CS_PIN_2 };
   const int _enpin[2] = { EN_PIN_1, EN_PIN_2 };
+  int _mode;
 
   bool _validateSpeed(uint8_t speed);
 
 public:
-  Monster();
+  Monster(uint8_t mode);
   ~Monster();
   void stopMotor(uint8_t motor);
   void stop();
