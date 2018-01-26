@@ -16,7 +16,7 @@ Haozhan
 
 
 Collin
-
+- [#30](https://github.com/Amertz08/Robot/issues/30) - Simple Route Detection Baseline pushed
 
 ### WIP
 
@@ -31,7 +31,7 @@ Haozhan
 
 
 Collin
-
+- [#40](https://github.com/Amertz08/Robot/issues/40) - Add directional capabilities to route detection
 
 ### Plans
 
@@ -45,7 +45,9 @@ Haozhan
 
 
 Collin
-
+- Continuing working on sensors
+- [#30](https://github.com/Amertz08/Robot/issues/30) - Simple Route Detection cleanup a merge
+- [#41](https://github.com/Amertz08/Robot/issues/41) - Add efficient route selection
 
 ## Week of 1/19/17
 
