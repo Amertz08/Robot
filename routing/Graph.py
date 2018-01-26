@@ -97,7 +97,6 @@ class Graph(object):
                     return extended_path
         return None
 
-
     def find_all_paths(self, start_vertex, end_vertex, path=[]):
         """ find all paths from start_vertex to
             end_vertex in graph """
@@ -116,8 +115,6 @@ class Graph(object):
                 for p in extended_paths:
                     paths.append(p)
         return paths
-
-
 
     def vertex_degree(self, vertex):
         """ The degree of a vertex is the number of edges connecting
@@ -144,7 +141,6 @@ class Graph(object):
         """
         # check if the sequence sequence is non-increasing:
         return all( x>=y for x, y in zip(sequence, sequence[1:]))
-
 
     def delta(self):
         """ the minimum degree of the vertices """
