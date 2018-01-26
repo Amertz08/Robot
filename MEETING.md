@@ -25,7 +25,7 @@ Nick
 - Started work with Raspbian
 
 Haozhan
-- Reserached web interface for Raspberry Pi
+- Researched web interface for Raspberry Pi
 - Started working on web interface
 
 Collin
