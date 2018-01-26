@@ -14,3 +14,23 @@ nodes:
         - name: C
           direction: N
 # Add the rest
+
+# Above definition translates to the following structure in python
+# {
+#   'nodes': [
+#     {
+#       'name': 'A',
+#       'connented': [
+#         {
+#           'name': 'B',
+#           'direction': 'N'
+#         },
+#         {
+#           'name': 'F',
+#           'direction': E
+#         }
+#       ]
+#     },
+#     ...
+#   ]
+# }
