@@ -30,13 +30,13 @@ private:
 public:
   Monster();
   ~Monster();
-  void stopA();
-  void stopB();
+  void stopOne();
+  void stopTwo();
   void stop();
-  void startA();
-  void startB();
-  void setSpeedA(uint8_t speed);
-  void setSpeedB(uint8_t speed);
+  void startOne();
+  void startTwo();
+  void setSpeedOne(uint8_t speed);
+  void setSpeedTwo(uint8_t speed);
 
 };
 
