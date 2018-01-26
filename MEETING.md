@@ -18,6 +18,7 @@ Haozhan
 
 Collin
 - [#30](https://github.com/Amertz08/Robot/issues/30) - Simple Route Detection Baseline pushed
+- [#33](https://github.com/Amertz08/Robot/issues/33) - Ordered correct JST wires
 
 ### WIP
 
