@@ -12,4 +12,4 @@ Available [here](MEETING.md)
 
 ## Gant Chart
 
-![Gantt Chart](gantt-chart.jpg)
+![Gantt Chart](docs/img/gantt-chart.jpg)
