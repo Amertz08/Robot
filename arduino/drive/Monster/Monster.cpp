@@ -107,7 +107,7 @@ void Monster::backward(uint8_t speed)
     this->driveLeft(speed);
   } else {
     this->driveRight(speed * -1);
-    this->driveLeft(speed * - 1);
+    this->driveLeft(speed * -1);
   }
 }
 
