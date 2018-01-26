@@ -42,6 +42,7 @@
 
 class Monster {
 private:
+  // Motor 1 = index 0; Motor 2 = index 1
   const int _Apins[2] = { A_PIN_1, A_PIN_2 };
   const int _Bpins[2] = { B_PIN_1, B_PIN_2 };
   const int _pwmpin[2] = { PWM_PIN_1, PWM_PIN_2 };
