@@ -9,3 +9,7 @@ Available [here](CONTRIBUTING.md)
 ## Meeting notes
 
 Available [here](MEETING.md)
+
+## Gant Chart
+
+![Gant Chart](gant-chart.jpg)
