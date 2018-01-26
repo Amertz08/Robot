@@ -69,12 +69,12 @@ public:
   void setSpeed(uint8_t motor, uint8_t speed);
   void forward(uint8_t speed);
   void backward(uint8_t speed);
-  void driveRight(uint8_t speed);
-  void driveLeft(uint8_t speed);
+  void driveRight(int speed);
+  void driveLeft(int speed);
   void turnLeft(uint8_t speed);
   void turnRight(uint8_t speed);
   void driveMotor(uint8_t motor, uint8_t direction, uint8_t speed);
-  uint8_t readCurrent(uint8_t motor);
+  int readCurrent(uint8_t motor);
 
 };
 

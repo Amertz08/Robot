@@ -115,7 +115,7 @@ void Monster::backward(uint8_t speed)
   Drives motor(s) on right side
   @param speed : -255 to 255
 */
-void Monster::driveRight(uint8_t speed)
+void Monster::driveRight(int speed)
 {
   uint8_t direction;
 
@@ -137,7 +137,7 @@ void Monster::driveRight(uint8_t speed)
   Drives motor(s) on left side
   @param speed : -255 to 255
 */
-void Monster::driveLeft(uint8_t speed)
+void Monster::driveLeft(int speed)
 {
   uint8_t direction;
 
@@ -207,7 +207,7 @@ void Monster::driveMotor(uint8_t motor, uint8_t direction, uint8_t speed)
   Read current sensor for given motor
   @param motor : motor sensor to read
 */
-uint8_t Monster::readCurrent(uint8_t motor)
+int Monster::readCurrent(uint8_t motor)
 {
   return analogRead(this->_cspin[motor]);
 }
