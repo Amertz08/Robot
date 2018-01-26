@@ -6,7 +6,7 @@
 * MODES
 *   LEFT - Two motors on left side of vehicle
 *   RIGHT - Two motors on right side of vehicle
-*   MIXED - Two motors on opposite sides
+*   MIXED - Two motors on opposite sides - Motor 1 being left and Motor 2 being right
 */
 
 #ifndef MONSTER_H
@@ -60,6 +60,10 @@ public:
   void setSpeed(uint8_t motor, uint8_t speed);
   void forward(uint8_t speed);
   void backward(uint8_t speed);
+  void driveRight(uint8_t speed);
+  void driveLeft(uint8_t speed);
+  void turnLeft(uint8_t speed);
+  void turnRight(uint8_t speed);
   void driveMotor(uint8_t motor, uint8_t direction, uint8_t speed);
 
 };

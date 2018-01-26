@@ -76,7 +76,7 @@ void Monster::forward(uint8_t speed)
     case MIXED:
       this->driveMotor(0, CW, speed);
       this->driveMotor(1, CCW, speed);
-      break
+      break;
     case LEFT:
       this->driveMotor(0, CW, speed);
       this->driveMotor(1, CW, speed);
@@ -92,7 +92,7 @@ void Monster::forward(uint8_t speed)
 
 /**
   Drives vehicle backward at given speed
-  @param speed - speed to move at 0 to 255
+  @param speed : speed to move at 0 to 255
 */
 void Monster::backward(uint8_t speed)
 {
@@ -100,7 +100,7 @@ void Monster::backward(uint8_t speed)
     case MIXED:
       this->driveMotor(0, CCW, speed);
       this->driveMotor(1, CW, speed);
-      break
+      break;
     case LEFT:
       this->driveMotor(0, CCW, speed);
       this->driveMotor(1, CCW, speed);
@@ -113,6 +113,91 @@ void Monster::backward(uint8_t speed)
       throw Exception("Invalid Mode");
   }
 }
+
+/*
+  Drives motor(s) on right side
+  @param speed : -255 to 255
+*/
+void Monster::driveRight(uint8_t speed)
+{
+  uint8_t direction;
+
+  if (speed < 0) {
+    direction = CW;
+  } else if (speed > 0) {
+    direction = CCW;
+  } else {
+    direction = BRAKE;
+  }
+  this->driveMotor(1, direction, abs(speed));
+}
+
+/*
+  Drives motor(s) on left side
+  @param speed : -255 to 255
+*/
+void Monster::driveLeft(uint8_t speed)
+{
+  uint8_t direction;
+
+  if (speed < 0) {
+    direction = CCW;
+  } else if (speed > 0) {
+    direction = CW;
+  } else {
+    direction = BRAKE;
+  }
+  this->driveMotor(0, direction, abs(speed));
+}
+
+/*
+  Turn vehicle left at given speed
+  @param speed : speed to drive motors 0 to 255
+*/
+void Monster::turnLeft(uint8_t speed)
+{
+  switch (this->mode) {
+    case MIXED:
+      this->driveMotor(0, CW, speed);
+      this->driveMotor(1, CW, speed);
+      break;
+    case LEFT:
+      this->driveMotor(0, CW, speed);
+      this->driveMotor(1, CCW, speed);
+      break;
+    case RIGHT:
+      this->driveMotor(0, CCW, speed);
+      this->driveMotor(1, CW, speed);
+      break;
+    default:
+      throw Exception("Invalid Mode");
+  }
+}
+
+/*
+  Turn vehicle right at given speed
+  @param speed - speed to drive motors 0 to 255
+*/
+void Monster::turnRight(uint8_t speed)
+{
+  switch (this->mode) {
+    case MIXED:
+      this->driveMotor(0, CCW, speed);
+      this->driveMotor(1, CCW, speed);
+      break;
+    case LEFT:
+      this->driveMotor(0, CCW, speed);
+      this->driveMotor(1, CW, speed);
+      break;
+    case RIGHT:
+      this->driveMotor(0, CW, speed);
+      this->driveMotor(1, CCW, speed);
+      break;
+    default:
+      throw Exception("Invalid Mode");
+  }
+}
+
 
 /*
   Drive given motor in the given direction for given speed
