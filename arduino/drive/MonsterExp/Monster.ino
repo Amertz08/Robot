@@ -110,16 +110,41 @@ void motorGo(uint8_t motor, uint8_t direct, uint8_t pwm)
     if (direct <=4)
     {
       // Set inA[motor]
-      if (direct <=1)
+      if (direct <=1) // BRAKEVCC OR CW
         digitalWrite(inApin[motor], HIGH);
-      else
+      else // CCW OR BRAKEGND
         digitalWrite(inApin[motor], LOW);
 
       // Set inB[motor]
-      if ((direct==0)||(direct==2))
+      if ((direct==0)||(direct==2)) // BRAKEVCC OR CCW
         digitalWrite(inBpin[motor], HIGH);
-      else
+      else // CW OR BRAKEGND
         digitalWrite(inBpin[motor], LOW);
+
+      // switch (direct) {
+      //   case 0:
+      //     // BRAKEVCC
+      //     digitalWrite(inApin[motor], HIGH);
+      //     digitalWrite(inBpin[motor], HIGH);
+      //     break;
+      //   case 1:
+      //     // CW
+      //     digitalWrite(inApin[motor]), HIGH);
+      //     digitalWrite(inBpin[motor]), LOW);
+      //     break;
+      //   case 2:
+      //     // CCW
+      //     digitalWrite(inApin[motor], LOW);
+      //     digitalWrite(inBpin[motor], HIGH);
+      //     break;
+      //   case 3:
+      //     // BRAKEGND
+      //     digitalWrite(inApin[motor], LOW);
+      //     digitalWrite(inBpin[motor], LOW);
+      //     break;
+      //   default:
+      //     break;
+      // }
 
       analogWrite(pwmpin[motor], pwm);
     }
