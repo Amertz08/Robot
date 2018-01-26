@@ -13,7 +13,6 @@ class Graph(object):
             graph_dict = {}
         self.__graph_dict = graph_dict
 
-
     def vertices(self):
         """ returns the vertices of a graph """
         return list(self.__graph_dict.keys())
@@ -36,13 +35,9 @@ class Graph(object):
             between two vertices can be multiple edges!
         """
         edge = tuple(edge)
-
         vertex1 = edge[0]
-
-
         if vertex1 is not edge[1]:
             # not a loop
-
             vertex2 = edge[1]
         else:
             # a loop
