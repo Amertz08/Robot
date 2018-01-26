@@ -20,7 +20,7 @@ nodes:
 #   'nodes': [
 #     {
 #       'name': 'A',
-#       'connented': [
+#       'connected': [
 #         {
 #           'name': 'B',
 #           'direction': 'N'
