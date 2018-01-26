@@ -6,7 +6,7 @@ Monster::Monster(uint8_t mode)
   this->_mode = mode;
   pinMode(STAT_PIN, OUTPUT);
 
-  for (int i = 0; i < 2; i++) {
+  for (uint8_t i = 0; i < 2; i++) {
     // Set as output
     pinMode(this->_Apins[i], OUTPUT);
     pinMode(this->_Bpins[i], OUTPUT);
