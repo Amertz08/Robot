@@ -1,0 +1,16 @@
+nodes:
+  - name: A
+    connected:
+      - name: B
+        direction: N
+      - name: F
+        direction: E
+  - name: B
+    connected:
+        - name: A
+          direction: S
+        - name: E
+          direction: E
+        - name: C
+          direction: N
+# Add the rest
