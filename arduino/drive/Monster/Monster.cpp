@@ -2,6 +2,7 @@
 
 Monster::Monster(uint8_t mode)
 {
+  this->_validateMode(mode);
   this->_mode = mode;
   pinMode(STAT_PIN, OUTPUT);
 
@@ -25,6 +26,20 @@ Monster::Monster(uint8_t mode)
 
 Monster::~Monster() {
   this->stop();
+}
+
+void Monster::_validateMode(uint8_t mode)
+{
+  switch (mode) {
+    case MIXED:
+      break;
+    case LEFT:
+      break;
+    case RIGHT:
+      break;
+    default:
+      throw Exception("Invalid mode");
+  }
 }
 
 /**
@@ -72,21 +87,12 @@ void Monster::setSpeed(uint8_t motor, uint8_t speed)
 */
 void Monster::forward(uint8_t speed)
 {
-  switch (this->_mode) {
-    case MIXED:
-      this->driveMotor(0, CW, speed);
-      this->driveMotor(1, CCW, speed);
-      break;
-    case LEFT:
-      this->driveMotor(0, CW, speed);
-      this->driveMotor(1, CW, speed);
-      break;
-    case RIGHT:
-      this->driveMotor(0, CCW, speed);
-      this->driveMotor(1, CCW, speed);
-      break;
-    default:
-      throw Exception("Invalid Mode");
+  if (this->_mode == MIXED) {
+    this->driveRight(speed);
+    this->driveLeft(speed * -1);
+  } else {
+    this->driveRight(speed);
+    this->driveLeft(speed);
   }
 }
 
@@ -96,21 +102,12 @@ void Monster::forward(uint8_t speed)
 */
 void Monster::backward(uint8_t speed)
 {
-  switch (this->_mode) {
-    case MIXED:
-      this->driveMotor(0, CCW, speed);
-      this->driveMotor(1, CW, speed);
-      break;
-    case LEFT:
-      this->driveMotor(0, CCW, speed);
-      this->driveMotor(1, CCW, speed);
-      break;
-    case RIGHT:
-      this->driveMotor(0, CW, speed);
-      this->driveMotor(1, CW, speed);
-      break;
-    default:
-      throw Exception("Invalid Mode");
+  if (this->_mode == MIXED) {
+    this->driveRight(speed * -1);
+    this->driveLeft(speed);
+  } else {
+    this->driveRight(speed * -1);
+    this->driveLeft(speed * - 1);
   }
 }
 
@@ -130,6 +127,10 @@ void Monster::driveRight(uint8_t speed)
     direction = BRAKE;
   }
   this->driveMotor(1, direction, abs(speed));
+  if (this->_mode != MIXED) {
+    // If not in mixed you need to set both motors
+    this->driveMotor(0, direction, abs(speed));
+  }
 }
 
 /*
@@ -148,6 +149,10 @@ void Monster::driveLeft(uint8_t speed)
     direction = BRAKE;
   }
   this->driveMotor(0, direction, abs(speed));
+  if (this->_mode != MIXED) {
+    // If not in mixed you need to set both motors
+    this->driveMotor(1, direction, abs(speed));
+  }
 }
 
 /*
@@ -156,22 +161,8 @@ void Monster::driveLeft(uint8_t speed)
 */
 void Monster::turnLeft(uint8_t speed)
 {
-  switch (this->mode) {
-    case MIXED:
-      this->driveMotor(0, CW, speed);
-      this->driveMotor(1, CW, speed);
-      break;
-    case LEFT:
-      this->driveMotor(0, CW, speed);
-      this->driveMotor(1, CCW, speed);
-      break;
-    case RIGHT:
-      this->driveMotor(0, CCW, speed);
-      this->driveMotor(1, CW, speed);
-      break;
-    default:
-      throw Exception("Invalid Mode");
-  }
+  this->driveLeft(speed * -1);
+  this->driveRight(speed);
 }
 
 /*
@@ -180,22 +171,8 @@ void Monster::turnLeft(uint8_t speed)
 */
 void Monster::turnRight(uint8_t speed)
 {
-  switch (this->mode) {
-    case MIXED:
-      this->driveMotor(0, CCW, speed);
-      this->driveMotor(1, CCW, speed);
-      break;
-    case LEFT:
-      this->driveMotor(0, CCW, speed);
-      this->driveMotor(1, CW, speed);
-      break;
-    case RIGHT:
-      this->driveMotor(0, CW, speed);
-      this->driveMotor(1, CCW, speed);
-      break;
-    default:
-      throw Exception("Invalid Mode");
-  }
+  this->driveLeft(speed);
+  this->driveRight(speed * -1);
 }
 
 
