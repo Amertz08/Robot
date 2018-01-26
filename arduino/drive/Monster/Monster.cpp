@@ -27,22 +27,37 @@ Monster::~Monster() {
   this->stop();
 }
 
+/**
+  Stops the given motor
+  @param motor - motor 0 or 1
+*/
 void Monster::stopMotor(uint8_t motor)
 {
   this->driveMotor(motor, BRAKE, 0);
 }
 
+/**
+  Stops all motors
+*/
 void Monster::stop()
 {
   this->stopMotor(0);
   this->stopMotor(1);
 }
 
+/**
+  Checks if given speed is valid
+*/
 bool Monster::_validateSpeed(uint8_t speed)
 {
   return (MIN_SPEED <= speed && speed <= MAX_SPEED);
 }
 
+/**
+  Set speed for the given motor
+  @param motor - motor 0 or 1
+  @param speed - speed to move at 0 to 255
+*/
 void Monster::setSpeed(uint8_t motor, uint8_t speed)
 {
   if (!this->_validateSpeed(speed)) {
@@ -51,6 +66,10 @@ void Monster::setSpeed(uint8_t motor, uint8_t speed)
   analogWrite(this->_pwmpin[motor], speed);
 }
 
+/**
+  Drives vehicle forward at given speed
+  @param speed - speed to move at 0 to 255
+*/
 void Monster::forward(uint8_t speed)
 {
   switch (this->_mode) {
@@ -71,6 +90,10 @@ void Monster::forward(uint8_t speed)
   }
 }
 
+/**
+  Drives vehicle backward at given speed
+  @param speed - speed to move at 0 to 255
+*/
 void Monster::backward(uint8_t speed)
 {
   switch (this->_mode) {
@@ -91,6 +114,12 @@ void Monster::backward(uint8_t speed)
   }
 }
 
+/*
+  Drive given motor in the given direction for given speed
+  @param motor - 0 or 1
+  @param direction - CW, CCW, BRAKE
+  @param speed - speed to move at 0 to 255
+*/
 void Monster::driveMotor(uint8_t motor, uint8_t direction, uint8_t speed)
 {
   switch (direction) {
