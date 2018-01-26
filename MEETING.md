@@ -2,6 +2,51 @@
 
 Progress and notes from the previous lab up to the end of the lab for the given date.
 
+## Week of 1/26/17
+
+### Progress
+
+Adam
+- [#27](https://github.com/Amertz08/Robot/issues/27) - Basic Broker logger example
+
+Nick
+
+
+Haozhan
+
+
+Collin
+
+
+### WIP
+
+Adam
+- [#22](https://github.com/Amertz08/Robot/issues/22) - Write Monster motor shield library
+- Started assembly of motor and chassis
+
+Nick
+
+
+Haozhan
+
+
+Collin
+
+
+### Plans
+
+Adam
+- [#38](https://github.com/Amertz08/Robot/issues/38) - Order nuts/bolts to mount motors to chassis
+
+Nick
+
+
+Haozhan
+
+
+Collin
+
+
 ## Week of 1/19/17
 
 ### Progress
