@@ -10,7 +10,8 @@ Adam
 - [#27](https://github.com/Amertz08/Robot/issues/27) - Basic Broker logger example
 
 Nick
-
+- [#23](https://github.com/Amertz08/Robot/issues/23) - Created smoothing library for sensor data
+- Installed raspbian on Rpi
 
 Haozhan
 
@@ -25,7 +26,7 @@ Adam
 - Started assembly of motor and chassis
 
 Nick
-
+- [#24](https://github.com/Amertz08/Robot/issues/24) - allow communication between Rpi and Arduino
 
 Haozhan
 
@@ -39,7 +40,9 @@ Adam
 - [#38](https://github.com/Amertz08/Robot/issues/38) - Order nuts/bolts to mount motors to chassis
 
 Nick
-
+- [#24](https://github.com/Amertz08/Robot/issues/24) - allow communication between Rpi and Arduino
+- Start coming up with standards for i2c communication
+- [42](https://github.com/Amertz08/Robot/issues/42) - start creating library for arduino i2c communication
 
 Haozhan
 
