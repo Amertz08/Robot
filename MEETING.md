@@ -14,7 +14,7 @@ Nick
 - Installed raspbian on Rpi
 
 Haozhan
-
+- Added Dockerfile for basic flask app
 
 Collin
 - [#30](https://github.com/Amertz08/Robot/issues/30) - Simple Route Detection Baseline pushed
@@ -29,7 +29,7 @@ Nick
 - [#24](https://github.com/Amertz08/Robot/issues/24) - allow communication between Rpi and Arduino
 
 Haozhan
-
+- [#29](https://github.com/Amertz08/Robot/issues/29) - Web app
 
 Collin
 - [#40](https://github.com/Amertz08/Robot/issues/40) - Add directional capabilities to route detection
@@ -45,7 +45,8 @@ Nick
 - [42](https://github.com/Amertz08/Robot/issues/42) - start creating library for arduino i2c communication
 
 Haozhan
-
+- Keep working on web interface
+- [#29](https://github.com/Amertz08/Robot/issues/29) - Add web service to docker-compose.yml
 
 Collin
 - Continuing working on sensors
