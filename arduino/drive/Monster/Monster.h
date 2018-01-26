@@ -66,6 +66,7 @@ public:
   void turnLeft(uint8_t speed);
   void turnRight(uint8_t speed);
   void driveMotor(uint8_t motor, uint8_t direction, uint8_t speed);
+  uint8_t readCurrent(uint8_t motor);
 
 };
 

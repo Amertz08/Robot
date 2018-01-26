@@ -202,3 +202,12 @@ void Monster::driveMotor(uint8_t motor, uint8_t direction, uint8_t speed)
   }
   this->setSpeed(motor, speed);
 }
+
+/*
+  Read current sensor for given motor
+  @param motor : motor sensor to read
+*/
+uint8_t Monster::readCurrent(uint8_t motor)
+{
+  return analogRead(this->_cspin[motor]);
+}
