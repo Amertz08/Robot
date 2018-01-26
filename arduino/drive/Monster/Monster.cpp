@@ -6,48 +6,35 @@ Monster::Monster()
 
   for (int i = 0; i < 2; i++) {
     // Set as output
-    pinMode(this->_inApin[i], OUTPUT);
-    pinMode(this->_inBpin[i], OUTPUT);
+    pinMode(this->_Apins[i], OUTPUT);
+    pinMode(this->_Bpins[i], OUTPUT);
     pinMode(this->_pwmin[i], OUTPUT);
+    pinMode(this->_cspin[i], OUTPUT);
+    pinMode(this->_enpin[i], OUTPUT);
 
     // Initialized braked
-    digitalWrite(this->_inApin[i], LOW);
-    digitalWrite(this->_inBpin[i], LOW);
+    digitalWrite(this->_Apins[i], LOW);
+    digitalWrite(this->_Apins[i], LOW);
+
+    // Enable
+    digitalWrite(this->_enpin[i], HIGH);
   }
+
 }
 
 Monster::~Monster() {
   this->stop();
 }
 
-void Monster::stopOne()
+void Monster::stopMotor(uint8_t motor)
 {
-  digitalWrite(this->_inApin[0], LOW);
-  digitalWrite(this->_inBpin[0], LOW);
-}
-
-void Monster::stopTwo()
-{
-  digitalWrite(this->_inApin[1], LOW);
-  digitalWrite(this->_inBpin[1], LOW);
+  this->driveMotor(motor, BRAKE, 0);
 }
 
 void Monster::stop()
 {
-  this->stopA();
-  this->stopB();
-}
-
-void Monster::startOne()
-{
-  digitalWrite(this->_inApin[0], HIGH);
-  digitalWrite(this->_inBpin[0], HIGH);
-}
-
-void Monster::startTwo()
-{
-  digitalWrite(this->_inApin[1], HIGH);
-  digitalWrite(this->_inBpin[1], HIGH);
+  this->stopMotor(0);
+  this->stopMotor(1);
 }
 
 bool Monster::_validateSpeed(uint8_t speed)
@@ -55,20 +42,31 @@ bool Monster::_validateSpeed(uint8_t speed)
   return (MIN_SPEED <= speed && speed <= MAX_SPEED);
 }
 
-void Monster::setSpeedOne(uint8_t speed)
+void Monster::setSpeed(uint8_t motor, uint8_t speed)
 {
   if (!this->_validateSpeed(speed)) {
     throw Exception("Invalid speed");
   }
-  this->startA();
-  analogWrite(this->_pwmpin[0], speed);
+  analogWrite(this->_pwmpin[motor], speed);
 }
 
-void Monster::setSpeedTwo(uint8_t speed)
+void Monster::driveMotor(uint8_t motor, uint8_t direction, uint8_t speed)
 {
-  if (!this->_validateSpeed(speed)) {
-    throw Exception("Invalid speed");
+  switch (direction) {
+    case CW:
+      digitalWrite(this->_Apins[motor], LOW);
+      digitalWrite(this->_Bins[motor], HIGH);
+      break;
+    case CCW:
+      digitalWrite(this->_Apins[motor], HIGH);
+      digitalWrite(this->_Bpins[motor], LOW);
+      break;
+    case BRAKE:
+      digitalWrite(this->_Apins[motor], LOW);
+      digitalWrite(this->_Bpins[motor], LOW);
+      break;
+    default:
+      throw Exception("Invalid direction");
   }
-  this->startB();
-  analogWrite(this->_pwmpin[1], speed);
+  this->setSpeed(motor, speed);
 }
