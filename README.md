@@ -10,6 +10,6 @@ Available [here](CONTRIBUTING.md)
 
 Available [here](MEETING.md)
 
-## Gant Chart
+## Gantt Chart
 
 ![Gantt Chart](docs/img/gantt-chart.jpg)
