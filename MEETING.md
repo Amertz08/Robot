@@ -2,6 +2,58 @@
 
 Progress and notes from the previous lab up to the end of the lab for the given date.
 
+## Week of 1/26/17
+
+### Progress
+
+Adam
+- [#27](https://github.com/Amertz08/Robot/issues/27) - Basic Broker logger example
+
+Nick
+- [#23](https://github.com/Amertz08/Robot/issues/23) - Created smoothing library for sensor data
+- Installed raspbian on Rpi
+
+Haozhan
+- Added Dockerfile for basic flask app
+
+Collin
+- [#30](https://github.com/Amertz08/Robot/issues/30) - Simple Route Detection Baseline pushed
+- [#33](https://github.com/Amertz08/Robot/issues/33) - Ordered correct JST wires
+
+### WIP
+
+Adam
+- [#22](https://github.com/Amertz08/Robot/issues/22) - Write Monster motor shield library
+- Started assembly of motor and chassis
+
+Nick
+- [#24](https://github.com/Amertz08/Robot/issues/24) - allow communication between Rpi and Arduino
+
+Haozhan
+- [#29](https://github.com/Amertz08/Robot/issues/29) - Web app
+
+Collin
+- [#40](https://github.com/Amertz08/Robot/issues/40) - Add directional capabilities to route detection
+
+### Plans
+
+Adam
+- [#38](https://github.com/Amertz08/Robot/issues/38) - Order nuts/bolts to mount motors to chassis
+
+Nick
+- [#24](https://github.com/Amertz08/Robot/issues/24) - allow communication between Rpi and Arduino
+- Start coming up with standards for i2c communication
+- [42](https://github.com/Amertz08/Robot/issues/42) - start creating library for arduino i2c communication
+
+Haozhan
+- Keep working on web interface
+- [#29](https://github.com/Amertz08/Robot/issues/29) - Add web service to docker-compose.yml
+
+Collin
+- Continuing working on sensors
+- [#30](https://github.com/Amertz08/Robot/issues/30) - Simple Route Detection cleanup a merge
+- [#41](https://github.com/Amertz08/Robot/issues/41) - Add efficient route selection
+
 ## Week of 1/19/17
 
 ### Progress
@@ -25,7 +77,7 @@ Nick
 - Started work with Raspbian
 
 Haozhan
-- Reserached web interface for Raspberry Pi
+- Researched web interface for Raspberry Pi
 - Started working on web interface
 
 Collin

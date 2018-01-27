@@ -2,10 +2,11 @@
 
 Repo for senior design
 
-## Contribution guide
+## Documentation
 
-Available [here](CONTRIBUTING.md)
+- [Contribution Guide](CONTRIBUTING.md)
+- [Meeting notes](MEETING.md)
 
-## Meeting notes
+## Gantt Chart
 
-Available [here](MEETING.md)
+![Gantt Chart](docs/img/gantt-chart.jpg)
