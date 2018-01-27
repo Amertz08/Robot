@@ -111,7 +111,7 @@ void Monster::backward(uint8_t speed)
   }
 }
 
-/*
+/**
   Drives motor(s) on right side
   @param speed : -255 to 255
 */
@@ -133,7 +133,7 @@ void Monster::driveRight(int speed)
   }
 }
 
-/*
+/**
   Drives motor(s) on left side
   @param speed : -255 to 255
 */
@@ -155,7 +155,7 @@ void Monster::driveLeft(int speed)
   }
 }
 
-/*
+/**
   Turn vehicle left at given speed
   @param speed : speed to drive motors 0 to 255
 */
@@ -165,7 +165,7 @@ void Monster::turnLeft(uint8_t speed)
   this->driveRight(speed);
 }
 
-/*
+/**
   Turn vehicle right at given speed
   @param speed - speed to drive motors 0 to 255
 */
@@ -176,7 +176,7 @@ void Monster::turnRight(uint8_t speed)
 }
 
 
-/*
+/**
   Drive given motor in the given direction for given speed
   @param motor - 0 or 1
   @param direction - CW, CCW, BRAKE
@@ -203,7 +203,7 @@ void Monster::driveMotor(uint8_t motor, uint8_t direction, uint8_t speed)
   this->setSpeed(motor, speed);
 }
 
-/*
+/**
   Read current sensor for given motor
   @param motor : motor sensor to read
 */
