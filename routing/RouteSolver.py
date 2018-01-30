@@ -11,118 +11,110 @@
 ##                data to an arduino for roaming the map.                       ##
 ##################################################################################
 import Graph
-import sys
-import re
+import argparse
+import yaml
 ##################################################################################
 ##                                                                              ##
 ##                            Global Variables                                  ##
 ##                                                                              ##
 ##################################################################################
 graph = Graph.Graph()
+DIRECTIONS = ('N', 'S', 'E', 'W')
 ##################################################################################
 ##                                                                              ##
 ##                            Functions/Methods                                 ##
 ##                                                                              ##
 ##################################################################################
 
-def is_int(s):
-    try:
-        int(s)
-        return True
-    except ValueError:
-        return False
-
-def loadConfig(configFile):
-    f = open(configFile,"r")
-    lines = f.readlines()
-    currNode = ""
+def load_config(config_file):
+    with open(config_file,"r") as ymlfile:
+        cfg = yaml.safe_load(ymlfile)
+    curr_node = ""
     bad_chars = '(){}<>[]'
-    for i in range(0,len(lines)):
-        line= lines[i]
-        if "Next Node:" in line:
-            graph.add_vertex(lines[i+1].strip())
-            currNode = lines[i+1].strip()
-        elif "Connected Nodes:" in line:
-            connectedNodes = lines[i+1].split(';')
-            for node in connectedNodes:
-                nodeName = node.split(',')
-                for c in bad_chars: nodeName[0] = nodeName[0].replace(c, "")
-                for c in bad_chars: nodeName[1] = nodeName[1].replace(c, "")
-                nodeName[1].rstrip()
-                #graph.add_edge((currNode,(nodeName[0],nodeName[1])))
-                # Adding directions is causing an issue. May have to come up with
-                #another solution for direction
-                graph.add_edge((currNode,nodeName[0]))
+    print(cfg)
+    for node in cfg['nodes']:
+        print(node)
+        graph.add_vertex(node['node']['name'])
+        for connected_nodes in node['node']['connected_nodes']:
+            print(connected_nodes)
+            graph.add_edge((node['node']['name'], connected_nodes['connected_node']))
+            #Add directional support here
 
-def getGraphDetailsFromUser():
-    numberOfNodes = 0;
+def bool_input(message):
+    '''From Adam Mertz'''
+    '''Gets y/n input for given message'''
     while True:
-        numberOfNodes = input("How many nodes are in your graph? ")
-        if(is_int(numberOfNodes)):
+        ans = input("{message} (y/n): ")
+        if ans.lower() == 'y':
+            return True
+        elif ans.lower() == 'n':
+            return False
+        else:
+            print("Invalid input: {ans} - y/n or Y/N only")
+
+def get_graph_details_from_user():
+    number_of_nodes = 0;
+    while True:
+        try:
+            number_of_nodes = int(input("How many nodes are in your graph? "))
             break
-    nodeCount = 0
-    while (nodeCount < int(numberOfNodes)):
-        newName = input("Please enter a name for node {}\n".format(nodeCount))
-        graph.add_vertex(newName)
-        nodeCount += 1
+        except ValueError:
+            print('Invalid input. Please input an integer')
+            continue
+    node_count = 0
+    while node_count < int(number_of_nodes):
+        new_name = input("Please enter a name for node {node_count}\n")
+        graph.add_vertex(new_name)
+        node_count += 1
     print(graph.vertices())
     for node in graph.vertices():
-        anotherNode = True
-        while anotherNode:
-            nodeName = input("Please enter connected node name for node {}:\n".format(node))
-            if(nodeName in graph.vertices()):
+        another_node = True
+        while another_node:
+            node_name = input("Please enter connected node name for node {node}:\n")
+            if node_name in graph.vertices():
                 while True:
-                    direction = input("Please enter the cardinal direction traveling from {} to {}: (N E S W)\n".format( node, nodeName))
-                    if direction is "N" or "S" or "E" or "W":
-                        graph.add_edge((node,nodeName))
-                        anotherConnection = input("Is there another connected node? (y/n)\n")
-                        if(anotherConnection == 'n'):
-                            anotherNode = False
-                        elif(anotherConnection == 'y'):
-                            #do nothing
-                            anotherNode = True
-                        else:
-                            while True:
-                                print("Invalid Input Given.")
-                                anotherConnection = input("Is there another connected node? (y/n)\n")
-                                if(anotherConnection == 'n'):
-                                    anotherNode = False
-                                elif(config == 'y'):
-                                    break
+                    direction = input("Please enter the cardinal direction traveling from {node} to {node_name}: {DIRECTIONS}\n")
+                    if direction in DIRECTIONS:
+                        graph.add_edge((node, node_name))
+                        another_connection = bool_input("Is there another connected node?")
+                        if another_connection:
+                            another_node = True
+                        else :
+                            another_node = False
                         break
                     else:
-                        print("Invalid direction given. Please enter N, E, S, or W")
+                        print('Invalid direction given. Valid directions ({DIRECTIONS})')
             else:
-                connected = input("Invalid node name given. Is there a node connected? (y/n)\n")
-                if(connected == 'n'):
-                    anotherNode = False
-                elif(connected == 'y'):
-                    anotherNode = True
+                connected = bool_input("Invalid node name given. Is there a node connected?")
+                if connected:
+                    another_node = True
+                else:
+                    another_node = False
 
-def main(argv):
-    if len(argv)>0:
-        loadConfig(argv[0])
+def main(args):
+    if args.c:
+        load_config(args.c)
     else:
-        getGraphDetailsFromUser()
+        get_graph_details_from_user()
     while True:
-        startNode = input("Please enter the start node:\n")
-        if(startNode in graph.vertices()):
+        start_node = input("Please enter the start node:\n")
+        if start_node in graph.vertices() :
             break;
         else:
             print("Invalid start node provided\n")
     while True:
-        endNode = input("Please enter the end node:\n")
-        if(startNode in graph.vertices()):
+        end_node = input("Please enter the end node:\n")
+        if end_node in graph.vertices():
             break;
         else:
             print("Invalid end node provided\n")
-    paths = graph.find_path(startNode,endNode)
+    paths = graph.find_path(start_node, end_node)
     print("This is a single path: ")
     print(paths)
-    allPaths = graph.find_all_paths(startNode,endNode)
+    all_paths = graph.find_all_paths(start_node, end_node)
     print("These are all possible paths: ")
-    print(allPaths)
-    for p in allPaths:
+    print(all_paths)
+    for p in all_paths:
         print(p)
 
 ##################################################################################
@@ -131,4 +123,7 @@ def main(argv):
 ##                                                                              ##
 ##################################################################################
 if __name__ == "__main__":
-	main(sys.argv[1:])
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-c", help = "Optional config file to streamline graph creation.")
+    args = parser.parse_args()
+    main(args)

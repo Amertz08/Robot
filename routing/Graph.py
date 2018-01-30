@@ -1,6 +1,11 @@
+
 """ A Python Class
 A simple Python graph class, demonstrating the essential
 facts and functionalities of graphs.
+
+This class was borrowed from https://www.python-course.eu/graphs_python.php with slight modifications marked below
+Modified Functions:
+add_edge
 """
 
 class Graph(object):
@@ -33,7 +38,11 @@ class Graph(object):
     def add_edge(self, edge):
         """ assumes that edge is of type set, tuple or list;
             between two vertices can be multiple edges!
+        ---THIS FUNCTION WAS MODIFIED---
+        It was modified to accomodate ordering in edges, when making a set out of the
+        passed tuple, it would re-order and cause route issues
         """
+
         edge = tuple(edge)
         vertex1 = edge[0]
         if vertex1 is not edge[1]:
