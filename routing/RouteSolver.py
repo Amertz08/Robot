@@ -30,9 +30,9 @@ def load_config(config_file):
     with open(config_file, "r") as ymlfile:
         cfg = yaml.safe_load(ymlfile)
     for node in cfg['nodes']:
-        graph.add_vertex(node['node']['name'])
-        for connected_nodes in node['node']['connected_nodes']:
-            graph.add_edge((node['node']['name'], connected_nodes['connected_node']))
+        graph.add_vertex(node['name'])
+        for connected_nodes in node['connected_nodes']:
+            graph.add_edge((node['name'], connected_nodes['connected_node']))
             #Add directional support here
 
 def get_node(type):

@@ -1,76 +1,67 @@
 nodes:
-    - node:
-        name: "A"
-        connected_nodes:
-            - connected_node: B
-              direction: N
-            - connected_node: F
-              direction: E
-    - node:
-        name: B
-        connected_nodes:
-            - connected_node: A
-              direction: S
-            - connected_node: E
-              direction: E
-            - connected_node: C
-              direction: N
-    - node:
-        name: C
-        connected_nodes:
-            - connected_node: B
-              direction: S
-            - connected_node: D
-              direction: E
-    - node:
-        name: D
-        connected_nodes:
-            - connected_node: C
-              direction: W
-            - connected_node: E
-              direction: S
-            - connected_node: I
-              direction: E
-    - node:
-        name: E
-        connected_nodes:
-            - connected_node: B
-              direction: W
-            - connected_node: D
-              direction: N
-            - connected_node: H
-              direction: E
-            - connected_node: F
-              direction: S
-    - node:
-        name: F
-        connected_nodes:
-            - connected_node: A
-              direction: W
-            - connected_node: E
-              direction: N
-            - connected_node: G
-              direction: E
-    - node:
-        name: G
-        connected_nodes:
-            - connected_node: F
-              direction: W
-            - connected_node: H
-              direction: N
-    - node:
-        name: H
-        connected_nodes:
-            - connected_node: E
-              direction: W
-            - connected_node: G
-              direction: S
-            - connected_node: I
-              direction: N
-    - node:
-        name: I
-        connected_nodes:
-            - connected_node: D
-              direction: E
-            - connected_node: H
-              direction: S
+  - name: "A"
+    connected_nodes:
+      - connected_node: B
+        direction: N
+      - connected_node: F
+        direction: E
+  - name: B
+    connected_nodes:
+      - connected_node: A
+        direction: S
+      - connected_node: E
+        direction: E
+      - connected_node: C
+        direction: N
+  - name: C
+    connected_nodes:
+      - connected_node: B
+        direction: S
+      - connected_node: D
+        direction: E
+  - name: D
+    connected_nodes:
+      - connected_node: C
+        direction: W
+      - connected_node: E
+        direction: S
+      - connected_node: I
+        direction: E
+  - name: E
+    connected_nodes:
+      - connected_node: B
+        direction: W
+      - connected_node: D
+        direction: N
+      - connected_node: H
+        direction: E
+      - connected_node: F
+        direction: S
+  - name: F
+    connected_nodes:
+      - connected_node: A
+        direction: W
+      - connected_node: E
+        direction: N
+      - connected_node: G
+        direction: E
+  - name: G
+    connected_nodes:
+      - connected_node: F
+        direction: W
+      - connected_node: H
+        direction: N
+  - name: H
+    connected_nodes:
+      - connected_node: E
+        direction: W
+      - connected_node: G
+        direction: S
+      - connected_node: I
+        direction: N
+  - name: I
+    connected_nodes:
+      - connected_node: D
+        direction: E
+      - connected_node: H
+        direction: S
