@@ -143,9 +143,7 @@ class Graph(object):
     @property
     def degree_sequence(self):
         """ calculates the degree sequence """
-        seq = []
-        for vertex in self.__graph_dict:
-            seq.append(self.vertex_degree(vertex))
+        seq = [self.vertex_degree(vertex) for vertex in self.__graph_dict]
         seq.sort(reverse=True)
         return tuple(seq)
 
