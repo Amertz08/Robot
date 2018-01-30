@@ -2,7 +2,7 @@
 
 Monster::Monster(uint8_t mode)
 {
-  this->_validateMode(mode);
+  // this->_validateMode(mode);
   this->_mode = mode;
   pinMode(STAT_PIN, OUTPUT);
 
@@ -10,7 +10,7 @@ Monster::Monster(uint8_t mode)
     // Set as output
     pinMode(this->_Apins[i], OUTPUT);
     pinMode(this->_Bpins[i], OUTPUT);
-    pinMode(this->_pwmin[i], OUTPUT);
+    pinMode(this->_pwmpin[i], OUTPUT);
     pinMode(this->_cspin[i], OUTPUT);
     pinMode(this->_enpin[i], OUTPUT);
 
@@ -28,19 +28,19 @@ Monster::~Monster() {
   this->stop();
 }
 
-void Monster::_validateMode(uint8_t mode)
-{
-  switch (mode) {
-    case MIXED:
-      break;
-    case LEFT:
-      break;
-    case RIGHT:
-      break;
-    default:
-      throw Exception("Invalid mode");
-  }
-}
+// void Monster::_validateMode(uint8_t mode)
+// {
+//   switch (mode) {
+//     case MIXED:
+//       break;
+//     case LEFT:
+//       break;
+//     case RIGHT:
+//       break;
+//     default:
+//       throw Exception("Invalid mode");
+//   }
+// }
 
 /**
   Stops the given motor
@@ -75,9 +75,9 @@ bool Monster::_validateSpeed(uint8_t speed)
 */
 void Monster::setSpeed(uint8_t motor, uint8_t speed)
 {
-  if (!this->_validateSpeed(speed)) {
-    throw Exception("Invalid speed");
-  }
+  // if (!this->_validateSpeed(speed)) {
+  //   throw Exception("Invalid speed");
+  // }
   analogWrite(this->_pwmpin[motor], speed);
 }
 
@@ -187,7 +187,7 @@ void Monster::driveMotor(uint8_t motor, uint8_t direction, uint8_t speed)
   switch (direction) {
     case CW:
       digitalWrite(this->_Apins[motor], LOW);
-      digitalWrite(this->_Bins[motor], HIGH);
+      digitalWrite(this->_Bpins[motor], HIGH);
       break;
     case CCW:
       digitalWrite(this->_Apins[motor], HIGH);
@@ -198,7 +198,8 @@ void Monster::driveMotor(uint8_t motor, uint8_t direction, uint8_t speed)
       digitalWrite(this->_Bpins[motor], LOW);
       break;
     default:
-      throw Exception("Invalid direction");
+      break;
+      // throw Exception("Invalid direction");
   }
   this->setSpeed(motor, speed);
 }

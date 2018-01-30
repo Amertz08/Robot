@@ -59,7 +59,7 @@ private:
   uint8_t _mode;
 
   bool _validateSpeed(uint8_t speed);
-  void _validateMode(uint8_t mode);
+  // void _validateMode(uint8_t mode);
 
 public:
   Monster(uint8_t mode);
