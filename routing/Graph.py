@@ -173,7 +173,7 @@ class Graph(object):
         for vertex in self.__graph_dict:
             vertex_degree = self.vertex_degree(vertex)
             if vertex_degree > _max:
-                max = vertex_degree
+                _max = vertex_degree
         return _max
 
     @property
