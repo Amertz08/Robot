@@ -42,7 +42,7 @@ def get_node(type):
     global graph
     while True:
         node = input(f'Please enter the {type} node:\n')
-        if node not in graph.vertices():
+        if node not in graph.vertices:
             print(f'Invalid {type} node provided\n')
             continue
         return node
@@ -72,12 +72,12 @@ def get_graph_details_from_user():
         new_name = input(f"Please enter a name for node {node}\n")
         graph.add_vertex(new_name)
 
-    print(graph.vertices())
-    for node in graph.vertices():
+    print(graph.vertices)
+    for node in graph.vertices:
         another_node = True
         while another_node:
             node_name = input(f"Please enter connected node name for node {node}:\n")
-            if node_name in graph.vertices():
+            if node_name in graph.vertices:
                 while True:
                     direction = input(f"Please enter the cardinal direction traveling from {node} to {node_name}: {DIRECTIONS}\n")
                     if direction in DIRECTIONS:
