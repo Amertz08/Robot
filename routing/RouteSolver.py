@@ -56,13 +56,11 @@ def bool_input(message):
 
 def get_graph_details_from_user():
     number_of_nodes = 0;
-    while True:
+    while not number_of_nodes:
         try:
             number_of_nodes = int(input("How many nodes are in your graph? "))
-            break
-        except ValueError:
+        except NameError:
             print('Invalid input. Please input an integer')
-            continue
     node_count = 0
     while node_count < number_of_nodes:
         new_name = input(f"Please enter a name for node {node_count}\n")
@@ -78,8 +76,7 @@ def get_graph_details_from_user():
                     direction = input(f"Please enter the cardinal direction traveling from {node} to {node_name}: {DIRECTIONS}\n")
                     if direction in DIRECTIONS:
                         graph.add_edge((node, node_name))
-                        another_node = bool_input("Is there another connected node?")
-                        break
+                        another_node = bool_input("Is there another connected node?")e
                     else:
                         print(f'Invalid direction given. Valid directions ({DIRECTIONS})')
             else:
@@ -87,7 +84,7 @@ def get_graph_details_from_user():
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-c", help = "Optional config file to streamline graph creation.")
+    parser.add_argument("-c", help="Optional config file to streamline graph creation.")
     args = parser.parse_args()
     if args.c:
         load_config(args.c)
