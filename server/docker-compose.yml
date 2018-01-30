@@ -37,6 +37,15 @@ services:
     volumes:
       - "mongo-data:/data/db"
 
+  web:
+    build: ./web
+    volumes:
+      - source: ./web
+        target: /app
+        type: bind
+    ports:
+      - "5000:5000"
+
 volumes:
   mongo-data:
   bot-logs:
