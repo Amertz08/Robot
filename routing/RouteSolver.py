@@ -27,6 +27,8 @@ DIRECTIONS = ('N', 'S', 'E', 'W')
 ##################################################################################
 
 def load_config(config_file):
+    '''Loads config file'''
+    global graph
     with open(config_file, "r") as ymlfile:
         cfg = yaml.safe_load(ymlfile)
     for node in cfg['nodes']:
@@ -36,6 +38,8 @@ def load_config(config_file):
             #Add directional support here
 
 def get_node(type):
+    '''Gets start/end node'''
+    global graph
     while True:
         node = input(f'Please enter the {type} node:\n')
         if node not in graph.vertices():
@@ -55,17 +59,19 @@ def bool_input(message):
             print(f"Invalid input: {ans} - y/n or Y/N only")
 
 def get_graph_details_from_user():
-    number_of_nodes = 0;
+    '''Gets graph description from user'''
+    global graph
+    number_of_nodes = 0
     while not number_of_nodes:
         try:
             number_of_nodes = int(input("How many nodes are in your graph? "))
         except NameError:
             print('Invalid input. Please input an integer')
-    node_count = 0
-    while node_count < number_of_nodes:
-        new_name = input(f"Please enter a name for node {node_count}\n")
+
+    for node in range(number_of_nodes):
+        new_name = input(f"Please enter a name for node {node}\n")
         graph.add_vertex(new_name)
-        node_count += 1
+
     print(graph.vertices())
     for node in graph.vertices():
         another_node = True
@@ -76,13 +82,15 @@ def get_graph_details_from_user():
                     direction = input(f"Please enter the cardinal direction traveling from {node} to {node_name}: {DIRECTIONS}\n")
                     if direction in DIRECTIONS:
                         graph.add_edge((node, node_name))
-                        another_node = bool_input("Is there another connected node?")e
+                        another_node = bool_input("Is there another connected node?")
                     else:
                         print(f'Invalid direction given. Valid directions ({DIRECTIONS})')
             else:
                 another_node = bool_input("Invalid node name given. Is there a node connected?")
 
 def main():
+    '''Core app'''
+    global graph
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", help="Optional config file to streamline graph creation.")
     args = parser.parse_args()
