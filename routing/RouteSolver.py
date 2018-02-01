@@ -37,13 +37,13 @@ def load_config(config_file):
             graph.add_edge((node['name'], connected_nodes['connected_node']))
             #Add directional support here
 
-def get_node(type):
+def get_node(node_type):
     '''Gets start/end node'''
     global graph
     while True:
-        node = input(f'Please enter the {type} node:\n')
+        node = input(f'Please enter the {node_type} node:\n')
         if node not in graph.vertices:
-            print(f'Invalid {type} node provided\n')
+            print(f'Invalid {node_type} node provided\n')
             continue
         return node
 
