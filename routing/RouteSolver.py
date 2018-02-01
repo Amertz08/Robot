@@ -43,7 +43,8 @@ def get_node(node_type):
     while True:
         node = input(f'Please enter the {node_type} node:\n')
         if node not in graph.vertices:
-            print(f'Invalid {node_type} node provided\n')
+            print(f'Invalid {node_type} node provided.')
+            print(f'Valid nodes {graph.vertices}')
             continue
         return node
 
@@ -118,4 +119,4 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print('Exiting...')
+        print('\nExiting...')
