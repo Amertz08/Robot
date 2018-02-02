@@ -6,6 +6,7 @@ RUN pip install \
 
 RUN mkdir /app
 ADD app.py /app
+ADD templates /app
 WORKDIR /app
 
 EXPOSE 5000
