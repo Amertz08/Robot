@@ -10,7 +10,8 @@ Adam
 - [#55](https://github.com/Amertz08/Robot/issues/55) - Added base HTML template
 
 Nick
-
+- [#42](https://github.com/Amertz08/Robot/issues/42) - Separate Arduino responsibilities with i2c
+- Decided with group to use just one Arduino for running motors
 
 Haozhan
 
@@ -38,7 +39,8 @@ Adam
 - [#35](https://github.com/Amertz08/Robot/issues/35) - Design motor interface circuit board
 
 Nick
-
+- Look at and try to integrate monster motor library
+- [#21](https://github.com/Amertz08/Robot/issues/21) [#25](https://github.com/Amertz08/Robot/issues/25) [#26](https://github.com/Amertz08/Robot/issues/26) - Add sensors to Arduino
 
 Haozhan
 
