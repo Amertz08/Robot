@@ -8,17 +8,21 @@
 #define GO_FORWARD 2
 #define GO_LEFT 3
 #define GO_RIGHT 4
-#define MAX_SPEED 150
 
 const uint8_t SX1509_ADDRESS = 0x3E;
 
 uint8_t state;
 uint8_t returnStatus;
 
+/*unnecessary at the moment*/
 uint8_t m_leftDirection;
 uint8_t m_leftSpeed;
 uint8_t m_rightDirection;
 uint8_t m_rightSpeed;
+
+const uint8_t FWD = 0;
+const uint8_t BKWD = 1;
+const uint8_t MAX_SPEED = 150;
 
 SensorBar mySensorBar(SX1509_ADDRESS);
   
@@ -39,16 +43,16 @@ void setup() {
   }
   Serial.println();
   Wire.begin(10);
-  m_leftDirection = 0;
+  m_leftDirection = FWD;
   m_leftSpeed = 0;
-  m_rightDirection = 0;
+  m_rightDirection = FWD;
   m_rightSpeed = 0;
   state = 0;
   
 }
 
 void loop() {
-  writeSpeed(motor_arduino_address, m_leftDirection, m_leftSpeed, m_rightDirection, m_rightSpeed);
+  //writeSpeed(motor_arduino_address, m_leftDirection, m_leftSpeed, m_rightDirection, m_rightSpeed);
   uint8_t nextState = state;
   uint8_t prevState = state;
     switch (state) {
@@ -102,6 +106,7 @@ void loop() {
   delay(100);
 }
 
+/*Send speed and direction instructions to motor arduino*/
 void writeSpeed(int writeAddress, uint8_t leftDirection, uint8_t leftSpeed, uint8_t rightDirection, uint8_t rightSpeed){
   Wire.beginTransmission(writeAddress);
   Wire.write(leftDirection);
@@ -112,9 +117,10 @@ void writeSpeed(int writeAddress, uint8_t leftDirection, uint8_t leftSpeed, uint
 }
 
 void stopMotors() {
-  writeSpeed(motor_arduino_address, 0, 0, 0, 0);
+  writeSpeed(motor_arduino_address, FWD, 0, FWD, 0);
 }
 
+/*drive bot in a straight line*/
 void driveBot(int16_t driveInput){
   uint8_t leftVar;
   uint8_t rightVar;
@@ -124,15 +130,20 @@ void driveBot(int16_t driveInput){
     driveInput = driveInput * -1;
   }
   leftVar = (uint8_t)driveInput;
+  rightVar = (uint8_t)driveInput;
 }
 
-void leftTurn(){}
+void leftTurn(){
+  writeSpeed(motor_arduino_address, FWD, 0, FWD, MAX_SPEED);
+}
 
-void rightTurn(){}
+void rightTurn(){
+  writeSpeed(motor_arduino_address, FWD, MAX_SPEED, FWD, 0);
+}
 
 uint8_t findLine(){
-  while(mySensorBar.getDensity()==0){
-    writeSpeed(motor_arduino_address, 1, MAX_SPEED * 0.5, 1, MAX_SPEED * 0.5);
+  while(mySensorBar.getDensity() == 0){
+    writeSpeed(motor_arduino_address, BKWD, MAX_SPEED * 0.5, BKWD, MAX_SPEED * 0.5);
   }
   stopMotors();
   if( mySensorBar.getPosition() < -50 )
