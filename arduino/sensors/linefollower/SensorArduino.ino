@@ -119,9 +119,9 @@ void driveBot(int16_t driveInput){
   uint8_t leftVar;
   uint8_t rightVar;
   uint8_t directionVar = 0;
-  if(driveInput<0){
+  if(driveInput < 0){
     directionVar = 1;
-    driveInput = driveInput *-1;
+    driveInput = driveInput * -1;
   }
   leftVar = (uint8_t)driveInput;
 }
@@ -132,7 +132,7 @@ void rightTurn(){}
 
 uint8_t findLine(){
   while(mySensorBar.getDensity()==0){
-    writeSpeed(motor_arduino_address, 1, MAX_SPEED, 1, MAX_SPEED);
+    writeSpeed(motor_arduino_address, 1, MAX_SPEED * 0.5, 1, MAX_SPEED * 0.5);
   }
   stopMotors();
   if( mySensorBar.getPosition() < -50 )
