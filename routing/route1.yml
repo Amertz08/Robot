@@ -1,5 +1,5 @@
 nodes:
-  - name: "A"
+  - name: A
     connected_nodes:
       - connected_node: B
         direction: N

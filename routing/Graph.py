@@ -18,10 +18,12 @@ class Graph(object):
             graph_dict = {}
         self.__graph_dict = graph_dict
 
+    @property
     def vertices(self):
         """ returns the vertices of a graph """
         return list(self.__graph_dict.keys())
 
+    @property
     def edges(self):
         """ returns the edges of a graph """
         return self.__generate_edges()
@@ -88,9 +90,11 @@ class Graph(object):
                 isolated += [vertex]
         return isolated
 
-    def find_path(self, start_vertex, end_vertex, path=[]):
+    def find_path(self, start_vertex, end_vertex, path=None):
         """ find a path from start_vertex to end_vertex
             in graph """
+        if path is None:
+            path = []
         graph = self.__graph_dict
         path = path + [start_vertex]
         if start_vertex == end_vertex:
@@ -106,9 +110,11 @@ class Graph(object):
                     return extended_path
         return None
 
-    def find_all_paths(self, start_vertex, end_vertex, path=[]):
+    def find_all_paths(self, start_vertex, end_vertex, path=None):
         """ find all paths from start_vertex to
             end_vertex in graph """
+        if path is None:
+            path = []
         graph = self.__graph_dict
         path = path + [start_vertex]
         if start_vertex == end_vertex:
@@ -134,11 +140,10 @@ class Graph(object):
         degree = len(adj_vertices) + adj_vertices.count(vertex)
         return degree
 
+    @property
     def degree_sequence(self):
         """ calculates the degree sequence """
-        seq = []
-        for vertex in self.__graph_dict:
-            seq.append(self.vertex_degree(vertex))
+        seq = [self.vertex_degree(vertex) for vertex in self.__graph_dict]
         seq.sort(reverse=True)
         return tuple(seq)
 
@@ -149,26 +154,29 @@ class Graph(object):
             Otherwise False is returned.
         """
         # check if the sequence sequence is non-increasing:
-        return all( x>=y for x, y in zip(sequence, sequence[1:]))
+        return all(x >= y for x, y in zip(sequence, sequence[1:]))
 
-    def delta(self):
+    @property
+    def delta_min(self):
         """ the minimum degree of the vertices """
-        min = 100000000
+        _min = 100000000
         for vertex in self.__graph_dict:
             vertex_degree = self.vertex_degree(vertex)
-            if vertex_degree < min:
-                min = vertex_degree
-        return min
+            if vertex_degree < _min:
+                _min = vertex_degree
+        return _min
 
-    def Delta(self):
+    @property
+    def delta_max(self):
         """ the maximum degree of the vertices """
-        max = 0
+        _max = 0
         for vertex in self.__graph_dict:
             vertex_degree = self.vertex_degree(vertex)
-            if vertex_degree > max:
-                max = vertex_degree
-        return max
+            if vertex_degree > _max:
+                _max = vertex_degree
+        return _max
 
+    @property
     def density(self):
         """ method to calculate the density of a graph """
         g = self.__graph_dict
@@ -176,14 +184,15 @@ class Graph(object):
         E = len(self.edges())
         return 2.0 * E / (V *(V - 1))
 
+    @property
     def diameter(self):
         """ calculates the diameter of the graph """
 
-        v = self.vertices()
-        pairs = [ (v[i],v[j]) for i in range(len(v)) for j in range(i+1, len(v)-1)]
+        v = self.vertices
+        pairs = [(v[i], v[j]) for i in range(len(v)) for j in range(i + 1, len(v) - 1)]
         smallest_paths = []
-        for (s,e) in pairs:
-            paths = self.find_all_paths(s,e)
+        for (s, e) in pairs:
+            paths = self.find_all_paths(s, e)
             smallest = sorted(paths, key=len)[0]
             smallest_paths.append(smallest)
 
@@ -203,9 +212,9 @@ class Graph(object):
             # sum of sequence is odd
             return False
         if Graph.is_degree_sequence(dsequence):
-            for k in range(1,len(dsequence) + 1):
+            for k in range(1, len(dsequence) + 1):
                 left = sum(dsequence[:k])
-                right =  k * (k-1) + sum([min(x,k) for x in dsequence[k:]])
+                right =  k * (k - 1) + sum([min(x, k) for x in dsequence[k:]])
                 if left > right:
                     return False
         else:
