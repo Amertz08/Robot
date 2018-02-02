@@ -17,7 +17,9 @@ Haozhan
 
 
 Collin
-
+- [#38](https://github.com/Amertz08/Robot/issues/38) - Ordered, nuts, bolts, and spacers for chassis
+- Assembled motors and chassis
+- [#30](https://github.com/Amertz08/Robot/issues/30) - Simple Route Detection Baseline complete
 
 ### WIP
 
@@ -29,7 +31,8 @@ Nick
 Haozhan
 
 Collin
-
+- [#40](https://github.com/Amertz08/Robot/issues/40) - Add directional capabilities to route detection
+- [#41](https://github.com/Amertz08/Robot/issues/41) - Add efficient route selection
 
 ### Plans
 
@@ -46,7 +49,8 @@ Haozhan
 
 
 Collin
-
+- [#40](https://github.com/Amertz08/Robot/issues/40) - Add directional capabilities to route detection
+- [#41](https://github.com/Amertz08/Robot/issues/41) - Add efficient route selection
 
 ## Week of 1/26/17
 
