@@ -14,7 +14,7 @@ Nick
 - Decided with group to use just one Arduino for running motors
 
 Haozhan
-
+- [#29](https://github.com/Amertz08/Robot/issues/29) - Create Basic Web App
 
 Collin
 - [#38](https://github.com/Amertz08/Robot/issues/38) - Ordered, nuts, bolts, and spacers for chassis
@@ -29,6 +29,7 @@ Adam
 Nick
 
 Haozhan
+- [#51](https://github.com/Amertz08/Robot/issues/51) - Refactor web app into application factory - Just started
 
 Collin
 - [#40](https://github.com/Amertz08/Robot/issues/40) - Add directional capabilities to route detection
@@ -46,7 +47,8 @@ Nick
 - [#21](https://github.com/Amertz08/Robot/issues/21) [#25](https://github.com/Amertz08/Robot/issues/25) [#26](https://github.com/Amertz08/Robot/issues/26) - Add sensors to Arduino
 
 Haozhan
-
+- [#51](https://github.com/Amertz08/Robot/issues/51) - Finish refactor web app
+- [#52](https://github.com/Amertz08/Robot/issues/52) - Basic model declarations
 
 Collin
 - [#40](https://github.com/Amertz08/Robot/issues/40) - Add directional capabilities to route detection
