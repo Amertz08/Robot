@@ -4,7 +4,7 @@ uint8_t m_leftDirection;
 uint8_t m_leftSpeed;
 uint8_t m_rightDirection;
 uint8_t m_rightSpeed;
-  
+
 void setup() {
   Wire.begin(8);
   Wire.onReceive(receiveEvent);
@@ -13,7 +13,7 @@ void setup() {
   m_leftSpeed = 0;
   m_rightDirection = 0;
   m_rightSpeed = 0;
-  
+
 }
 
 void loop() {
@@ -28,7 +28,7 @@ void loop() {
   delay(100);
 }
 
-void receiveEvent(int bytesToRead){
+void receiveEvent(int bytesToRead) {
   m_leftDirection = Wire.read();
   m_leftSpeed = Wire.read();
   m_rightDirection = Wire.read();
@@ -36,4 +36,3 @@ void receiveEvent(int bytesToRead){
 
   /*Set speed here*/
 }
-
