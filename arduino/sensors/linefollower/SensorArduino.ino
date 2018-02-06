@@ -25,7 +25,7 @@ const uint8_t BKWD = 1;
 const uint8_t MAX_SPEED = 150;
 
 SensorBar mySensorBar(SX1509_ADDRESS);
-  
+
 void setup() {
   Serial.begin(9600);
   Serial.println("Program started.");
@@ -33,12 +33,10 @@ void setup() {
   mySensorBar.setBarStrobe();
   mySensorBar.clearInvertBits();
   returnStatus = mySensorBar.begin();
-  if(returnStatus)
-  {
+  if(returnStatus) {
     Serial.println("sx1509 IC communication OK");
   }
-  else
-  {
+  else {
     Serial.println("sx1509 IC communication FAILED!");
   }
   Serial.println();
@@ -48,7 +46,7 @@ void setup() {
   m_rightDirection = FWD;
   m_rightSpeed = 0;
   state = 0;
-  
+
 }
 
 void loop() {
@@ -62,24 +60,19 @@ void loop() {
     prevState = IDLE_STATE;
     break;
   case READ_LINE:
-    if( mySensorBar.getDensity() < 8 && mySensorBar.getDensity() > 0)
-    {
+    if(mySensorBar.getDensity() < 8 && mySensorBar.getDensity() > 0) {
       nextState = GO_FORWARD;
-      if( mySensorBar.getPosition() < -50 )
-      {
+      if(mySensorBar.getPosition() < -50) {
         nextState = GO_LEFT;
       }
-      if( mySensorBar.getPosition() > 50 )
-      {
+      if(mySensorBar.getPosition() > 50) {
         nextState = GO_RIGHT;
       }
     }
-    else if(mySensorBar.getDensity() == 0)
-    {
+    else if(mySensorBar.getDensity() == 0) {
       nextState = findLine();
     }
-    else
-    {
+    else {
       nextState = IDLE_STATE;
     }
     prevState = READ_LINE;
@@ -107,7 +100,7 @@ void loop() {
 }
 
 /*Send speed and direction instructions to motor arduino*/
-void writeSpeed(int writeAddress, uint8_t leftDirection, uint8_t leftSpeed, uint8_t rightDirection, uint8_t rightSpeed){
+void writeSpeed(int writeAddress, uint8_t leftDirection, uint8_t leftSpeed, uint8_t rightDirection, uint8_t rightSpeed) {
   Wire.beginTransmission(writeAddress);
   Wire.write(leftDirection);
   Wire.write(leftSpeed);
@@ -121,11 +114,11 @@ void stopMotors() {
 }
 
 /*drive bot in a straight line*/
-void driveBot(int16_t driveInput){
+void driveBot(int16_t driveInput) {
   uint8_t leftVar;
   uint8_t rightVar;
   uint8_t directionVar = 0;
-  if(driveInput < 0){
+  if(driveInput < 0) {
     directionVar = 1;
     driveInput = driveInput * -1;
   }
@@ -133,25 +126,23 @@ void driveBot(int16_t driveInput){
   rightVar = (uint8_t)driveInput;
 }
 
-void leftTurn(){
+void leftTurn() {
   writeSpeed(motor_arduino_address, FWD, 0, FWD, MAX_SPEED);
 }
 
-void rightTurn(){
+void rightTurn() {
   writeSpeed(motor_arduino_address, FWD, MAX_SPEED, FWD, 0);
 }
 
-uint8_t findLine(){
-  while(mySensorBar.getDensity() == 0){
+uint8_t findLine() {
+  while(mySensorBar.getDensity() == 0) {
     writeSpeed(motor_arduino_address, BKWD, MAX_SPEED * 0.5, BKWD, MAX_SPEED * 0.5);
   }
   stopMotors();
-  if( mySensorBar.getPosition() < -50 )
-      {
+  if(mySensorBar.getPosition() < -50) {
         return GO_LEFT;
-      }
-  if( mySensorBar.getPosition() > 50 )
-      {
+  }
+  if(mySensorBar.getPosition() > 50) {
         return GO_RIGHT;
-      }
+  }
 }
