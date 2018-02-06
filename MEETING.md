@@ -2,6 +2,58 @@
 
 Progress and notes from the previous lab up to the end of the lab for the given date.
 
+## Week of 2/2/17
+
+### Progress
+Adam
+- [#49](https://github.com/Amertz08/Robot/pull/49) - Minor fixes to route solver script
+- [#55](https://github.com/Amertz08/Robot/issues/55) - Added base HTML template
+
+Nick
+- [#42](https://github.com/Amertz08/Robot/issues/42) - Separate Arduino responsibilities with i2c
+- Decided with group to use just one Arduino for running motors
+
+Haozhan
+- [#29](https://github.com/Amertz08/Robot/issues/29) - Create Basic Web App
+
+Collin
+- [#38](https://github.com/Amertz08/Robot/issues/38) - Ordered, nuts, bolts, and spacers for chassis
+- Assembled motors and chassis
+- [#30](https://github.com/Amertz08/Robot/issues/30) - Simple Route Detection Baseline complete
+
+### WIP
+
+Adam
+- [#22](https://github.com/Amertz08/Robot/issues/22) - Write Monster motor shield library - Needs tested
+
+Nick
+
+Haozhan
+- [#51](https://github.com/Amertz08/Robot/issues/51) - Refactor web app into application factory - Just started
+
+Collin
+- [#40](https://github.com/Amertz08/Robot/issues/40) - Add directional capabilities to route detection
+- [#41](https://github.com/Amertz08/Robot/issues/41) - Add efficient route selection
+
+### Plans
+
+Adam
+- [#54](https://github.com/Amertz08/Robot/issues/54) - Switch DB to Mariadb
+- [#20](https://github.com/Amertz08/Robot/issues/20) - Solder headers to motorshield
+- [#35](https://github.com/Amertz08/Robot/issues/35) - Design motor interface circuit board
+
+Nick
+- Look at and try to integrate monster motor library
+- [#21](https://github.com/Amertz08/Robot/issues/21) [#25](https://github.com/Amertz08/Robot/issues/25) [#26](https://github.com/Amertz08/Robot/issues/26) - Add sensors to Arduino
+
+Haozhan
+- [#51](https://github.com/Amertz08/Robot/issues/51) - Finish refactor web app
+- [#52](https://github.com/Amertz08/Robot/issues/52) - Basic model declarations
+
+Collin
+- [#40](https://github.com/Amertz08/Robot/issues/40) - Add directional capabilities to route detection
+- [#41](https://github.com/Amertz08/Robot/issues/41) - Add efficient route selection
+
 ## Week of 1/26/17
 
 ### Progress
