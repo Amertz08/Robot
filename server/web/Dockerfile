@@ -5,8 +5,7 @@ RUN pip install \
     Flask-Bootstrap==3.3.7.1
 
 RUN mkdir /app
-ADD app.py /app
-ADD templates /app
+ADD . /app
 WORKDIR /app
 
 EXPOSE 5000

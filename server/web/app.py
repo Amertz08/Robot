@@ -1,12 +1,6 @@
-from flask import Flask, render_template
-from flask_bootstrap import Bootstrap
+from factory import create_app
 
-app = Flask(__name__)
-Bootstrap(app)
-
-@app.route('/')
-def index():
-    return render_template('index.html.j2')
+app = create_app()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
