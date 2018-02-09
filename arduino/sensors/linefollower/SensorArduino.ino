@@ -51,14 +51,13 @@ void setup() {
     Serial.println("sx1509 IC communication FAILED!");
   }
   Serial.println();
-  
+
   Wire.begin(10);
   m_leftDirection = FWD;
   m_leftSpeed = 0;
   m_rightDirection = FWD;
   m_rightSpeed = 0;
   state = 0;
-
 }
 
 void loop() {
@@ -178,14 +177,14 @@ uint16_t ultraSonic() {
   digitalWrite(TRIG_PIN, LOW);
 
   /* Wait for pulse on echo pin */
-  while ( digitalRead(ECHO_PIN) == 0 );
+  while (digitalRead(ECHO_PIN) == 0);
 
   /*
   * Measure how long the echo pin was held high (pulse width)
   * Note: the micros() counter will overflow after ~70 min
   */
   t1 = micros();
-  while ( digitalRead(ECHO_PIN) == 1);
+  while (digitalRead(ECHO_PIN) == 1);
   t2 = micros();
   pulse_width = t2 - t1;
   cm = pulse_width / 58;
