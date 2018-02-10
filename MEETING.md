@@ -2,7 +2,51 @@
 
 Progress and notes from the previous lab up to the end of the lab for the given date.
 
-## Week of 2/2/17
+## Week of 2/9/18
+
+### Progress
+Adam
+
+
+Nick
+
+
+Haozhan
+- [#51](https://github.com/Amertz08/Robot/issues/51) - Refactor app into application factory
+
+Collin
+
+
+### WIP
+
+Adam
+
+
+Nick
+
+
+Haozhan
+- [#53](https://github.com/Amertz08/Robot/issues/53) - Create configfile
+
+Collin
+
+
+### Plans
+
+Adam
+
+
+Nick
+
+
+Haozhan
+- [#53](https://github.com/Amertz08/Robot/issues/53) - Create configfile
+- [#52](https://github.com/Amertz08/Robot/issues/52) - Model declaration
+
+Collin
+
+
+## Week of 2/2/18
 
 ### Progress
 Adam
@@ -54,7 +98,7 @@ Collin
 - [#40](https://github.com/Amertz08/Robot/issues/40) - Add directional capabilities to route detection
 - [#41](https://github.com/Amertz08/Robot/issues/41) - Add efficient route selection
 
-## Week of 1/26/17
+## Week of 1/26/18
 
 ### Progress
 
