@@ -9,7 +9,7 @@ Adam
 - Help Haozhan refactor app
 
 Nick
-
+- [#60](https://github.com/Amertz08/Robot/issues/60) - Add object on path detection.
 
 Haozhan
 - [#51](https://github.com/Amertz08/Robot/issues/51) - Refactor app into application factory
@@ -23,7 +23,7 @@ Adam
 - N/A
 
 Nick
-
+- [#60](https://github.com/Amertz08/Robot/issues/60) - Add object on path detection.
 
 Haozhan
 - [#53](https://github.com/Amertz08/Robot/issues/53) - Create configfile
@@ -39,7 +39,7 @@ Adam
 - [#35](https://github.com/Amertz08/Robot/issues/35) - Design motor interface circuit board
 
 Nick
-
+- Look into power distrubution for boards
 
 Haozhan
 - [#53](https://github.com/Amertz08/Robot/issues/53) - Create configfile
