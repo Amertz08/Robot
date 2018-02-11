@@ -15,7 +15,7 @@ Haozhan
 - [#51](https://github.com/Amertz08/Robot/issues/51) - Refactor app into application factory
 
 Collin
-
+- Started baseline for docker, worked on getting it installed on my PC
 
 ### WIP
 
@@ -29,7 +29,8 @@ Haozhan
 - [#53](https://github.com/Amertz08/Robot/issues/53) - Create configfile
 
 Collin
-
+- [#40](https://github.com/Amertz08/Robot/issues/40) - Add directional capabilities to route detection
+- [#41](https://github.com/Amertz08/Robot/issues/41) - Add efficient route selection
 
 ### Plans
 
@@ -46,7 +47,8 @@ Haozhan
 - [#52](https://github.com/Amertz08/Robot/issues/52) - Model declaration
 
 Collin
-
+- [#40](https://github.com/Amertz08/Robot/issues/40) - Add directional capabilities to route detection
+- [#41](https://github.com/Amertz08/Robot/issues/41) - Add efficient route selection
 
 ## Week of 2/2/18
 
