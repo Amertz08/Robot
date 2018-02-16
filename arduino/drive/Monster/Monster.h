@@ -64,18 +64,74 @@ private:
 public:
   Monster(uint8_t mode);
   ~Monster();
-  void stopMotor(uint8_t motor);
-  void stop();
-  void setSpeed(uint8_t motor, uint8_t speed);
-  void forward(uint8_t speed);
-  void backward(uint8_t speed);
-  void driveRight(int speed);
-  void driveLeft(int speed);
-  void turnLeft(uint8_t speed);
-  void turnRight(uint8_t speed);
-  void driveMotor(uint8_t motor, uint8_t direction, uint8_t speed);
-  int readCurrent(uint8_t motor);
 
+  /**
+  * Stops the given motor
+  * @param motor - motor 0 or 1
+  */
+  void stopMotor(uint8_t motor);
+
+  /**
+  * Stops all motors
+  */
+  void stop();
+
+  /**
+  * Set speed for the given motor
+  * @param motor - motor 0 or 1
+  * @param speed - speed to move at 0 to 255
+  */
+  void setSpeed(uint8_t motor, uint8_t speed);
+
+  /**
+  * Drives vehicle forward at given speed
+  * @param speed - speed to move at 0 to 255
+  */
+  void forward(uint8_t speed);
+
+  /**
+  * Drives vehicle backward at given speed
+  * @param speed : speed to move at 0 to 255
+  */
+  void backward(uint8_t speed);
+
+  /**
+  * Drives motor(s) on right side
+  * @param speed : -255 to 255
+  */
+  void driveRight(int speed);
+
+  /**
+  * Drives motor(s) on left side
+  * @param speed : -255 to 255
+  */
+  void driveLeft(int speed);
+
+  /**
+  * Turn vehicle left at given speed
+  * @param speed : speed to drive motors 0 to 255
+  */
+  void turnLeft(uint8_t speed);
+
+  /**
+  * Turn vehicle right at given speed
+  * @param speed - speed to drive motors 0 to 255
+  */
+  void turnRight(uint8_t speed);
+
+  /**
+  * Drive given motor in the given direction for given speed
+  * @param motor - 0 or 1
+  * @param direction - CW, CCW, BRAKE
+  * @param speed - speed to move at 0 to 255
+  */
+  void driveMotor(uint8_t motor, uint8_t direction, uint8_t speed);
+
+  /**
+  * Read current sensor for given motor
+  * @param motor : motor sensor to read
+  */
+  int readCurrent(uint8_t motor);
 };
 
 

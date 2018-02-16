@@ -42,37 +42,22 @@ Monster::~Monster() {
 //   }
 // }
 
-/**
-  Stops the given motor
-  @param motor - motor 0 or 1
-*/
 void Monster::stopMotor(uint8_t motor)
 {
   this->driveMotor(motor, BRAKE, 0);
 }
 
-/**
-  Stops all motors
-*/
 void Monster::stop()
 {
   this->stopMotor(0);
   this->stopMotor(1);
 }
 
-/**
-  Checks if given speed is valid
-*/
 bool Monster::_validateSpeed(uint8_t speed)
 {
   return (MIN_SPEED <= speed && speed <= MAX_SPEED);
 }
 
-/**
-  Set speed for the given motor
-  @param motor - motor 0 or 1
-  @param speed - speed to move at 0 to 255
-*/
 void Monster::setSpeed(uint8_t motor, uint8_t speed)
 {
   // if (!this->_validateSpeed(speed)) {
@@ -81,10 +66,6 @@ void Monster::setSpeed(uint8_t motor, uint8_t speed)
   analogWrite(this->_pwmpin[motor], speed);
 }
 
-/**
-  Drives vehicle forward at given speed
-  @param speed - speed to move at 0 to 255
-*/
 void Monster::forward(uint8_t speed)
 {
   if (this->_mode == MIXED) {
@@ -96,10 +77,6 @@ void Monster::forward(uint8_t speed)
   }
 }
 
-/**
-  Drives vehicle backward at given speed
-  @param speed : speed to move at 0 to 255
-*/
 void Monster::backward(uint8_t speed)
 {
   if (this->_mode == MIXED) {
@@ -111,10 +88,6 @@ void Monster::backward(uint8_t speed)
   }
 }
 
-/**
-  Drives motor(s) on right side
-  @param speed : -255 to 255
-*/
 void Monster::driveRight(int speed)
 {
   uint8_t direction;
@@ -133,10 +106,6 @@ void Monster::driveRight(int speed)
   }
 }
 
-/**
-  Drives motor(s) on left side
-  @param speed : -255 to 255
-*/
 void Monster::driveLeft(int speed)
 {
   uint8_t direction;
@@ -155,33 +124,18 @@ void Monster::driveLeft(int speed)
   }
 }
 
-/**
-  Turn vehicle left at given speed
-  @param speed : speed to drive motors 0 to 255
-*/
 void Monster::turnLeft(uint8_t speed)
 {
   this->driveLeft(speed * -1);
   this->driveRight(speed);
 }
 
-/**
-  Turn vehicle right at given speed
-  @param speed - speed to drive motors 0 to 255
-*/
 void Monster::turnRight(uint8_t speed)
 {
   this->driveLeft(speed);
   this->driveRight(speed * -1);
 }
 
-
-/**
-  Drive given motor in the given direction for given speed
-  @param motor - 0 or 1
-  @param direction - CW, CCW, BRAKE
-  @param speed - speed to move at 0 to 255
-*/
 void Monster::driveMotor(uint8_t motor, uint8_t direction, uint8_t speed)
 {
   switch (direction) {
@@ -204,10 +158,6 @@ void Monster::driveMotor(uint8_t motor, uint8_t direction, uint8_t speed)
   this->setSpeed(motor, speed);
 }
 
-/**
-  Read current sensor for given motor
-  @param motor : motor sensor to read
-*/
 int Monster::readCurrent(uint8_t motor)
 {
   return analogRead(this->_cspin[motor]);
