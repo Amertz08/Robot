@@ -6,7 +6,7 @@ Progress and notes from the previous lab up to the end of the lab for the given 
 
 ### Progress
 Adam
-- Basically none. [#53](https://github.com/Amertz08/Robot/issues/53) is blocking for me
+- Basically none. [#52](https://github.com/Amertz08/Robot/issues/52) is blocking for me
 
 Nick
 - Breadboarded components and powered using LiPo
