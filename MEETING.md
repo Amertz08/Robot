@@ -8,6 +8,7 @@ Progress and notes from the previous lab up to the end of the lab for the given 
 Adam
 
 Nick
+- Breadboarded components and powered using LiPo
 
 Haozhan
 
@@ -20,6 +21,7 @@ Collin
 Adam
 
 Nick
+- None
 
 Haozhan
 
@@ -32,6 +34,7 @@ Collin
 Adam
 
 Nick
+- Start working on circuit
 
 Haozhan
 
