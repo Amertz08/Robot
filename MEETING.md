@@ -6,6 +6,7 @@ Progress and notes from the previous lab up to the end of the lab for the given 
 
 ### Progress
 Adam
+- Basically none. [#53](https://github.com/Amertz08/Robot/issues/53) is blocking for me
 
 Nick
 - Breadboarded components and powered using LiPo
@@ -19,6 +20,7 @@ Collin
 ### WIP
 
 Adam
+- None
 
 Nick
 - None
@@ -32,6 +34,9 @@ Collin
 ### Plans
 
 Adam
+- [#54](https://github.com/Amertz08/Robot/issues/54) - Switch DB to Mariadb
+- [#20](https://github.com/Amertz08/Robot/issues/20) - Solder headers to motorshield
+- [#35](https://github.com/Amertz08/Robot/issues/35) - Design motor interface circuit board
 
 Nick
 - Start working on circuit
