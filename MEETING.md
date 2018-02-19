@@ -2,6 +2,42 @@
 
 Progress and notes from the previous lab up to the end of the lab for the given date.
 
+## Week of 2/16/18
+
+### Progress
+Adam
+
+Nick
+
+Haozhan
+
+Collin
+- Worked with Nick to power all sensors using the LiPo battery.
+- Began adding the directional capabilities to the route detection.
+
+### WIP
+
+Adam
+
+Nick
+
+Haozhan
+
+Collin
+- [#40](https://github.com/Amertz08/Robot/issues/40) - Add directional capabilities to route detection
+- [#41](https://github.com/Amertz08/Robot/issues/41) - Add efficient route selection
+
+### Plans
+
+Adam
+
+Nick
+
+Haozhan
+
+Collin
+- [#65](https://github.com/Amertz08/Robot/issues/65) - Mount Line Follower Sensor
+
 ## Week of 2/9/18
 
 ### Progress
