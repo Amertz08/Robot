@@ -12,6 +12,7 @@ Nick
 - Breadboarded components and powered using LiPo
 
 Haozhan
+- [#53](https://github.com/Amertz08/Robot/issues/53) - Create config object levels
 
 Collin
 - Worked with Nick to power all sensors using the LiPo battery.
@@ -26,6 +27,7 @@ Nick
 - None
 
 Haozhan
+- None
 
 Collin
 - [#40](https://github.com/Amertz08/Robot/issues/40) - Add directional capabilities to route detection
@@ -42,6 +44,7 @@ Nick
 - Start working on circuit
 
 Haozhan
+- [#52](https://github.com/Amertz08/Robot/issues/52) - Model declarations
 
 Collin
 - [#65](https://github.com/Amertz08/Robot/issues/65) - Mount Line Follower Sensor
