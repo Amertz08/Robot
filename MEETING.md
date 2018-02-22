@@ -2,6 +2,53 @@
 
 Progress and notes from the previous lab up to the end of the lab for the given date.
 
+## Week of 2/16/18
+
+### Progress
+Adam
+- Basically none. [#52](https://github.com/Amertz08/Robot/issues/52) is blocking for me
+
+Nick
+- Breadboarded components and powered using LiPo
+
+Haozhan
+- [#53](https://github.com/Amertz08/Robot/issues/53) - Create config object levels
+
+Collin
+- Worked with Nick to power all sensors using the LiPo battery.
+- Began adding the directional capabilities to the route detection.
+
+### WIP
+
+Adam
+- None
+
+Nick
+- None
+
+Haozhan
+- None
+
+Collin
+- [#40](https://github.com/Amertz08/Robot/issues/40) - Add directional capabilities to route detection
+- [#41](https://github.com/Amertz08/Robot/issues/41) - Add efficient route selection
+
+### Plans
+
+Adam
+- [#54](https://github.com/Amertz08/Robot/issues/54) - Switch DB to Mariadb
+- [#20](https://github.com/Amertz08/Robot/issues/20) - Solder headers to motorshield
+- [#35](https://github.com/Amertz08/Robot/issues/35) - Design motor interface circuit board
+
+Nick
+- Start working on circuit
+
+Haozhan
+- [#52](https://github.com/Amertz08/Robot/issues/52) - Model declarations
+
+Collin
+- [#65](https://github.com/Amertz08/Robot/issues/65) - Mount Line Follower Sensor
+
 ## Week of 2/9/18
 
 ### Progress
