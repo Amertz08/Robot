@@ -1,4 +1,6 @@
 from . import db
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 class Account(db.Model):
     __tablename__ = 'account'
@@ -18,3 +20,11 @@ class User(db.Model):
     lastName = db.Column(db.String(64))
     email = db.Column(db.String(64))
     password = db.Column(db.String(64))
+
+
+    def set_password(password):
+        return generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+
