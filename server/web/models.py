@@ -1,26 +1,40 @@
-from . import db
+from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
+db = SQLAlchemy()
 
 class Account(db.Model):
-    __tablename__ = 'account'
+    __tablename__ = 'accounts'
     id = db.Column(db.Integer, primary_key=True)
-    companyName = db.Column(db.String(64), unique=True)
-    createDate = db.Column(db.DateTime)
+    company_name = db.Column(db.String(64), unique=True)
+    create_date = db.Column(db.DateTime)
     active = db.Column(db.Boolean)
 
+    def __init__(self, company_name, create_date, active):
+        self.company_name = company_name
+        self.create_date = create_date
+        self.active = active
+
     def __repr__(self):
-        return '<Account %r>' % self.companyName
+        return '<Account %r>' % self.company_name
+
+
 
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    acct_id = db.Column(db.String(64)) #still need set this to be foreign key
-    firstName = db.Column(db.String(64))
-    lastName = db.Column(db.String(64))
-    email = db.Column(db.String(64))
-    password = db.Column(db.String(64))
+    acct_id = db.Column(db.Integer, db.ForeignKey('accounts.id'), nullable=False)
+    first_name = db.Column(db.String(64))
+    last_name = db.Column(db.String(64))
+    email = db.Column(db.String(64), unique=True, index=True)
+    password = db.Column(db.String(128))
 
+    def __init__(self, acct_id, first_name, last_name, email, password):
+        self.acct_id = acct_id
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
+        self.password = self.set_password(password)
 
     def set_password(password):
         return generate_password_hash(password)
