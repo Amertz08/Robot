@@ -1,3 +1,3 @@
 # CLI
 
-Command line interface to control bots
+Command line interface to control web application
