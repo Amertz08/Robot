@@ -6,6 +6,48 @@ Progress and notes from the previous lab up to the end of the lab for the given 
 
 ### Progress
 Adam
+- Started command app
+
+Nick
+
+
+Haozhan
+
+
+Collin
+
+
+### WIP
+
+Adam
+- [#68](https://github.com/Amertz08/Robot/issues/68) - Command app
+
+Nick
+
+
+Haozhan
+
+
+Collin
+
+### Plans
+
+Adam
+- [#54](https://github.com/Amertz08/Robot/issues/54) - Switch DB to Mariadb
+
+Nick
+
+
+Haozhan
+
+
+Collin
+
+
+## Week of 2/16/18
+
+### Progress
+Adam
 - Basically none. [#52](https://github.com/Amertz08/Robot/issues/52) is blocking for me
 
 Nick
