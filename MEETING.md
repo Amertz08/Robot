@@ -9,7 +9,7 @@ Adam
 - Started command app
 
 Nick
-
+- Basically nothing
 
 Haozhan
 
@@ -24,7 +24,7 @@ Adam
 - [#68](https://github.com/Amertz08/Robot/issues/68) - Command app
 
 Nick
-
+- Circuitry
 
 Haozhan
 
@@ -39,7 +39,8 @@ Adam
 - [#54](https://github.com/Amertz08/Robot/issues/54) - Switch DB to Mariadb
 
 Nick
-
+- creating the power circuit
+- [#20](https://github.com/Amertz08/Robot/issues/20) - Solder headers on motor shield
 
 Haozhan
 
