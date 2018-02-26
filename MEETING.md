@@ -15,7 +15,8 @@ Haozhan
 
 
 Collin
-
+- [#40](https://github.com/Amertz08/Robot/issues/40) - Add directional capabilities to route detection
+- [#41](https://github.com/Amertz08/Robot/issues/41) - Add efficient route selection
 
 ### WIP
 
@@ -29,6 +30,8 @@ Haozhan
 
 
 Collin
+- [#40](https://github.com/Amertz08/Robot/issues/40) - Add directional capabilities to route detection
+- [#41](https://github.com/Amertz08/Robot/issues/41) - Add efficient route selection
 
 ### Plans
 
@@ -42,7 +45,9 @@ Haozhan
 
 
 Collin
-
+- Work with Nick on translating the data from the route solver to the Arduino
+- Also work with Nick to get the robot driving again on the line.
+- [#65](https://github.com/Amertz08/Robot/issues/65) - Mount Line Follower Sensor
 
 ## Week of 2/16/18
 
