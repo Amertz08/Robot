@@ -69,8 +69,14 @@ logb:
 wlogb:
 	$(DC) logs -f broker
 
+# Check logs for web
 logweb:
 	$(DC) logs web
 
+# Watch logs for web
 wlogweb:
 	$(DC) logs -f web
+
+# Enter web container
+bashweb:
+	$(DC) exec web bash
