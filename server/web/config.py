@@ -12,7 +12,7 @@ class DevelopmentConfig(Config):
     DB_PASS = 'pass'
     DB_NAME = 'Development'
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = f'mysql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}'
+    SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}'
 
 class TestingConfig(Config):
     DB_USER = 'app'
@@ -20,14 +20,14 @@ class TestingConfig(Config):
     DB_PASS = 'pass'
     DB_NAME = 'Testing'
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = f'mysql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}'
+    SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}'
 
 class ProductionConfig(Config):
     DB_USER = 'app'
     DB_HOST = 'db'
     DB_PASS = 'pass'
     DB_NAME = 'Production'
-    SQLALCHEMY_DATABASE_URI = f'mysql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}'
+    SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}'
 
 config = {
     'development': DevelopmentConfig,
