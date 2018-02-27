@@ -2,7 +2,7 @@
 
 Progress and notes from the previous lab up to the end of the lab for the given date.
 
-## Week of 2/16/18
+## Week of 2/23/18
 
 ### Progress
 Adam
@@ -12,7 +12,7 @@ Nick
 - Basically nothing
 
 Haozhan
-
+- [#52](https://github.com/Amertz08/Robot/issues/52) - Model declaration
 
 Collin
 - [#40](https://github.com/Amertz08/Robot/issues/40) - Add directional capabilities to route detection
@@ -27,7 +27,7 @@ Nick
 - Circuitry
 
 Haozhan
-
+- [#52](https://github.com/Amertz08/Robot/issues/52) - Finished model declaration
 
 Collin
 - [#40](https://github.com/Amertz08/Robot/issues/40) - Add directional capabilities to route detection
@@ -43,7 +43,7 @@ Nick
 - [#20](https://github.com/Amertz08/Robot/issues/20) - Solder headers on motor shield
 
 Haozhan
-
+- [#67](https://github.com/Amertz08/Robot/issues/67) - Sign up route
 
 Collin
 - Work with Nick on translating the data from the route solver to the Arduino
