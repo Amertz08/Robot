@@ -13,7 +13,7 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         login_user(user)
         flash('Login Successful', 'success')
-        return redirect(url_for('main.index')) # TODO: fix redirect location
+        return redirect(url_for('main.index')) # TODO: Should redirect to dash index
     return render_template('auth/login.html.j2', form=form)
 
 @auth.route('/logout')
