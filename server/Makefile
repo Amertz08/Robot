@@ -68,3 +68,9 @@ logb:
 # Watch broker logs
 wlogb:
 	$(DC) logs -f broker
+
+logweb:
+	$(DC) logs web
+
+wlogweb:
+	$(DC) logs -f web

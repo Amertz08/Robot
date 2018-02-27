@@ -31,11 +31,14 @@ services:
       - "25672:25672"
 
   db:
-    image: mongo:3.6-jessie
-    ports:
-      - "27017:27017"
+    image: mariadb:10.3
+    environment:
+      - MYSQL_ROOT_PASSWORD=pass
+      - MYSQL_USER=app
+      - MYSQL_PASSWORD=pass
+      - MYSQL_DATABASE=Development
     volumes:
-      - "mongo-data:/data/db"
+      - "db-data:/data/db"
 
   web:
     build: ./web
@@ -47,5 +50,5 @@ services:
       - "5000:5000"
 
 volumes:
-  mongo-data:
+  db-data:
   bot-logs:
