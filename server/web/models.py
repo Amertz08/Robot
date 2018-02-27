@@ -37,6 +37,7 @@ class User(UserMixin, db.Model):
         self.email = email
         self.password = self.set_password(password)
 
+    @staticmethod
     def set_password(password):
         return generate_password_hash(password)
 
