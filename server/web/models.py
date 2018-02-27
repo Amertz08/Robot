@@ -1,3 +1,5 @@
+import datetime
+
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -8,13 +10,11 @@ class Account(db.Model):
     __tablename__ = 'accounts'
     id = db.Column(db.Integer, primary_key=True)
     company_name = db.Column(db.String(64), unique=True)
-    create_date = db.Column(db.DateTime)
-    active = db.Column(db.Boolean)
+    create_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    active = db.Column(db.Boolean, default=True)
 
-    def __init__(self, company_name, create_date, active):
+    def __init__(self, company_name):
         self.company_name = company_name
-        self.create_date = create_date
-        self.active = active
 
     def __repr__(self):
         return '<Account %r>' % self.company_name
