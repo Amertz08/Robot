@@ -9,12 +9,10 @@ class LoginForm(FlaskForm):
 
     def validate_email(self, field):
         user = User.query.filter_by(email=self.email.data).first()
-
         if not user or not user.check_password(self.password.data):
             raise ValidationError('Invalid Email/Password')
 
     def validate_password(self, field):
         user = User.query.filter_by(email=self.email.data).first()
-
         if not user or not user.check_password(self.password.data):
             raise ValidationError('Invalid Email/Password')
