@@ -4,6 +4,7 @@ from wtforms.validators import DataRequired, Email, ValidationError, EqualTo
 
 from models import User, Account
 
+
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
@@ -18,6 +19,7 @@ class LoginForm(FlaskForm):
         user = User.query.filter_by(email=self.email.data).first()
         if not user or not user.check_password(self.password.data):
             raise ValidationError('Invalid Email/Password')
+
 
 class SignUpForm(FlaskForm):
     company_name = StringField('Company Name', validators=[DataRequired()])

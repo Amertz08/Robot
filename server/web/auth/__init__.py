@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_user, login_required, logout_user
 
-from forms import LoginForm
+from forms import LoginForm, SignUpForm
 from models import db, User
 
 auth = Blueprint('auth', __name__)
@@ -22,3 +22,12 @@ def logout():
     logout_user()
     flash('Logged out', 'success')
     return redirect(url_for('main.index'))
+
+@auth.route('/signup', methods=['GET', 'POST'])
+def signup():
+    form = SignUpForm()
+    if form.validate_on_submit():
+        pass
+    return render_template('auth/signup.html.j2', form=form)
+
+
