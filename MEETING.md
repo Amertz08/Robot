@@ -2,9 +2,51 @@
 
 Progress and notes from the previous lab up to the end of the lab for the given date.
 
+## Week of 3/2/18
+
+### Progress
+
+Adam
+- [#72](https://github.com/Amertz08/Robot/issues/72) - Create Login/Logout view
+- [#73](https://github.com/Amertz08/Robot/issues/73) - Start Auth view
+- [#82](https://github.com/Amertz08/Robot/issues/82) - Ordered Power terminals
+
+Nick
+
+Haozhan
+
+Collin
+
+### WIP
+
+Adam
+- [#68](https://github.com/Amertz08/Robot/issues/68) - Command app
+
+Nick
+
+Haozhan
+
+Collin
+
+
+### Plans
+
+Adam
+- [#80](https://github.com/Amertz08/Robot/issues/80) - Basic user dash
+- [#81](https://github.com/Amertz08/Robot/issues/81) - Reset password workflow
+- [#68](https://github.com/Amertz08/Robot/issues/68) - Command app
+
+Nick
+
+Haozhan
+
+Collin
+
+
 ## Week of 2/23/18
 
 ### Progress
+
 Adam
 - Started command app
 
