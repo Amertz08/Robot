@@ -10,7 +10,7 @@ Adam
 - [#72](https://github.com/Amertz08/Robot/issues/72) - Create Login/Logout view
 - [#73](https://github.com/Amertz08/Robot/issues/73) - Start Auth view
 - [#82](https://github.com/Amertz08/Robot/issues/82) - Ordered Power terminals
-- [#54](https://github.com/Amertz08/Robot/issues/54) - Switched to Mariadb
+- [#54](https://github.com/Amertz08/Robot/issues/54) - Switched to MariaDB
 
 Nick
 
