@@ -40,7 +40,9 @@ def signup():
                     password=form.password.data)
         db.session.add(user)
         db.commit()
-        flash('You have been registered')
+        token = user.generate_token()
+        # TODO: implement send email function
+        flash('You have been registered, a confirmation email has been sent to your email address')
         return redirect(url_for('main.index'))  # TODO: Should redirect to dash index
     return render_template('auth/signup.html.j2', form=form)
 
