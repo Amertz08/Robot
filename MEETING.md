@@ -18,6 +18,10 @@ Haozhan
 - [#67](https://github.com/Amertz08/Robot/issues/67) - Sign up route
 
 Collin
+- [#40](https://github.com/Amertz08/Robot/issues/40) - Finished directional capabilities to route detection
+- [#41](https://github.com/Amertz08/Robot/issues/41) - Finished efficient route selection
+- [#86](https://github.com/Amertz08/Robot/issues/86) - Design PCB for motors - Initial board finished
+
 
 ### WIP
 
@@ -30,7 +34,7 @@ Haozhan
 - [#79](https://github.com/Amertz08/Robot/issues/79) - User verification
 
 Collin
-
+- [#86](https://github.com/Amertz08/Robot/issues/86) - Design PCB for motors - Initial board finished
 
 ### Plans
 
@@ -45,7 +49,8 @@ Haozhan
 - [#79](https://github.com/Amertz08/Robot/issues/79) - User verification
 
 Collin
-
+- [#86](https://github.com/Amertz08/Robot/issues/86) - Design PCB for motors - Make necessary changes to board.
+- Work with Nick to regain power and drviability to the robot.
 
 ## Week of 2/23/18
 
