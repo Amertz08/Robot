@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms.fields import StringField, SubmitField, PasswordField
-from wtforms.validators import DataRequired, Email, ValidationError, EqualTo
+from wtforms.validators import DataRequired, Length, Email, ValidationError, EqualTo
 
 from models import User, Account
 
@@ -22,10 +22,10 @@ class LoginForm(FlaskForm):
 
 
 class SignUpForm(FlaskForm):
-    company_name = StringField('Company Name', validators=[DataRequired()])
-    first_name = StringField('First Name', validators=[DataRequired()])
-    last_name = StringField('Last Name', validators=[DataRequired()])
-    email = StringField('Email Address', validators=[DataRequired(), Email()])
+    company_name = StringField('Company Name', validators=[DataRequired(), Length(max=64)])
+    first_name = StringField('First Name', validators=[DataRequired(), Length(max=64)])
+    last_name = StringField('Last Name', validators=[DataRequired(), Length(max=64)])
+    email = StringField('Email Address', validators=[DataRequired(), Email(), Length(max=64)])
     password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm')])
     confirm = PasswordField('Repeat Password')
 
