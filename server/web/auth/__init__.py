@@ -32,15 +32,16 @@ def signup():
     if form.validate_on_submit():
         acct = Account(company_name=form.company_name.data)
         db.session.add(acct)
-        db.commit()
+        db.session.commit()
         user = User(acct_id=acct.id,
                     first_name=form.first_name.data,
                     last_name=form.last_name.data,
                     email=form.email.data,
                     password=form.password.data)
         db.session.add(user)
-        db.commit()
+        db.session.commit()
         flash('You have been registered')
+        login_user(user)
         return redirect(url_for('main.index'))  # TODO: Should redirect to dash index
     return render_template('auth/signup.html.j2', form=form)
 
