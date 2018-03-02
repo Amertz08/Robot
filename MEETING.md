@@ -15,6 +15,7 @@ Adam
 Nick
 
 Haozhan
+- [#67](https://github.com/Amertz08/Robot/issues/67) - Sign up route
 
 Collin
 
@@ -26,6 +27,7 @@ Adam
 Nick
 
 Haozhan
+- [#79](https://github.com/Amertz08/Robot/issues/79) - User verification
 
 Collin
 
@@ -40,6 +42,7 @@ Adam
 Nick
 
 Haozhan
+- [#79](https://github.com/Amertz08/Robot/issues/79) - User verification
 
 Collin
 
