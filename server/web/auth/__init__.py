@@ -33,7 +33,7 @@ def signup():
         acct = Account(company_name=form.company_name.data)
         db.session.add(acct)
         db.commit()
-        user = User(acct_id=User.query.filter_by(company_name=form.company_name.data).first().id,
+        user = User(acct_id=acct.id,
                     first_name=form.first_name.data,
                     last_name=form.last_name.data,
                     email=form.email.data,
