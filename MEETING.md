@@ -13,6 +13,8 @@ Adam
 - [#54](https://github.com/Amertz08/Robot/issues/54) - Switched to MariaDB
 
 Nick
+- [#35](https://github.com/Amertz08/Robot/issues/35) - worked with Collin on PCB
+- [#83](https://github.com/Amertz08/Robot/issues/83) - started working on PCB for Powering components
 
 Haozhan
 - [#67](https://github.com/Amertz08/Robot/issues/67) - Sign up route
@@ -29,6 +31,8 @@ Adam
 - [#68](https://github.com/Amertz08/Robot/issues/68) - Command app
 
 Nick
+- [#35](https://github.com/Amertz08/Robot/issues/35) - worked with Collin on PCB
+- [#83](https://github.com/Amertz08/Robot/issues/83) - started working on PCB for Powering components
 
 Haozhan
 - [#79](https://github.com/Amertz08/Robot/issues/79) - User verification
@@ -44,6 +48,7 @@ Adam
 - [#68](https://github.com/Amertz08/Robot/issues/68) - Command app
 
 Nick
+- Continue working on powering components and getting them on the platform
 
 Haozhan
 - [#79](https://github.com/Amertz08/Robot/issues/79) - User verification
