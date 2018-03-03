@@ -32,7 +32,7 @@ class SignUpForm(FlaskForm):
     submit = SubmitField('Sign Up')
 
     def validate_company_name(self, field):
-        if User.query.filter_by(company_name=field.data).first():
+        if Account.query.filter_by(company_name=field.data).first():
             raise ValidationError('Account already exists')
 
     def validate_email(self, field):
