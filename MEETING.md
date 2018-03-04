@@ -2,9 +2,65 @@
 
 Progress and notes from the previous lab up to the end of the lab for the given date.
 
+## Week of 3/2/18
+
+### Progress
+
+Adam
+- [#72](https://github.com/Amertz08/Robot/issues/72) - Create Login/Logout view
+- [#73](https://github.com/Amertz08/Robot/issues/73) - Start Auth view
+- [#82](https://github.com/Amertz08/Robot/issues/82) - Ordered Power terminals
+- [#54](https://github.com/Amertz08/Robot/issues/54) - Switched to MariaDB
+
+Nick
+- [#35](https://github.com/Amertz08/Robot/issues/35) - worked with Collin on PCB
+- [#83](https://github.com/Amertz08/Robot/issues/83) - started working on PCB for Powering components
+
+Haozhan
+- [#67](https://github.com/Amertz08/Robot/issues/67) - Sign up route
+
+Collin
+- [#40](https://github.com/Amertz08/Robot/issues/40) - Finished directional capabilities to route detection
+- [#41](https://github.com/Amertz08/Robot/issues/41) - Finished efficient route selection
+- [#86](https://github.com/Amertz08/Robot/issues/86) - Design PCB for motors - Initial board finished
+
+
+### WIP
+
+Adam
+- [#68](https://github.com/Amertz08/Robot/issues/68) - Command app
+
+Nick
+- [#35](https://github.com/Amertz08/Robot/issues/35) - worked with Collin on PCB
+- [#83](https://github.com/Amertz08/Robot/issues/83) - started working on PCB for Powering components
+
+Haozhan
+- [#79](https://github.com/Amertz08/Robot/issues/79) - User verification
+
+Collin
+- [#86](https://github.com/Amertz08/Robot/issues/86) - Design PCB for motors - Initial board finished
+
+### Plans
+
+Adam
+- [#80](https://github.com/Amertz08/Robot/issues/80) - Basic user dash
+- [#81](https://github.com/Amertz08/Robot/issues/81) - Reset password workflow
+- [#68](https://github.com/Amertz08/Robot/issues/68) - Command app
+
+Nick
+- Continue working on powering components and getting them on the platform
+
+Haozhan
+- [#79](https://github.com/Amertz08/Robot/issues/79) - User verification
+
+Collin
+- [#86](https://github.com/Amertz08/Robot/issues/86) - Design PCB for motors - Make necessary changes to board.
+- Work with Nick to regain power and drviability to the robot.
+
 ## Week of 2/23/18
 
 ### Progress
+
 Adam
 - Started command app
 
