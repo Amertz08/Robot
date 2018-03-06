@@ -32,18 +32,19 @@ def signup():
     if form.validate_on_submit():
         acct = Account(company_name=form.company_name.data)
         db.session.add(acct)
-        db.commit()
-        user = User(acct_id=User.query.filter_by(company_name=form.company_name.data).first().id,
+        db.session.commit()
+        user = User(acct_id=acct.id,
                     first_name=form.first_name.data,
                     last_name=form.last_name.data,
                     email=form.email.data,
                     password=form.password.data)
         db.session.add(user)
-        db.commit()
         token = user.generate_token()
         # TODO: implement send email function
         flash('You have been registered, a confirmation email has been sent to your email address')
-        return redirect(url_for('main.index'))  # TODO: Should redirect to dash index
+        db.session.commit()
+        flash('You have been registered')
+        login_user(user)
     return render_template('auth/signup.html.j2', form=form)
 
 
