@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, current_user
 
 from forms import LoginForm, SignUpForm
 from models import db, User, Account
@@ -40,11 +40,21 @@ def signup():
                     password=form.password.data)
         db.session.add(user)
         token = user.generate_token()
+
         # TODO: implement send email function
-        flash('You have been registered, a confirmation email has been sent to your email address')
+        flash('You have been registered. Send email function haven\'t fully implemented ')
         db.session.commit()
-        flash('You have been registered')
         login_user(user)
     return render_template('auth/signup.html.j2', form=form)
 
 
+@auth.route('/confirm/<token>')
+@login_required
+def confirm(token):
+    if current_user.verified:
+        return redirect(url_for('main.index'))
+    if current_user.confirm(token):
+        flash('You have verified your account!')
+    else:
+        flash('The confirmation link maybe expired or invalid')
+    return redirect(url_for('main.index'))
