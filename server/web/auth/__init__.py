@@ -8,6 +8,15 @@ from ..email import send_email
 auth = Blueprint('auth', __name__)
 
 
+@auth.before_app_request
+def before_request():
+    if current_user.is_authenticated() \
+            and not current_user.verified \
+            and request.endpoint[:5] != 'auth.' \
+            and request.endpoint != 'static':
+        return redirect(url_for('auth.unconfirmed'))
+
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -15,7 +24,7 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         login_user(user)
         flash('Login Successful', 'success')
-        return redirect(url_for('main.index')) # TODO: Should redirect to dash index
+        return redirect(url_for('main.index'))  # TODO: Should redirect to dash index
     return render_template('auth/login.html.j2', form=form)
 
 
@@ -58,7 +67,7 @@ def confirm(token):
     if current_user.confirm(token):
         db.session.commit()
         flash('You have verified your account!')
-    elif current_user.confirm(token)=='expire':
+    elif current_user.confirm(token) == 'expire':
         flash('The confirmation link is expired')
     else:
         flash('The confirmation link is invalid')
@@ -76,3 +85,9 @@ def resend_confirm():
             You have 24 hours to verify your account.')
     return redirect(url_for('main.index'))
 
+
+@auth.route('/unconfirmed')
+def unconfirmed():
+    if current_user.verified:
+        return redirect(url_for('main.index'))
+    return render_template('auth/unconfirmed.html.j2')
