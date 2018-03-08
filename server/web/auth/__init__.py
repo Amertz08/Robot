@@ -57,7 +57,11 @@ def send_reset():
             token = user.generate_token()
             if current_app.config['DEBUG']:
                 print(url_for('auth.reset', token=token, _external=True))
-        warnings.warn('send_reset not fully implemented')
+            # TODO: send email here
+        else:
+            print('User not found') # TODO: actually log invalid reset attemps
+
+        warnings.warn('send_reset not fully implemented') # TODO: dependent on email function
 
         flash('An email will be sent with a link to reset your password', 'success')
         return redirect(url_for('main.index'))
@@ -74,10 +78,10 @@ def reset():
     try:
         data = s.loads(token)
     except SignatureExpired:
-        flash('Expired Token', 'error')
+        flash('Expired Token', 'danger')
         return redirect(url_for('main.index'))
     except BadSignature:
-        flash('Invalid token', 'error') # TODO: log invalid token attempt w/ IP
+        flash('Invalid token', 'danger') # TODO: log invalid token attempt w/ IP
         return redirect(url_for('main.index'))
 
     user = User.query.filter_by(id=data.get('confirm')).first()
