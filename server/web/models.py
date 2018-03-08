@@ -20,7 +20,7 @@ class Account(db.Model):
         self.company_name = company_name
 
     def __repr__(self):
-        return '<Account %r>' % self.company_name
+        return f'<Account id: {self.id} company: {self.company_name} >'
 
 
 
@@ -39,6 +39,9 @@ class User(UserMixin, db.Model):
         self.last_name = last_name
         self.email = email
         self.password = self.set_password(password)
+
+    def __repr__(self):
+        return f'<User id: {self.id} first: {self.first_name} last: {self.last_name}>'
 
     @staticmethod
     def set_password(password):
