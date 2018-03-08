@@ -1,20 +1,11 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, request
+from flask import Blueprint, render_template, flash, redirect, url_for, request, current_app
 from flask_login import login_user, login_required, logout_user, current_user
 
 from forms import LoginForm, SignUpForm
 from models import db, User, Account
-from ..email import send_email
+from .sendemail import send_email
 
 auth = Blueprint('auth', __name__)
-
-
-@auth.before_app_request
-def before_request():
-    if current_user.is_authenticated() \
-            and not current_user.verified \
-            and request.endpoint[:5] != 'auth.' \
-            and request.endpoint != 'static':
-        return redirect(url_for('auth.unconfirmed'))
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -50,6 +41,8 @@ def signup():
                     password=form.password.data)
         db.session.add(user)
         token = user.generate_token()
+        if current_app.config['DEBUG']:
+            print(url_for('auth.confirm', token=token, _external=True))
         send_email(user.email, 'Confirm Your Account',
                    'auth/email/confirm', user=user, token=token)
         flash('You have been registered. A confirmation email is sent to your email address. \
