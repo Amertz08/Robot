@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import Blueprint, render_template, flash, redirect, url_for, request
 from flask_login import login_user, login_required, logout_user, current_user
 
 from forms import LoginForm, SignUpForm
@@ -64,3 +64,15 @@ def confirm(token):
         flash('The confirmation link is invalid')
         return redirect(url_for('main.404'))
     return redirect(url_for('main.index'))
+
+
+@auth.route('/confirm')
+@login_required
+def resend_confirm():
+    token = current_user.generate_token()
+    send_email(current_user.email, 'Confirm Your Account',
+               'auth/email/confirm', user=current_user, token=token)
+    flash('A new confirmation email is sent to your email address. \
+            You have 24 hours to verify your account.')
+    return redirect(url_for('main.index'))
+
