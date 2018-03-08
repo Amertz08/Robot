@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from itsdangerous import SignatureExpired, BadSignature
 
 db = SQLAlchemy()
 
@@ -58,7 +59,9 @@ class User(UserMixin, db.Model):
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
             data = s.loads(token)
-        except:
+        except SignatureExpired:
+            return 'expired'
+        except BadSignature:
             return False
         if data.get('confirm') != self.acct_id:
             return False
