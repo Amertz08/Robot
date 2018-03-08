@@ -15,6 +15,7 @@ class Account(db.Model):
     company_name = db.Column(db.String(64), unique=True)
     create_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     active = db.Column(db.Boolean, default=True)
+    users = db.relationship('User', backref='account', lazy=True)
 
     def __init__(self, company_name):
         self.company_name = company_name
@@ -41,7 +42,7 @@ class User(UserMixin, db.Model):
         self.password = self.set_password(password)
 
     def __repr__(self):
-        return f'<User id: {self.id} first: {self.first_name} last: {self.last_name}>'
+        return f'<User id: {self.id} first: {self.first_name} last: {self.last_name} >'
 
     @staticmethod
     def set_password(password):
