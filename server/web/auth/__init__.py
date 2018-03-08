@@ -72,6 +72,8 @@ def confirm(token):
 @login_required
 def resend_confirm():
     token = current_user.generate_token()
+    if current_app.config['DEBUG']:
+        print(url_for('auth.confirm', token=token, _external=True))
     send_email(current_user.email, 'Confirm Your Account',
                'auth/email/confirm', user=current_user, token=token)
     flash('A new confirmation email is sent to your email address. \
