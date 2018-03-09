@@ -75,17 +75,14 @@ def reset():
     if not token:
         abort(404)
 
-    s = Serializer(current_app.config['SECRET_KEY'])
     try:
-        data = s.loads(token)
+        user = User.deserialize(token)
     except SignatureExpired:
         flash('Expired Token', 'danger')
         return redirect(url_for('main.index'))
     except BadSignature:
         flash('Invalid token', 'danger') # TODO: log invalid token attempt w/ IP
         return redirect(url_for('main.index'))
-
-    user = User.query.filter_by(id=data.get('confirm')).first()
 
     form = ResetPasswordForm()
     if form.validate_on_submit():

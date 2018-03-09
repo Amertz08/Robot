@@ -56,3 +56,14 @@ class User(UserMixin, db.Model):
     def generate_token(self, expiration=86400):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
         return s.dumps({'confirm': self.acct_id})
+
+    @classmethod
+    def deserialize(cls, token):
+        """
+        Deserializses token and returns associated user
+        @param token : JWT to deserialize
+        @return : User model associated with token
+        """
+        s = Serializer(current_app.config['SECRET_KEY'])
+        data = s.loads(token)
+        return cls.query.filter_by(id=data.get('confirm')).first()
