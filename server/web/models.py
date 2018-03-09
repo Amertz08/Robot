@@ -24,7 +24,6 @@ class Account(db.Model):
         return f'<Account id: {self.id} company: {self.company_name} >'
 
 
-
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -53,6 +52,8 @@ class User(UserMixin, db.Model):
 
     def reset_password(self, password):
         self.password = self.set_password(password)
+        db.session.add(self)
+        db.session.commit()
 
     def generate_token(self, expiration=86400):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
