@@ -44,7 +44,7 @@ services:
     build: ./web
     volumes:
       - source: ./web
-        target: /app
+        target: /web
         type: bind
     ports:
       - "5000:5000"
