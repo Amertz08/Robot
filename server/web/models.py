@@ -50,10 +50,8 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def reset_password(self, password):
+    def change_password(self, password):
         self.password = self.set_password(password)
-        db.session.add(self)
-        db.session.commit()
 
     def generate_token(self, expiration=86400):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)

@@ -88,7 +88,9 @@ def reset():
 
     form = ResetPasswordForm()
     if form.validate_on_submit():
-        user.reset_password(form.password.data)
+        user.change_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
         flash('Password reset', 'success')
         login_user(user)
         return redirect(url_for('main.index'))
