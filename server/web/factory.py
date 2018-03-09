@@ -4,7 +4,7 @@ from flask_bootstrap import Bootstrap
 
 from config import config
 from models import db, User
-from auth.sendemail import mail
+from utils import mail
 
 def create_app(config_name):
     app = Flask(__name__)
