@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, request, current_app
+from flask import Blueprint, render_template, flash, redirect, url_for, current_app, abort
 from flask_login import login_user, login_required, logout_user, current_user
 
 from forms import LoginForm, SignUpForm
 from models import db, User, Account
-from .sendemail import send_email
+from utils import send_email
 
 auth = Blueprint('auth', __name__)
 
@@ -63,8 +63,7 @@ def confirm(token):
     elif current_user.confirm(token) == 'expire':
         flash('The confirmation link is expired')
     else:
-        flash('The confirmation link is invalid')
-        return redirect(url_for('main.404'))
+        abort(404)
     return redirect(url_for('main.index'))
 
 
@@ -79,10 +78,3 @@ def resend_confirm():
     flash('A new confirmation email is sent to your email address. \
             You have 24 hours to verify your account.')
     return redirect(url_for('main.index'))
-
-
-@auth.route('/unconfirmed')
-def unconfirmed():
-    if current_user.verified:
-        return redirect(url_for('main.index'))
-    return render_template('auth/unconfirmed.html.j2')
