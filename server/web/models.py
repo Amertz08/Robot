@@ -66,5 +66,6 @@ class User(UserMixin, db.Model):
         if data.get('confirm') != self.acct_id:
             return False
         self.verified = True
+        self.verified_date = datetime.datetime.utcnow()
         db.session.add(self)
         return True
