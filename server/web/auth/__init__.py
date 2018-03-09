@@ -6,6 +6,7 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 from forms import LoginForm, SignUpForm, SendResetForm, ResetPasswordForm
 from models import db, User, Account
+from utils import print_debug
 
 auth = Blueprint('auth', __name__)
 
@@ -55,8 +56,7 @@ def send_reset():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
             token = user.generate_token()
-            if current_app.config['DEBUG']:
-                print(url_for('auth.reset', token=token, _external=True))
+            print_debug(url_for('auth.reset', token=token, _external=True))
             # TODO: send email here
         else:
             print('User not found') # TODO: actually log invalid reset attemps
