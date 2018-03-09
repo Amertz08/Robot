@@ -6,8 +6,7 @@ RUN pip install \
     Flask-Bootstrap==3.3.7.1 \
     Flask-SQLAlchemy==2.2 \
     Flask-WTF==0.14 \
-    Flask-Login==0.4.1 \
-    pytest-flask==0.10.0
+    Flask-Login==0.4.1
 
 RUN mkdir /web
 ADD . /web

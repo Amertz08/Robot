@@ -49,6 +49,7 @@ def signup():
         return redirect(url_for('main.index'))  # TODO: Should redirect to dash index
     return render_template('auth/signup.html.j2', form=form)
 
+
 @auth.route('/send-reset', methods=['GET', 'POST'])
 def send_reset():
     form = SendResetForm()
