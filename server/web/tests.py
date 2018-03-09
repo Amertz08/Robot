@@ -7,6 +7,7 @@ from flask_login import login_user
 from factory import create_app
 from models import db, User, Account
 
+
 class BaseTest(TestCase):
 
     def create_app(self):
@@ -48,6 +49,7 @@ class BaseTest(TestCase):
         db.session.add(user)
         db.session.commit()
         return user
+
 
 class TestMain(BaseTest):
 
