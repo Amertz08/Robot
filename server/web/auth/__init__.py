@@ -44,7 +44,7 @@ def signup():
         if current_app.config['DEBUG']:
             print(url_for('auth.confirm', token=token, _external=True))
         send_email(user.email, 'Confirm Your Account',
-                   'auth/email/confirm', user=user, token=token)
+                   'confirm', 'info@example.com', user=user, token=token)
         flash('You have been registered. A confirmation email is sent to your email address. \
                You have 24 hours to verify your account.')
         db.session.commit()
@@ -74,7 +74,7 @@ def resend_confirm():
     if current_app.config['DEBUG']:
         print(url_for('auth.confirm', token=token, _external=True))
     send_email(current_user.email, 'Confirm Your Account',
-               'auth/email/confirm', user=current_user, token=token)
+               'confirm', 'info@example.com', user=current_user, token=token)
     flash('A new confirmation email is sent to your email address. \
             You have 24 hours to verify your account.')
     return redirect(url_for('main.index'))
