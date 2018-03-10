@@ -8,8 +8,8 @@ except ImportError:
     V example V
 
     SMTP = {
-        'user': '',
-        'pw': ''
+        'user': '', # Gmail account
+        'pw': '' # Gmail password
     }
     """)
     exit(1)
