@@ -50,8 +50,8 @@ def signup():
                    'confirm', 'info@example.com', user=user, token=token)
         flash('You have been registered. A confirmation email is sent to your email address. \
                You have 24 hours to verify your account.')
-        db.session.commit()
         login_user(user)
+        return redirect(url_for('main.index'))
     return render_template('auth/signup.html.j2', form=form)
 
 
