@@ -95,8 +95,8 @@ def get_graph_details_from_user():
 def parse_output_data(path):
     output_data = []
     for num, node in enumerate(path):
-        if(num+1 is not len(path)):
-            key = (node,path[num+1])
+        if(num + 1 is not len(path)):
+            key = (node,path[num + 1])
             data = (node, directions_dict[key])
             output_data.append(data)
     end_data = (end_node, '*')
