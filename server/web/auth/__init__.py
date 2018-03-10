@@ -15,7 +15,9 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         login_user(user)
         if not user.verified:
-            flash('Your account is still not verified', 'danger')
+            url = url_for('auth.resend_confirm')
+            link = f'<a href="{url}">Resend</a>'
+            flash(f'Your account is still not verified. {link}', 'danger')
         flash('Login Successful', 'success')
         return redirect(url_for('main.index'))  # TODO: Should redirect to dash index
     return render_template('auth/login.html.j2', form=form)
