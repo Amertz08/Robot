@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 
@@ -16,6 +16,10 @@ def create_app(config_name):
     login_manager = LoginManager(app)
     login_manager.login_view = 'auth.login'
     login_manager.session_protection = 'strong'
+
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return render_template('errors/404.html.j2'), 404
 
     @login_manager.user_loader
     def load_user(user_id):
