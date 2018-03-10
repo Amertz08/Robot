@@ -17,6 +17,7 @@ def send_email(to, subject, template, sender, **kwargs):
     msg = Message(subject, sender=sender, recipients=to)
     msg.body = render_template(f'email/{template}.txt.j2', **kwargs)
     msg.html = render_template(f'email/{template}.html.j2', **kwargs)
-    thr = Thread(target=send_async_email, args=[app, msg])
-    thr.start()
-    return thr
+    if app.config['DEBUG']:
+        send_async_email(app, msg)
+    else:
+        Thread(target=send_async_email, args=[app, msg]).start()
