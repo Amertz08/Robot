@@ -2,6 +2,47 @@
 
 Progress and notes from the previous lab up to the end of the lab for the given date.
 
+## Week of 3/9/18
+
+### Progress
+
+Adam
+
+
+Nick
+
+
+Haozhan
+
+
+Collin
+- [#86](https://github.com/Amertz08/Robot/issues/86) - Design PCB for motors - Make necessary changes to board.
+- Finished working with Nick to regain power and drviability to the robot.
+- [#91](https://github.com/Amertz08/Robot/issues/91) - Create PCB for sensors
+- [#40](https://github.com/Amertz08/Robot/issues/40) - Finished directional capabilities to route detection
+- [#41](https://github.com/Amertz08/Robot/issues/41) - Finished efficient route selection
+
+### WIP
+
+Adam
+
+Nick
+
+Haozhan
+
+Collin
+- None (On Vacation)
+
+### Plans
+
+Adam
+
+Nick
+
+Haozhan
+
+Collin
+- None (On vacation)
 ## Week of 3/2/18
 
 ### Progress
