@@ -42,6 +42,7 @@ def signup():
                     email=form.email.data,
                     password=form.password.data)
         db.session.add(user)
+        db.session.commit()
         token = user.generate_token()
         if current_app.config['DEBUG']:
             print(url_for('auth.confirm', token=token, _external=True))
