@@ -1,3 +1,4 @@
+import datetime
 import unittest
 
 from flask import url_for
@@ -109,6 +110,19 @@ class TestAuth(BaseTest):
         resp = self.login('adam@example.com', 'pass', False)
         self.assertRedirects(resp, url_for('main.index'), 'Should redirect to main.index')
 
+    def test_login_unverified_message(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Adam', 'Test', 'adam@example.com', 'pass')
+
+        resp = self.login('adam@example.com', 'pass')
+        self.assertIn(b'Your account is still not verified.', resp.data, 'Unverified message does not appear')
+        self.logout()
+        user.verified = True
+        user.verified_date = datetime.datetime.utcnow()
+        db.session.add(user)
+        db.session.commit()
+        resp = self.login('adam@example.com', 'pass')
+        self.assertNotIn(b'Your account is still not verified.', resp.data, 'Unverified message does not appear')
 
 
 if __name__ == '__main__':
