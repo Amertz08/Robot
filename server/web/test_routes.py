@@ -124,6 +124,60 @@ class TestAuth(BaseTest):
         resp = self.login('adam@example.com', 'pass')
         self.assertNotIn(b'Your account is still not verified.', resp.data, 'Unverified message does not appear')
 
+    def test_send_reset_basic(self):
+        resp = self.client.get(url_for('auth.send_reset'))
+        self.assert200(resp)
+        self.assert_template_used('auth/send-reset.html.j2')
+
+    def test_send_reset_invalid_user(self):
+        resp = self.client.post(url_for('auth.send_reset'), data={'email': 'steve@example.com'})
+        self.assertRedirects(resp, url_for('main.index'))
+
+        resp = self.client.post(url_for('auth.send_reset'), data={'email': 'steve@example.com'}, follow_redirects=True)
+        self.assert200(resp)
+        self.assertIn(b'An email will be sent with a link to reset your password', resp.data, 'Email send message not displayed')
+
+    def test_reset_no_token(self):
+        resp = self.client.get(url_for('auth.reset'))
+        self.assert404(resp)
+
+    def test_valid_token_no_follow(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Adam', 'Test', 'adam@example.com', 'pass')
+
+        token = user.generate_token()
+        resp = self.client.get(url_for('auth.reset', token=token))
+        self.assert200(resp)
+        self.assert_template_used('auth/reset.html.j2')
+
+        data = {
+            'password': 'newpass',
+            'confirm': 'newpass'
+        }
+        resp = self.client.post(url_for('auth.reset', token=token), data=data)
+        self.assertRedirects(resp, url_for('main.index'))
+
+    def test_valid_token_with_follow(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Adam', 'Test', 'adam@example.com', 'pass')
+
+        token = user.generate_token()
+        resp = self.client.get(url_for('auth.reset', token=token))
+        self.assert200(resp)
+
+        data = {
+            'password': 'newpass',
+            'confirm': 'newpass'
+        }
+        resp = self.client.post(url_for('auth.reset', token=token), data=data, follow_redirects=True)
+        self.assert200(resp)
+        self.assertIn(b'Password reset', resp.data)
+
+        resp = self.login('adam@example.com', 'pass')
+        self.assertIn(b'Invalid Email/Password', resp.data)
+        resp = self.login('adam@example.com', 'newpass')
+        self.assertIn(b'Login Successful', resp.data)
+
 
 if __name__ == '__main__':
     unittest.main()
