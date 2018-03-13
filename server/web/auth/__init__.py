@@ -47,8 +47,7 @@ def signup():
         db.session.add(user)
         db.session.commit()
         token = user.generate_token()
-        if current_app.config['DEBUG']:
-            print(url_for('auth.confirm', token=token, _external=True))
+        print_debug(url_for('auth.confirm', token=token, _external=True))
         send_email(user.email, 'Confirm Your Account',
                    'confirm', 'info@example.com', user=user, token=token)
         flash('You have been registered. A confirmation email is sent to your email address. \
@@ -102,6 +101,7 @@ def reset():
         return redirect(url_for('main.index'))
     return render_template('auth/reset.html.j2', form=form)
 
+
 @auth.route('/confirm/<token>')
 @login_required
 def confirm(token):
@@ -121,8 +121,7 @@ def confirm(token):
 @login_required
 def resend_confirm():
     token = current_user.generate_token()
-    if current_app.config['DEBUG']:
-        print(url_for('auth.confirm', token=token, _external=True))
+    print_debug(url_for('auth.confirm', token=token, _external=True))
     send_email(current_user.email, 'Confirm Your Account',
                'confirm', 'info@example.com', user=current_user, token=token)
     flash('A new confirmation email is sent to your email address. \
