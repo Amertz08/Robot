@@ -1,6 +1,11 @@
-<p>Dear {{ user.first_name }},</p>
-<p>Welcome!</p>
-<p>To confirm your account please click on the following link:</p>
-<p>{{ url_for('auth.confirm', token=token, _external=True) }}</p>
-<p>Sincerely,</p>
-<p>Note: replies to this email address are not monitored.</p>
+<div>
+  <h3>Dear {{ user.first_name }},</h3>
+  <p>
+    Welcome! To confirm your account please click on the following <a href="{{ url_for('auth.confirm', token=token, _external=True) }}" >link.</a>
+  </p>
+  <p>
+    Sincerely,<br>
+    Our team<br>
+    <small>Note: replies to this email address are not monitored.</small>
+  </p>
+</div>
