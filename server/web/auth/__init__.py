@@ -1,4 +1,5 @@
-from flask import Blueprint, abort, render_template, flash, redirect, url_for, current_app
+from flask import Blueprint, abort, render_template, flash, \
+                    request, redirect, url_for, current_app
 from flask_login import login_user, login_required, logout_user, current_user
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
@@ -65,12 +66,11 @@ def send_reset():
         if user:
             token = user.generate_token()
             print_debug(url_for('auth.reset', token=token, _external=True))
-            # TODO: send email here
+            send_email(user.email, 'Reset your password',
+                    'reset-pw', 'info@example.com',token=token
+            )
         else:
             print('User not found') # TODO: actually log invalid reset attemps
-
-        warnings.warn('send_reset not fully implemented') # TODO: dependent on email function
-
         flash('An email will be sent with a link to reset your password', 'success')
         return redirect(url_for('main.index'))
     return render_template('auth/send-reset.html.j2', form=form)
