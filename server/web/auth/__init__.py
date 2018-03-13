@@ -2,6 +2,7 @@ from flask import Blueprint, abort, render_template, flash, \
                     request, redirect, url_for, current_app
 from flask_login import login_user, login_required, logout_user, current_user
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from itsdangerous import SignatureExpired, BadSignature
 
 from forms import LoginForm, SignUpForm, SendResetForm, ResetPasswordForm
 from models import db, User, Account
