@@ -8,7 +8,8 @@ RUN pip install \
     Flask-WTF==0.14 \
     Flask-Login==0.4.1 \
     blinker==1.4.0 \
-    Flask-Testing==0.6.0
+    Flask-Testing==0.6.0 \
+    Flask-Mail==0.9.1
 
 RUN mkdir /web
 ADD . /web

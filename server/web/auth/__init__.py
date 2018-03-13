@@ -1,12 +1,10 @@
-import warnings
-
-from flask import Blueprint, abort, render_template, flash, redirect, url_for, current_app, request
-from flask_login import login_user, login_required, logout_user
+from flask import Blueprint, abort, render_template, flash, redirect, url_for, current_app
+from flask_login import login_user, login_required, logout_user, current_user
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 from forms import LoginForm, SignUpForm, SendResetForm, ResetPasswordForm
 from models import db, User, Account
-from utils import print_debug
+from utils import send_email, print_debug
 
 auth = Blueprint('auth', __name__)
 
@@ -17,8 +15,12 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         login_user(user)
+        if not user.verified:
+            url = url_for('auth.resend_confirm')
+            link = f'<a href="{url}">Resend</a>'
+            flash(f'Your account is still not verified. {link}', 'danger')
         flash('Login Successful', 'success')
-        return redirect(url_for('main.index')) # TODO: Should redirect to dash index
+        return redirect(url_for('main.index'))  # TODO: Should redirect to dash index
     return render_template('auth/login.html.j2', form=form)
 
 
@@ -44,9 +46,15 @@ def signup():
                     password=form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('You have been registered')
+        token = user.generate_token()
+        if current_app.config['DEBUG']:
+            print(url_for('auth.confirm', token=token, _external=True))
+        send_email(user.email, 'Confirm Your Account',
+                   'confirm', 'info@example.com', user=user, token=token)
+        flash('You have been registered. A confirmation email is sent to your email address. \
+               You have 24 hours to verify your account.')
         login_user(user)
-        return redirect(url_for('main.index'))  # TODO: Should redirect to dash index
+        return redirect(url_for('main.index'))
     return render_template('auth/signup.html.j2', form=form)
 
 
@@ -93,3 +101,30 @@ def reset():
         login_user(user)
         return redirect(url_for('main.index'))
     return render_template('auth/reset.html.j2', form=form)
+
+@auth.route('/confirm/<token>')
+@login_required
+def confirm(token):
+    if current_user.verified:
+        return redirect(url_for('main.index'))
+    if current_user.confirm(token):
+        db.session.commit()
+        flash('You have verified your account!')
+    elif current_user.confirm(token) == 'expire':
+        flash('The confirmation link is expired')
+    else:
+        abort(404)
+    return redirect(url_for('main.index'))
+
+
+@auth.route('/confirm')
+@login_required
+def resend_confirm():
+    token = current_user.generate_token()
+    if current_app.config['DEBUG']:
+        print(url_for('auth.confirm', token=token, _external=True))
+    send_email(current_user.email, 'Confirm Your Account',
+               'confirm', 'info@example.com', user=current_user, token=token)
+    flash('A new confirmation email is sent to your email address. \
+            You have 24 hours to verify your account.')
+    return redirect(url_for('main.index'))

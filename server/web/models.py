@@ -9,6 +9,7 @@ from itsdangerous import SignatureExpired, BadSignature
 
 db = SQLAlchemy()
 
+
 class Account(db.Model):
     __tablename__ = 'accounts'
     id = db.Column(db.Integer, primary_key=True)
@@ -23,7 +24,6 @@ class Account(db.Model):
     def __repr__(self):
         return f'<Account id: {self.id} company: {self.company_name} >'
 
-
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -32,6 +32,10 @@ class User(UserMixin, db.Model):
     last_name = db.Column(db.String(64))
     email = db.Column(db.String(64), unique=True, index=True)
     password = db.Column(db.String(128))
+
+    verified = db.Column(db.Boolean, default=False)
+    verified_date = db.Column(db.DateTime)
+    active = db.Column(db.Boolean, default=True)
 
     def __init__(self, acct_id, first_name, last_name, email, password):
         self.acct_id = acct_id
@@ -67,3 +71,18 @@ class User(UserMixin, db.Model):
         s = Serializer(current_app.config['SECRET_KEY'])
         data = s.loads(token)
         return cls.query.filter_by(id=data.get('confirm')).first()
+
+    def confirm(self, token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token)
+        except SignatureExpired:
+            return 'expired'
+        except BadSignature:
+            return False
+        if data.get('confirm') != self.acct_id:
+            return False
+        self.verified = True
+        self.verified_date = datetime.datetime.utcnow()
+        db.session.add(self)
+        return True
