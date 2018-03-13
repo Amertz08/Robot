@@ -102,9 +102,12 @@ def reset():
     return render_template('auth/reset.html.j2', form=form)
 
 
-@auth.route('/confirm/<token>')
+@auth.route('/confirm')
 @login_required
-def confirm(token):
+def confirm():
+    token = request.args.get('token')
+    if not token:
+        abort(404)
     if current_user.verified:
         return redirect(url_for('main.index'))
     if current_user.confirm(token):
