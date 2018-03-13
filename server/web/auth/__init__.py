@@ -13,7 +13,7 @@ auth = Blueprint('auth', __name__)
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user = User.get(form.email.data)
         login_user(user)
         if not user.verified:
             url = url_for('auth.resend_confirm')
@@ -61,7 +61,7 @@ def signup():
 def send_reset():
     form = SendResetForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user = User.get(form.email.data)
         if user:
             token = user.generate_token()
             print_debug(url_for('auth.reset', token=token, _external=True))

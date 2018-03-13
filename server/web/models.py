@@ -47,6 +47,13 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return f'<User id: {self.id} first: {self.first_name} last: {self.last_name} >'
 
+    @classmethod
+    def get(cls, email):
+        """
+        Returns user model or None with the given email
+        """
+        return cls.query.filter_by(email=email).first()
+
     @staticmethod
     def set_password(password):
         return generate_password_hash(password)
@@ -59,7 +66,7 @@ class User(UserMixin, db.Model):
 
     def generate_token(self, expiration=86400):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
-        return s.dumps({'confirm': self.id})
+        return s.dumps({'confirm': self.email})
 
     @classmethod
     def deserialize(cls, token):
@@ -70,7 +77,7 @@ class User(UserMixin, db.Model):
         """
         s = Serializer(current_app.config['SECRET_KEY'])
         data = s.loads(token)
-        return cls.query.filter_by(id=data.get('confirm')).first()
+        return cls.get(data.get('confirm'))
 
     def confirm(self, token):
         s = Serializer(current_app.config['SECRET_KEY'])
@@ -80,7 +87,7 @@ class User(UserMixin, db.Model):
             return 'expired'
         except BadSignature:
             return False
-        if data.get('confirm') != self.acct_id:
+        if data.get('confirm') != self.email:
             return False
         self.verified = True
         self.verified_date = datetime.datetime.utcnow()
