@@ -1,4 +1,5 @@
 import datetime
+import time
 import unittest
 
 from flask import url_for
@@ -141,7 +142,7 @@ class TestAuth(BaseTest):
         resp = self.client.get(url_for('auth.reset'))
         self.assert404(resp)
 
-    def test_valid_token_no_follow(self):
+    def test_reset_valid_token_no_follow(self):
         acct = self.add_acct('Test Company')
         user = self.add_user(acct.id, 'Adam', 'Test', 'adam@example.com', 'pass')
 
@@ -157,7 +158,7 @@ class TestAuth(BaseTest):
         resp = self.client.post(url_for('auth.reset', token=token), data=data)
         self.assertRedirects(resp, url_for('main.index'))
 
-    def test_valid_token_with_follow(self):
+    def test_reset_valid_token_with_follow(self):
         acct = self.add_acct('Test Company')
         user = self.add_user(acct.id, 'Adam', 'Test', 'adam@example.com', 'pass')
 
@@ -177,6 +178,17 @@ class TestAuth(BaseTest):
         self.assertIn(b'Invalid Email/Password', resp.data)
         resp = self.login('adam@example.com', 'newpass')
         self.assertIn(b'Login Successful', resp.data)
+
+    def test_reset_expired_token(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Adam', 'Test', 'adam@example.com', 'pass')
+
+        token = user.generate_token(1)
+        time.sleep(2)
+        resp = self.client.get(url_for('auth.reset', token=token))
+        self.assertRedirects(resp, url_for('main.index'))
+        resp = self.client.get(url_for('auth.reset', token=token), follow_redirects=True)
+        self.assertIn(b'Expired Token', resp.data, 'Expired token message not appearing')
 
 
 if __name__ == '__main__':
