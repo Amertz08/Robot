@@ -25,8 +25,9 @@ uint8_t m_leftSpeed;
 uint8_t m_rightDirection;
 uint8_t m_rightSpeed;
 
-const uint8_t FWD = 0;
-const uint8_t BKWD = 1;
+const uint8_t STOP = 0;
+const uint8_t FWD = 1;
+const uint8_t BKWD = 2;
 const uint8_t MAX_SPEED = 150;
 const uint8_t MAX_OBSTACLE_DISTANCE = 8;
 
@@ -127,7 +128,7 @@ void writeSpeed(int writeAddress, uint8_t leftDirection, uint8_t leftSpeed, uint
 }
 
 void stopMotors() {
-  writeSpeed(motor_arduino_address, FWD, 0, FWD, 0);
+  writeSpeed(motor_arduino_address, STOP, 0, STOP, 0);
 }
 
 /*drive bot in a straight line*/
