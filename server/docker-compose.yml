@@ -46,6 +46,7 @@ services:
       - source: ./web
         target: /web
         type: bind
+      - "web-logs:/var/log"
     ports:
       - "5000:5000"
     dns:
@@ -54,3 +55,4 @@ services:
 volumes:
   db-data:
   bot-logs:
+  web-logs:
