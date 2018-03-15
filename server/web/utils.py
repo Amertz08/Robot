@@ -37,7 +37,7 @@ def send_email(to, subject, template, sender, **kwargs):
     msg = Message(subject, sender=sender, recipients=to)
     msg.body = render_template(f'email/{template}.txt.j2', **kwargs)
     msg.html = render_template(f'email/{template}.html.j2', **kwargs)
-    if app.config['DEBUG']:
+    if app.debug:
         send_async_email(app, msg)
     else:
         Thread(target=send_async_email, args=[app, msg]).start()
@@ -47,5 +47,5 @@ def print_debug(message):
     Prints a message only when app is in debug mode
     @param message : message to print
     """
-    if current_app.config['DEBUG']:
+    if current_app.debug:
         print(message)
