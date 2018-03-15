@@ -20,6 +20,8 @@ import yaml
 ##################################################################################
 graph = Graph.Graph()
 DIRECTIONS = ('N', 'S', 'E', 'W')
+directions_dict = {}
+end_node = ""
 ##################################################################################
 ##                                                                              ##
 ##                            Functions/Methods                                 ##
@@ -27,6 +29,7 @@ DIRECTIONS = ('N', 'S', 'E', 'W')
 ##################################################################################
 
 def load_config(config_file):
+    global directions_dict
     '''Loads config file'''
     global graph
     with open(config_file, "r") as ymlfile:
@@ -35,7 +38,8 @@ def load_config(config_file):
         graph.add_vertex(node['name'])
         for connected_nodes in node['connected_nodes']:
             graph.add_edge((node['name'], connected_nodes['connected_node']))
-            #Add directional support here
+            pair = (node,node['name'])
+            directions_dict[(node['name'], connected_nodes['connected_node'])] = connected_nodes['direction']
 
 def get_node(node_type):
     '''Gets start/end node'''
@@ -73,7 +77,6 @@ def get_graph_details_from_user():
         new_name = input(f"Please enter a name for node {node}\n")
         graph.add_vertex(new_name)
 
-    print(graph.vertices)
     for node in graph.vertices:
         another_node = True
         while another_node:
@@ -89,26 +92,47 @@ def get_graph_details_from_user():
             else:
                 another_node = bool_input("Invalid node name given. Is there a node connected?")
 
+def parse_output_data(path):
+    output_data = []
+    for num, node in enumerate(path):
+        if(num + 1 is not len(path)):
+            key = (node,path[num + 1])
+            data = (node, directions_dict[key])
+            output_data.append(data)
+    end_data = (end_node, '*')
+    output_data.append(end_data)
+    print(output_data)#This data will be sent with JSON
+
 def main():
     '''Core app'''
     global graph
+    global end_node
     parser = argparse.ArgumentParser()
-    parser.add_argument("-c", help="Optional config file to streamline graph creation.")
+    parser.add_argument("-c", help = "Optional config file to streamline graph creation.")
+    parser.add_argument("-start", help = "Optional start node. If not provided user input REQUIRED")
+    parser.add_argument("-end", help = "Optional end node. If not provided user input REQUIRED")
     args = parser.parse_args()
     if args.c:
         load_config(args.c)
     else:
         get_graph_details_from_user()
-    start_node = get_node('start')
-    end_node = get_node('end')
-    paths = graph.find_path(start_node, end_node)
-    print("This is a single path: ")
-    print(paths)
+    if not args.start:
+        start_node = get_node('start')
+    else:
+        start_node = args.start
+    if not args.end:
+        end_node = get_node('end')
+    else:
+        end_node = args.end
     all_paths = graph.find_all_paths(start_node, end_node)
-    print("These are all possible paths: ")
-    print(all_paths)
-    for p in all_paths:
-        print(p)
+    shortest_path = []
+    for num, p in enumerate(all_paths):
+        if num == 0:
+            shortest_path = p;
+        else:
+            if len(p) < len(shortest_path):
+                shortest_path = p;
+    parse_output_data(shortest_path)
 
 ##################################################################################
 ##                                                                              ##
