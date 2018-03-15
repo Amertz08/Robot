@@ -8,7 +8,7 @@ from itsdangerous import SignatureExpired, BadSignature
 
 from forms import LoginForm, SignUpForm, SendResetForm, ResetPasswordForm
 from models import db, User, Account
-from utils import send_email, print_debug
+from utils import send_email, print_debug, log_message
 
 auth = Blueprint('auth', __name__)
 
@@ -19,6 +19,7 @@ def login():
     if form.validate_on_submit():
         user = User.get(form.email.data)
         login_user(user)
+        log_message(f'user_id: {user.id} logged in')
         if not user.verified:
             url = url_for('auth.resend_confirm')
             link = f'<a href="{url}">Resend</a>'
@@ -31,6 +32,7 @@ def login():
 @auth.route('/logout')
 @login_required
 def logout():
+    log_message(f'user_id: {current_user.id} logged out')
     logout_user()
     flash('Logged out', 'success')
     return redirect(url_for('main.index'))
@@ -57,6 +59,7 @@ def signup():
         flash('You have been registered. A confirmation email is sent to your email address. \
                You have 24 hours to verify your account.')
         login_user(user)
+        log_message(f'acct_id: {acct.id} just signed up')
         return redirect(url_for('main.index'))
     return render_template('auth/signup.html.j2', form=form)
 
@@ -65,6 +68,7 @@ def signup():
 def send_reset():
     form = SendResetForm()
     if form.validate_on_submit():
+        log_message(f'{form.email.data} attempted to send password reset email')
         user = User.get(form.email.data)
         if user:
             token = user.generate_token()
@@ -72,8 +76,9 @@ def send_reset():
             send_email(user.email, 'Reset your password',
                     'reset-pw', 'info@example.com',token=token
             )
+            log_message(f'user_id: {user.id} sent password reset')
         else:
-            print('User not found') # TODO: actually log invalid reset attemps
+            log_message(f'{form.email.data} is an invalid email')
         flash('An email will be sent with a link to reset your password', 'success')
         return redirect(url_for('main.index'))
     return render_template('auth/send-reset.html.j2', form=form)
@@ -83,19 +88,23 @@ def send_reset():
 def reset():
     token = request.args.get('token')
     if not token:
+        log_message(f'no token attempted reset')
         abort(404)
 
     try:
         user = User.deserialize(token)
     except SignatureExpired:
         flash('Expired Token', 'danger')
+        log_message(f'user_id: {user.id} expired token reset attempt')
         return redirect(url_for('main.index'))
     except BadSignature:
-        flash('Invalid token', 'danger') # TODO: log invalid token attempt w/ IP
+        flash('Invalid token', 'danger')
+        log_message('bad signature reset attempt')
         return redirect(url_for('main.index'))
 
     form = ResetPasswordForm()
     if form.validate_on_submit():
+        log_message(f'user_id: {user.id} changed password')
         user.change_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -109,7 +118,8 @@ def reset():
 def confirm():
     token = request.args.get('token')
     if not token:
-        abort(404) # TODO: log
+        log_message('no token attempted verification')
+        abort(404)
     try:
         user = User.deserialize(token)
         if user.verified:
@@ -119,12 +129,15 @@ def confirm():
         user.verified_date = datetime.datetime.utcnow()
         db.session.add(user)
         db.session.commit()
-        flash('You have verified your account!') # TODO: log
+        flash('You have verified your account!')
+        log_message(f'user_id: {user.id} verified their account')
         return redirect(url_for('main.index'))
-    except SignatureExpired: # TODO: log
+    except SignatureExpired:
         flash('The confirmation link is expired')
+        log_message('expired token on account verification')
     except BadSignature:
-        abort(404) # TODO: log
+        log_message('bad signature verification attempt')
+        abort(404)
     return redirect(url_for('main.index'))
 
 
@@ -137,4 +150,5 @@ def resend_confirm():
                'confirm', 'info@example.com', user=current_user, token=token)
     flash('A new confirmation email is sent to your email address. \
             You have 24 hours to verify your account.')
+    log_message(f'user_id: {current_user.id} resent their confirmation email')
     return redirect(url_for('main.index'))
