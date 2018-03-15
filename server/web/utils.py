@@ -21,3 +21,11 @@ def send_email(to, subject, template, sender, **kwargs):
         send_async_email(app, msg)
     else:
         Thread(target=send_async_email, args=[app, msg]).start()
+
+def print_debug(message):
+    """
+    Prints a message only when app is in debug mode
+    @param message : message to print
+    """
+    if current_app.config['DEBUG']:
+        print(message)

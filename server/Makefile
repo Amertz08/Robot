@@ -80,3 +80,7 @@ wlogweb:
 # Enter web container
 bashweb:
 	$(DC) exec web bash
+
+# Run tests on web container
+testroutes:
+	$(DC) exec web python test_routes.py
