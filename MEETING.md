@@ -10,7 +10,10 @@ Adam
 
 
 Nick
-
+- [#35](https://github.com/Amertz08/Robot/issues/35) - Worked with Colling on boards
+- [#83](https://github.com/Amertz08/Robot/issues/83) - Step down PCB
+- Soldered new PCBs
+- Wired up components and tested power
 
 Haozhan
 
@@ -27,6 +30,7 @@ Collin
 Adam
 
 Nick
+- [#89](https://github.com/Amertz08/Robot/issues/86) - Update ino for motor arduino
 
 Haozhan
 
@@ -38,6 +42,8 @@ Collin
 Adam
 
 Nick
+- [#87](https://github.com/Amertz08/Robot/issues/87) - Order HXT connectors
+- Mount components
 
 Haozhan
 
