@@ -78,18 +78,3 @@ class User(UserMixin, db.Model):
         s = Serializer(current_app.config['SECRET_KEY'])
         data = s.loads(token)
         return cls.get(data.get('confirm'))
-
-    def confirm(self, token):
-        s = Serializer(current_app.config['SECRET_KEY'])
-        try:
-            data = s.loads(token)
-        except SignatureExpired:
-            return 'expired'
-        except BadSignature:
-            return False
-        if data.get('confirm') != self.email:
-            return False
-        self.verified = True
-        self.verified_date = datetime.datetime.utcnow()
-        db.session.add(self)
-        return True

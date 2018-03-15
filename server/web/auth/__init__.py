@@ -1,3 +1,5 @@
+import datetime
+
 from flask import Blueprint, abort, render_template, flash, \
                     request, redirect, url_for, current_app
 from flask_login import login_user, login_required, logout_user, current_user
@@ -104,20 +106,25 @@ def reset():
 
 
 @auth.route('/confirm')
-@login_required
 def confirm():
     token = request.args.get('token')
     if not token:
-        abort(404)
-    if current_user.verified:
-        return redirect(url_for('main.index'))
-    if current_user.confirm(token):
+        abort(404) # TODO: log
+    try:
+        user = User.deserialize(token)
+        if user.verified:
+            flash('Your account is already verified')
+            return redirect(url_for('main.index'))
+        user.verified = True
+        user.verified_date = datetime.datetime.utcnow()
+        db.session.add(user)
         db.session.commit()
-        flash('You have verified your account!')
-    elif current_user.confirm(token) == 'expire':
+        flash('You have verified your account!') # TODO: log
+        return redirect(url_for('main.index'))
+    except SignatureExpired: # TODO: log
         flash('The confirmation link is expired')
-    else:
-        abort(404)
+    except BadSignature:
+        abort(404) # TODO: log
     return redirect(url_for('main.index'))
 
 
