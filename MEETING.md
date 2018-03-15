@@ -2,6 +2,46 @@
 
 Progress and notes from the previous lab up to the end of the lab for the given date.
 
+## Week of 3/16/18
+
+### Progress
+
+Adam
+
+Nick
+- Tested powered up components
+- [#89](https://github.com/Amertz08/Robot/issues/89) - Uploaded changes to Motor Arduino
+- [#87](https://github.com/Amertz08/Robot/issues/87) - Ordered connectors for battery
+
+Haozhan
+
+
+Collin
+- None(on vacation)
+
+### WIP
+
+Adam
+
+Nick
+- Started screwing on lock nuts and mounting components
+
+Haozhan
+
+Collin
+
+### Plans
+
+Adam
+
+Nick
+- Test robot driving on line
+
+Haozhan
+
+Collin
+- None (On vacation)
+
 ## Week of 3/9/18
 
 ### Progress
