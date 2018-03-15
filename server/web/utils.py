@@ -1,6 +1,7 @@
-from flask_mail import Message, Mail
 from threading import Thread
-from flask import render_template, current_app
+
+from flask import render_template, current_app, request
+from flask_mail import Message, Mail
 
 mail = Mail()
 
@@ -8,6 +9,25 @@ mail = Mail()
 def send_async_email(app, msg):
     with app.app_context():
         mail.send(msg)
+
+def log_message(msg, lvl='info'):
+    """
+    Logs message for given level
+    @param msg : log message
+    @param lvl : (default: info) - Log level
+    """
+    extra = {
+        'remote_addr': request.remote_addr,
+        'url': request.url
+    }
+    loggers = {
+        'warning': current_app.logger.warning,
+        'info': current_app.logger.info,
+        'debug': current_app.logger.debug,
+        'error': current_app.logger.error,
+        'critical': current_app.logger.critical
+    }
+    loggers[lvl](msg, extra=extra)
 
 
 def send_email(to, subject, template, sender, **kwargs):
