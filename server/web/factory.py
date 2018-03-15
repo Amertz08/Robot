@@ -1,4 +1,7 @@
+import logging
+
 from flask import Flask, render_template
+from flask.logging import _should_log_for
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 
@@ -16,6 +19,20 @@ def create_app(config_name):
     login_manager = LoginManager(app)
     login_manager.login_view = 'auth.login'
     login_manager.session_protection = 'strong'
+
+    fmt = logging.Formatter(app.config['LOG_FORMAT'])
+
+    handler = logging.StreamHandler()
+    handler.setFormatter(fmt)
+    handler.setLevel(logging.INFO)
+    app.logger.addHandler(handler)
+
+    if not app.debug:
+        file_handler = logging.RotatingFileHandler(app.config['LOG_FILE'], maxBytes=10000)
+        file_handler.setLevel(logging.INFO)
+        file_handler.setFormatter(fmt)
+        app.logger.addHandler(handler)
+
 
     @app.errorhandler(404)
     def page_not_found(e):
