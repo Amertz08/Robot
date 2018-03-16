@@ -14,6 +14,7 @@ Nick
 - [#87](https://github.com/Amertz08/Robot/issues/87) - Ordered connectors for battery
 
 Haozhan
+- None
 
 
 Collin
@@ -27,6 +28,7 @@ Nick
 - Started screwing on lock nuts and mounting components
 
 Haozhan
+- None
 
 Collin
 
@@ -38,6 +40,8 @@ Nick
 - Test robot driving on line
 
 Haozhan
+- [#93](https://github.com/Amertz08/Robot/issues/93) - Account management
+- [#94](https://github.com/Amertz08/Robot/issues/94) - Test for auth route
 
 Collin
 - None (On vacation)
