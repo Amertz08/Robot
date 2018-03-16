@@ -16,7 +16,7 @@ Nick
 - Wired up components and tested power
 
 Haozhan
-
+- [#79](https://github.com/Amertz08/Robot/issues/79) - User verification
 
 Collin
 - [#86](https://github.com/Amertz08/Robot/issues/86) - Design PCB for motors - Make necessary changes to board.
@@ -34,6 +34,7 @@ Nick
 - [#89](https://github.com/Amertz08/Robot/issues/86) - Update ino for motor arduino
 
 Haozhan
+- 
 
 Collin
 - None (On Vacation)
@@ -48,6 +49,7 @@ Nick
 - Mount components
 
 Haozhan
+- None
 
 Collin
 - None (On vacation)
