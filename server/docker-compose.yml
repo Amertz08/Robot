@@ -38,7 +38,7 @@ services:
       - MYSQL_PASSWORD=pass
       - MYSQL_DATABASE=Development
     volumes:
-      - "db-data:/data/db"
+      - "db-data:/var/lib/mysql"
 
   web:
     build: ./web
