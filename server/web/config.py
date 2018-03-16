@@ -27,6 +27,7 @@ class Config(object):
     LOG_FILE = '/var/log/web.log'
     LOG_FORMAT = '[%(asctime)s] [%(remote_addr)s] [%(url)s] [%(levelname)s] [%(message)s]'
 
+    @staticmethod
     def init_app(app):
         pass
 
