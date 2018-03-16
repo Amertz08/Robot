@@ -18,7 +18,7 @@ def log_message(msg, lvl='info'):
     """
     extra = {
         'remote_addr': request.remote_addr,
-        'url': request.url
+        'url': request.url_rule
     }
     loggers = {
         'warning': current_app.logger.warning,
