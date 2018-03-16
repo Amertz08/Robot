@@ -34,7 +34,7 @@ Nick
 - [#89](https://github.com/Amertz08/Robot/issues/86) - Update ino for motor arduino
 
 Haozhan
-- 
+- None
 
 Collin
 - None (On Vacation)
