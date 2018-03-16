@@ -7,6 +7,8 @@ Progress and notes from the previous lab up to the end of the lab for the given 
 ### Progress
 
 Adam
+- [#96](https://github.com/Amertz08/Robot/issues/96) - Application logging
+- [#95](https://github.com/Amertz08/Robot/issues/95) - Password reset workflow
 
 Nick
 - Tested powered up components
@@ -23,6 +25,7 @@ Collin
 ### WIP
 
 Adam
+- N/A
 
 Nick
 - Started screwing on lock nuts and mounting components
@@ -35,6 +38,7 @@ Collin
 ### Plans
 
 Adam
+- [#80](https://github.com/Amertz08/Robot/issues/80) - Dashboard route
 
 Nick
 - Test robot driving on line
