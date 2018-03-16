@@ -2,6 +2,58 @@
 
 Progress and notes from the previous lab up to the end of the lab for the given date.
 
+## Week of 3/9/18
+
+### Progress
+
+Adam
+- Worked on password reset workflow
+
+Nick
+- [#35](https://github.com/Amertz08/Robot/issues/35) - Worked with Collin on boards
+- [#83](https://github.com/Amertz08/Robot/issues/83) - Step down PCB
+- Soldered new PCBs
+- Wired up components and tested power
+
+Haozhan
+- [#79](https://github.com/Amertz08/Robot/issues/79) - User verification
+
+Collin
+- [#86](https://github.com/Amertz08/Robot/issues/86) - Design PCB for motors - Make necessary changes to board.
+- Finished working with Nick to regain power and drivability to the robot.
+- [#91](https://github.com/Amertz08/Robot/issues/91) - Create PCB for sensors
+- [#40](https://github.com/Amertz08/Robot/issues/40) - Finished directional capabilities to route detection
+- [#41](https://github.com/Amertz08/Robot/issues/41) - Finished efficient route selection
+
+### WIP
+
+Adam
+- IDK
+
+Nick
+- [#89](https://github.com/Amertz08/Robot/issues/86) - Update ino for motor arduino
+
+Haozhan
+- None
+
+Collin
+- None (On Vacation)
+
+### Plans
+
+Adam
+- IDK
+
+Nick
+- [#87](https://github.com/Amertz08/Robot/issues/87) - Order HXT connectors
+- Mount components
+
+Haozhan
+- None
+
+Collin
+- None (On vacation)
+
 ## Week of 3/2/18
 
 ### Progress
