@@ -4,16 +4,22 @@ from flask_bootstrap import Bootstrap
 
 from config import config
 from models import db, User
+from utils import mail
 
 def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
+    mail.init_app(app)
     db.init_app(app)
     Bootstrap(app)
     login_manager = LoginManager(app)
     login_manager.login_view = 'auth.login'
     login_manager.session_protection = 'strong'
+
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return render_template('errors/404.html.j2'), 404
 
     @login_manager.user_loader
     def load_user(user_id):

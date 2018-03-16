@@ -1,5 +1,6 @@
-from factory import create_app
 import os
+
+from factory import create_app
 
 app = create_app(os.getenv('CONFIG_LVL') or 'default')
 

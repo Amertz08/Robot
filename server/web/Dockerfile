@@ -6,12 +6,15 @@ RUN pip install \
     Flask-Bootstrap==3.3.7.1 \
     Flask-SQLAlchemy==2.2 \
     Flask-WTF==0.14 \
-    Flask-Login==0.4.1
+    Flask-Login==0.4.1 \
+    blinker==1.4.0 \
+    Flask-Testing==0.6.0 \
+    Flask-Mail==0.9.1
 
-RUN mkdir /app
-ADD . /app
-WORKDIR /app
+RUN mkdir /web
+ADD . /web
+WORKDIR /web
 
 EXPOSE 5000
 
-CMD ["python", "app.py"]
+CMD ["python", "-u", "app.py"]

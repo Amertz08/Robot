@@ -38,3 +38,12 @@ class SignUpForm(FlaskForm):
     def validate_email(self, field):
         if User.query.filter_by(email=field.data).first():
             raise ValidationError('Email already exists')
+
+class SendResetForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Send')
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm')])
+    confirm = PasswordField('Confirm', validators=[DataRequired()])
+    submit = SubmitField('Update')
