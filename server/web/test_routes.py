@@ -109,7 +109,7 @@ class TestAuth(BaseTest):
         user = self.add_user(acct.id, 'Adam', 'Test', 'adam@example.com', 'pass')
 
         resp = self.login('adam@example.com', 'pass', False)
-        self.assertRedirects(resp, url_for('main.index'), 'Should redirect to main.index')
+        self.assertRedirects(resp, url_for('dash.index'), 'Should redirect to dash.index')
 
     def test_login_unverified_message(self):
         acct = self.add_acct('Test Company')
@@ -132,7 +132,7 @@ class TestAuth(BaseTest):
 
     def test_send_reset_invalid_user(self):
         resp = self.client.post(url_for('auth.send_reset'), data={'email': 'steve@example.com'})
-        self.assertRedirects(resp, url_for('main.index'))
+        self.assertRedirects(resp, url_for('dash.index'))
 
         resp = self.client.post(url_for('auth.send_reset'), data={'email': 'steve@example.com'}, follow_redirects=True)
         self.assert200(resp)
@@ -156,7 +156,7 @@ class TestAuth(BaseTest):
             'confirm': 'newpass'
         }
         resp = self.client.post(url_for('auth.reset', token=token), data=data)
-        self.assertRedirects(resp, url_for('main.index'))
+        self.assertRedirects(resp, url_for('dash.index'))
 
     def test_reset_valid_token_with_follow(self):
         acct = self.add_acct('Test Company')
