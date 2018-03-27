@@ -3,7 +3,7 @@ from wtforms.fields import StringField, SubmitField, PasswordField
 from wtforms.validators import DataRequired, Length, Email, ValidationError, EqualTo
 
 from models import User, Account
-
+from utils import log_message
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -13,11 +13,13 @@ class LoginForm(FlaskForm):
     def validate_email(self, field):
         user = User.query.filter_by(email=self.email.data).first()
         if not user or not user.check_password(self.password.data):
+            log_message(f'{self.email.data} invalid login attempt')
             raise ValidationError('Invalid Email/Password')
 
     def validate_password(self, field):
         user = User.query.filter_by(email=self.email.data).first()
         if not user or not user.check_password(self.password.data):
+            log_message(f'{self.email.data} invalid login attempt')
             raise ValidationError('Invalid Email/Password')
 
 
