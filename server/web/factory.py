@@ -27,7 +27,8 @@ def create_app(config_name):
     app.logger.addHandler(handler)
 
     if not app.debug:
-        file_handler = logging.RotatingFileHandler(app.config['LOG_FILE'], maxBytes=10000)
+        from logging.handlers import RotatingFileHandler
+        file_handler = RotatingFileHandler(app.config['LOG_FILE'], maxBytes=10000)
         file_handler.setLevel(logging.INFO)
         file_handler.setFormatter(fmt)
         app.logger.addHandler(handler)
