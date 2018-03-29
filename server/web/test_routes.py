@@ -32,6 +32,16 @@ class BaseTest(TestCase):
     def logout(self, follow=True):
         return self.client.get(url_for('auth.logout'), follow_redirects=follow)
 
+    def signup(self, company_name, first_name, last_name, email, password, confirm, follow=True):
+        return self.client.post(url_for('auth.signup'), data={
+            'company_name': company_name,
+            'first_name': first_name,
+            'last_name': last_name,
+            'email': email,
+            'password': password,
+            'confirm': confirm},
+            follow_redirects=follow)
+
     @staticmethod
     def add_acct(company_name):
         acct = Account(company_name=company_name)
@@ -189,6 +199,12 @@ class TestAuth(BaseTest):
         self.assertRedirects(resp, url_for('main.index'))
         resp = self.client.get(url_for('auth.reset', token=token), follow_redirects=True)
         self.assertIn(b'Expired Token', resp.data, 'Expired token message not appearing')
+
+    def test_signup(self):
+        resp = self.signup('Test Company', 'Haozhan', 'Huang', 'hhz@example.com', 'pass', 'pass')
+        self.assertIn(b'You have been registered. A confirmation email is sent to your email address.',
+                      resp.data, 'Sign up message not shown')
+
 
 
 if __name__ == '__main__':
