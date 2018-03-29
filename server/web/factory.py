@@ -1,4 +1,5 @@
 import logging
+import logging.handlers
 
 from flask import Flask, render_template
 from flask_login import LoginManager
@@ -27,7 +28,7 @@ def create_app(config_name):
     app.logger.addHandler(handler)
 
     if not app.debug:
-        file_handler = logging.RotatingFileHandler(app.config['LOG_FILE'], maxBytes=10000)
+        file_handler = logging.handlers.RotatingFileHandler(app.config['LOG_FILE'], maxBytes=10000)
         file_handler.setLevel(logging.INFO)
         file_handler.setFormatter(fmt)
         app.logger.addHandler(handler)
