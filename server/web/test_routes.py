@@ -205,6 +205,14 @@ class TestAuth(BaseTest):
         self.assertIn(b'You have been registered. A confirmation email is sent to your email address.',
                       resp.data, 'Sign up message not shown')
 
+    def test_confirm(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Haozhan', 'Test', 'hhz@example.com', 'pass')
+
+        token = user.generate_token(1)
+        resp = self.client.get(url_for('auth.confirm', token=token), follow_redirects=True)
+        self.assertIn(b'You have verified your account!', resp.data, 'No verified message')
+
 
 
 if __name__ == '__main__':
