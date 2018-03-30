@@ -213,6 +213,18 @@ class TestAuth(BaseTest):
         resp = self.client.get(url_for('auth.confirm', token=token), follow_redirects=True)
         self.assertIn(b'You have verified your account!', resp.data, 'No verified message')
 
+    def test_confirm_no_token(self):
+        resp = self.client.get(url_for('auth.confirm'))
+        self.assert404(resp)
+
+    def test_confirm_invalid_token(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Haozhan', 'Test', 'hhz@example.com', 'pass')
+
+        token = user.generate_token(1)
+        time.sleep(2)
+        resp = self.client.get(url_for('auth.confirm', token=token), follow_redirects=True)
+        self.assertIn(b'The confirmation link is expired', resp.data, 'No expire message')
 
 
 if __name__ == '__main__':
