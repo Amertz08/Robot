@@ -2,7 +2,7 @@ import datetime
 import time
 import unittest
 
-from flask import url_for
+from flask import url_for, Flask
 from flask_testing import TestCase
 from flask_login import login_user
 
@@ -225,6 +225,15 @@ class TestAuth(BaseTest):
         time.sleep(2)
         resp = self.client.get(url_for('auth.confirm', token=token), follow_redirects=True)
         self.assertIn(b'The confirmation link is expired', resp.data, 'No expire message')
+
+    def test_resend_confirm(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Haozhan', 'Test', 'hhz@example.com', 'pass')
+        self.login(user.email, user.password)
+
+        resp = self.client.get(url_for('auth.resend_confirm'), follow_redirects=True)
+        print(resp.status_code) # this prints 404
+        self.assertIn(b'A new confirmation email is sent to your email address.', resp.data, 'No new confirm message')
 
 
 if __name__ == '__main__':
