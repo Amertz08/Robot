@@ -27,5 +27,4 @@ def add_user():
         login_user(user)
         log_message(f'acct_id: {acct.id} just signed up') #TODO: maybe not acct.id?
         return redirect(url_for('main.index'))
-    return render_template('account/adduser.html.j2', form=form)
-
+    return render_template('account/add-user.html.j2', form=form)
