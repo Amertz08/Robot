@@ -232,7 +232,6 @@ class TestAuth(BaseTest):
         self.login(user.email, user.password)
 
         resp = self.client.get(url_for('auth.resend_confirm'), follow_redirects=True)
-        print(resp.status_code) # this prints 404
         self.assertIn(b'A new confirmation email is sent to your email address.', resp.data, 'No new confirm message')
 
 
