@@ -49,3 +49,20 @@ class ResetPasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm')])
     confirm = PasswordField('Confirm', validators=[DataRequired()])
     submit = SubmitField('Update')
+
+
+class AddUserForm(FlaskForm):
+    company_name = StringField('Company Name', validators=[DataRequired(), Length(max=64)])
+    first_name = StringField('First Name', validators=[DataRequired(), Length(max=64)])
+    last_name = StringField('Last Name', validators=[DataRequired(), Length(max=64)])
+    email = StringField('Email Address', validators=[DataRequired(), Email(), Length(max=64)])
+    password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm')])
+    confirm = PasswordField('Repeat Password')
+
+    def validate_email(self, field):
+        if User.query.filter_by(email=field.data).first():
+            raise ValidationError('Email already exists')
+
+    def validate_company(self, field):
+        if Account.query.filter_by(company_name=field.data) == None :
+            raise ValidationError('Company doesn\'t exist')
