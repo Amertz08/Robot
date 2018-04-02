@@ -95,7 +95,7 @@ def reset():
         user = User.deserialize(token)
     except SignatureExpired:
         flash('Expired Token', 'danger')
-        log_message(f'user_id: {user.id} expired token reset attempt')
+        log_message('expired token reset attempt')
         return redirect(url_for('main.index'))
     except BadSignature:
         flash('Invalid token', 'danger')
