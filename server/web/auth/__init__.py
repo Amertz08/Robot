@@ -141,7 +141,7 @@ def confirm():
     return redirect(url_for('main.index'))
 
 
-@auth.route('/confirm')
+@auth.route('/resend-confirm')
 @login_required
 def resend_confirm():
     token = current_user.generate_token()
