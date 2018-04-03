@@ -73,7 +73,7 @@ class AddUserForm(FlaskForm):
 class RemoveUserForm(FlaskForm):
     company_name = StringField('Company Name', validators=[DataRequired(), Length(max=64)])
     email = StringField('Email Address', validators=[DataRequired(), Email(), Length(max=64)])
-    password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm')])
+    password = PasswordField('Password', validators=[DataRequired()])
 
     submit = SubmitField('Remove')
 

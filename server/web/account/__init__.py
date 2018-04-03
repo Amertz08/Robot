@@ -2,7 +2,7 @@ from flask import Blueprint, url_for, flash, render_template, redirect
 from forms import AddUserForm, RemoveUserForm
 from models import db, User, Account
 from utils import send_email, print_debug, log_message
-from flask_login import login_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 
 acct = Blueprint('acct', __name__)
 
@@ -44,6 +44,9 @@ def rm_user():
                 db.session.delete(user)
                 db.session.commit()
                 log_message(f'acct_id: {acct.id},\t user: {user.first_name} has been removed')
+                flash('User has been removed')
+                if user == current_user:
+                    logout_user()
             else:
                 flash('User doesn\'t exist')
         else:

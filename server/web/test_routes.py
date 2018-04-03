@@ -52,6 +52,13 @@ class BaseTest(TestCase):
         db.session.commit()
         return user
 
+    @staticmethod
+    def verify(user):
+        user.verified = True
+        user.verified_date = datetime.datetime.utcnow()
+        db.session.add(user)
+        db.session.commit()
+
 
 class TestMain(BaseTest):
 
@@ -219,6 +226,35 @@ class TestAcct(BaseTest):
         self.assertRedirects(resp, url_for('main.index'))
 
         resp = self.client.post(url_for('acct.add_user'), data=data, follow_redirects=True)
+        self.assertIn(b'Invalid company name', resp.data, 'No invalid company')
+
+    def test_rm_user(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Haozhan', 'Test', 'hhz@example.com', 'pass')
+        self.verify(user)
+        data = {
+            'company_name': acct.company_name,
+            'email': user.email,
+            'password': 'pass'}
+        self.login(user.email, 'pass')
+
+        resp = self.client.post(url_for('acct.rm_user'), data=data, follow_redirects=True)
+        self.assertIn(b'User has been removed', resp.data, 'No removed message')
+
+    def test_rm_user_invalid_company(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Haozhan', 'Test', 'hhz@example.com', 'pass')
+        self.verify(user)
+        data = {
+            'company_name': 'Not existing company',
+            'email': 'hhz@example.com',
+            'password': 'pass'}
+        self.login(user.email, 'pass')
+
+        resp = self.client.post(url_for('acct.rm_user'), data=data)
+        self.assertRedirects(resp, url_for('main.index'))
+
+        resp = self.client.post(url_for('acct.rm_user'), data=data, follow_redirects=True)
         self.assertIn(b'Invalid company name', resp.data, 'No invalid company')
 
 
