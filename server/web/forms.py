@@ -59,6 +59,8 @@ class AddUserForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm')])
     confirm = PasswordField('Repeat Password')
 
+    submit = SubmitField('Add User')
+
     def validate_email(self, field):
         if User.query.filter_by(email=field.data).first():
             raise ValidationError('Email already exists')

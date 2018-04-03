@@ -6,11 +6,11 @@ from flask_login import login_user, login_required
 
 acct = Blueprint('acct', __name__)
 
-@acct.route('/add-user')
+@acct.route('/add-user', methods=['GET', 'POST'])
 def add_user():
     form = AddUserForm()
     if form.validate_on_submit():
-        acct = Account(company_name=form.company_name.data)
+        acct = Account.query.filter_by(company_name=form.company_name.data).first()
         user = User(acct_id=acct.id,
                     first_name=form.first_name.data,
                     last_name=form.last_name.data,
@@ -22,7 +22,7 @@ def add_user():
         print_debug(url_for('auth.confirm', token=token, _external=True))
         send_email(user.email, 'Confirm Your Account',
                    'confirm', 'info@example.com', user=user, token=token)
-        flash('You have been registered. A confirmation email is sent to your email address. \
+        flash('New user have been added. A confirmation email is sent to your email address. \
                    You have 24 hours to verify your account.')
         login_user(user)
         log_message(f'acct_id: {acct.id} just signed up') #TODO: maybe not acct.id?

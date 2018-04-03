@@ -191,5 +191,20 @@ class TestAuth(BaseTest):
         self.assertIn(b'Expired Token', resp.data, 'Expired token message not appearing')
 
 
+class TestAcct(BaseTest):
+
+    def test_add_user(self):
+        acct = self.add_acct('Test Company')
+        data = {
+            'company_name': acct.company_name,
+            'first_name': 'Haozhan',
+            'last_name': 'Test',
+            'email': 'hhz@example.com',
+            'password': 'pass',
+            'confirm': 'pass'}
+
+        resp = self.client.post(url_for('acct.add_user'), data=data, follow_redirects=True)
+        self.assertIn(b'New user have been added.', resp.data, 'No new user added message')
+
 if __name__ == '__main__':
     unittest.main()
