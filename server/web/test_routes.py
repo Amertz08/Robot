@@ -206,5 +206,21 @@ class TestAcct(BaseTest):
         resp = self.client.post(url_for('acct.add_user'), data=data, follow_redirects=True)
         self.assertIn(b'New user have been added.', resp.data, 'No new user added message')
 
+    def test_add_user_invalid_company(self):
+        data = {
+            'company_name': 'Test Company',
+            'first_name': 'Haozhan',
+            'last_name': 'Test',
+            'email': 'hhz@example.com',
+            'password': 'pass',
+            'confirm': 'pass'}
+
+        resp = self.client.post(url_for('acct.add_user'), data=data)
+        self.assertRedirects(resp, url_for('main.index'))
+
+        resp = self.client.post(url_for('acct.add_user'), data=data, follow_redirects=True)
+        self.assertIn(b'Invalid company name', resp.data, 'No invalid company')
+
+
 if __name__ == '__main__':
     unittest.main()
