@@ -59,7 +59,7 @@ class AddUserForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm')])
     confirm = PasswordField('Repeat Password')
 
-    submit = SubmitField('Add User')
+    submit = SubmitField('Add')
 
     def validate_email(self, field):
         if User.query.filter_by(email=field.data).first():
@@ -68,3 +68,15 @@ class AddUserForm(FlaskForm):
     def validate_company(self, field):
         if Account.query.filter_by(company_name=field.data) == None :
             raise ValidationError('Company doesn\'t exist')
+
+
+class RemoveUserForm(FlaskForm):
+    company_name = StringField('Company Name', validators=[DataRequired(), Length(max=64)])
+    email = StringField('Email Address', validators=[DataRequired(), Email(), Length(max=64)])
+    password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm')])
+
+    submit = SubmitField('Remove')
+
+    def validate_email(self, field):
+        if User.query.filter_by(email=field.data) == None:
+            raise ValidationError('User doesn\'t exist')
