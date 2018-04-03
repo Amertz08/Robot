@@ -62,6 +62,13 @@ class BaseTest(TestCase):
         db.session.commit()
         return user
 
+    @staticmethod
+    def verify(user):
+        user.verified = True
+        user.verified_date = datetime.datetime.utcnow()
+        db.session.add(user)
+        db.session.commit()
+
 
 class TestMain(BaseTest):
 
@@ -229,7 +236,8 @@ class TestAuth(BaseTest):
     def test_resend_confirm(self):
         acct = self.add_acct('Test Company')
         user = self.add_user(acct.id, 'Haozhan', 'Test', 'hhz@example.com', 'pass')
-        self.login(user.email, user.password)
+        self.verify(user)
+        self.login(user.email, 'pass')
 
         resp = self.client.get(url_for('auth.resend_confirm'), follow_redirects=True)
         self.assertIn(b'A new confirmation email is sent to your email address.', resp.data, 'No new confirm message')
