@@ -45,11 +45,21 @@ $(document).ready(function() {
     $("#edit-facility-modal").modal("show");
   });
 
+  // Close edit modal
+  $(this).on("click", "#edit-dismiss-btn", function(event) {
+    event.preventDefault();
+    var form = $("#edit-facility-form");
+    var divs = form.find(".has-error");
+    divs.removeClass("has-error");
+    divs.find("span").remove();
+    $("#edit-facility-modal").modal("hide");
+  });
+
   // Update facility
   $(this).on("submit", "#edit-facility-form", function(event) {
     event.preventDefault();
 
-    var form = $("#edit-facility-form");
+    var form = $(this);
     var name = form.find("#name").val();
     var id = form.find("#facility_id").val();
     var token = form.find("#csrf_token").val();
