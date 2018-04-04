@@ -10,6 +10,7 @@ from utils import mail
 
 def create_app(config_name):
     app = Flask(__name__)
+    print(f'Config level: {config_name}')
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
     mail.init_app(app)
