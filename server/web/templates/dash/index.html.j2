@@ -70,10 +70,7 @@
           <div class="modal-body">
               {{ update_form.csrf_token }}
               {{ update_form.facility_id }}
-              <div class="form-group">
-                <label for="name" >Name</label>
-                <input id="name" name="name" type="text" value="" required class="form-control">
-              </div>
+              {{ form_field(update_form.name) }}
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

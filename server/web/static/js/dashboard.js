@@ -48,7 +48,6 @@ $(document).ready(function() {
   // Update facility
   $(this).on("submit", "#edit-facility-form", function(event) {
     event.preventDefault();
-    $("#edit-facility-modal").modal("hide");
 
     var form = $("#edit-facility-form");
     var name = form.find("#name").val();
@@ -64,6 +63,23 @@ $(document).ready(function() {
     .success(function(resp) {
       if (resp !== 'OK') {
         console.log(resp);
+        if (resp.name) {
+          var nameDiv = form.find("#name").parent();
+          nameDiv.addClass("has-error");
+
+          // Get all errors and append
+          var help = $.map(resp.name, function(entry) {
+            var span = '<span id="help" class="help-block">';
+            span += entry;
+            span += '</span>';
+            return span;
+          });
+          nameDiv.append(help);
+        } else if (resp.facility_id) {
+
+        } else {
+          alert('Unable to update facility. Check console');
+        }
       } else {
         location.reload();
       }
