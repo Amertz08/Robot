@@ -54,12 +54,12 @@ def signup():
         db.session.commit()
         token = user.generate_token()
         print_debug(url_for('auth.confirm', token=token, _external=True))
+        log_message(f'acct_id: {acct.id} just signed up')
         send_email(user.email, 'Confirm Your Account',
                    'confirm', 'info@example.com', user=user, token=token)
         flash('You have been registered. A confirmation email is sent to your email address. \
                You have 24 hours to verify your account.')
         login_user(user)
-        log_message(f'acct_id: {acct.id} just signed up')
         return redirect(url_for('dash.index'))
     return render_template('auth/signup.html.j2', form=form)
 
