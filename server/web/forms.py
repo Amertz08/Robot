@@ -1,6 +1,6 @@
 from flask_login import current_user
 from flask_wtf import FlaskForm
-from wtforms.fields import StringField, SubmitField, PasswordField
+from wtforms.fields import StringField, SubmitField, PasswordField, HiddenField
 from wtforms.validators import DataRequired, Length, Email, ValidationError, EqualTo
 
 from models import User, Account, Facility
@@ -55,6 +55,36 @@ class ResetPasswordForm(FlaskForm):
 class AddFacilityForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     submit = SubmitField('Save Facility')
+
+    def validate_name(self, field):
+        if Facility.query.filter(
+            Facility.name == field.data,
+            Facility.acct_id == current_user.acct_id
+        ).first():
+            raise ValidationError('Facility with that name already exists')
+
+class DeleteFacilityForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    submit = SubmitField('Delete')
+
+    def validate_name(self, field):
+        if not Facility.query.filter(
+            Facility.name == field.data,
+            Facility.acct_id == current_user.acct_id
+        ).first():
+            raise ValidationError('Invalid Facility')
+
+class UpdateFacilityForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    facility_id = HiddenField('facility_id', validators=[DataRequired()])
+    submit = SubmitField('Update')
+
+    def validate_facility_id(self, field):
+        if not Facility.query.filter(
+            Facility.id == field.data,
+            Facility.acct_id == current_user.acct_id
+        ).first():
+            raise ValidationError(f'facility_id: {field.data} does not exist')
 
     def validate_name(self, field):
         if Facility.query.filter(
