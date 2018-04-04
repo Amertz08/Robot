@@ -1,10 +1,93 @@
 {% extends "base.html.j2" %}
+{% from "bootstrap/wtf.html" import form_field %}
 
 {% block title %}Dashboard{% endblock %}
 
 {% block page_content %}
 <div class="col-md-6 col-md-offset-3">
   <h1>Dashboard</h1>
-  Manage graphs and robots
+  <p>
+    <button type="button" class="btn btn-default" id="add-facility-btn">
+      Add Facility
+    </button>
+  </p>
+  {% if facilities %}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Layouts</th>
+        <th>Admin</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for f in facilities %}
+      <tr id="facility_{{ f.id }}" data-name="{{ f.name }}" data-id="{{ f.id }}">
+        <td>{{ f.name }}</td>
+        <td>{{ f.layouts | length }}</td>
+        <td>
+          <i class="glyphicon glyphicon-edit"></i>
+          <i data-csrf="{{ delete_form.csrf_token._value() }}" class="glyphicon glyphicon-remove"></i>
+        </td>
+      </tr>
+      {% endfor %}
+  </table>
+  {% else %}
+  <p>You have not defined any facilities.</p>
+  {% endif %}
+
+  <!-- Add facility Modal -->
+  <div class="modal fade" id="add-facility-modal" tabindex="-1" role="dialog" aria-labelledby="add-facility-modal-label">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="add-facility-modal-label">Add Facility</h4>
+        </div>
+        <form id="add-facility-form" action="{{ url_for('dash.add_facility') }}" method="POST" class="form" role="form" name="add-facility-form">
+          <div class="modal-body">
+              {{ add_form.hidden_tag() }}
+              {{ form_field(add_form.name) }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            {{ form_field(add_form.submit) }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- End add facility modal -->
+  <!-- Edit facility Modal -->
+  <div class="modal fade" id="edit-facility-modal" tabindex="-1" role="dialog" aria-labelledby="edit-facility-modal-label">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="edit-facility-modal-label">Edit Facility</h4>
+        </div>
+        <form class="form" role="form"  id="edit-facility-form" name="edit-facility-form">
+          <div class="modal-body">
+              {{ update_form.csrf_token }}
+              {{ update_form.facility_id }}
+              <div class="form-group">
+                <label for="name" >Name</label>
+                <input id="name" name="name" type="text" value="" required class="form-control">
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            {{ form_field(update_form.submit) }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- End edit facility modal -->
 </div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 {% endblock %}
