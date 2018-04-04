@@ -7,7 +7,7 @@ from flask_testing import TestCase
 from flask_login import login_user
 
 from factory import create_app
-from models import db, User, Account
+from models import db, User, Account, Facility
 
 
 class BaseTest(TestCase):
@@ -52,6 +52,12 @@ class BaseTest(TestCase):
         db.session.commit()
         return user
 
+    @staticmethod
+    def add_facility(acct_id, name):
+        facility = Facility(acct_id, name)
+        db.session.add(facility)
+        db.session.commit()
+        return facility
 
 class TestMain(BaseTest):
 
@@ -189,6 +195,59 @@ class TestAuth(BaseTest):
         self.assertRedirects(resp, url_for('main.index'))
         resp = self.client.get(url_for('auth.reset', token=token), follow_redirects=True)
         self.assertIn(b'Expired Token', resp.data, 'Expired token message not appearing')
+
+
+class TestDash(BaseTest):
+
+    def test_index_login_required(self):
+        resp = self.client.get(url_for('dash.index'))
+        self.assertRedirects(resp, url_for('auth.login', next=url_for('dash.index')))
+
+    def test_index(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Adam', 'Test', 'adam@example.com', 'pass')
+        self.login('adam@example.com', 'pass')
+        resp = self.client.get(url_for('dash.index'))
+        self.assert200(resp, 'dash.index should return 200')
+        self.assert_template_used('dash/index.html.j2')
+        self.assert_context('add_form', self.get_context_variable('add_form'), 'add_form not in context')
+        self.assert_context('delete_form', self.get_context_variable('delete_form'), 'delete_form not in context')
+        self.assert_context('update_form', self.get_context_variable('update_form'), 'update_form not in context')
+        self.assert_context('facilities', self.get_context_variable('facilities'), 'facilities not in context')
+
+    def test_add_facility_login_required(self):
+        resp = self.client.post(url_for('dash.add_facility'), data={})
+        self.assertRedirects(resp, url_for('auth.login', next=url_for('dash.add_facility')))
+
+    def test_add_facility_only_post_method(self):
+        resp = self.client.get(url_for('dash.add_facility'))
+        self.assert405(resp, 'Should return 405 error')
+
+    def test_add_facility_valid_form(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Adam', 'Test', 'adam@example.com', 'pass')
+        self.login('adam@example.com', 'pass')
+
+        data = {
+            'name': 'steve'
+        }
+        resp = self.client.post(url_for('dash.add_facility'), data=data)
+        self.assertEqual(resp.status_code, 201, 'Should return 201 response')
+        facility = Facility.query.filter_by(name=data['name']).first()
+        self.assertIsNotNone(facility, 'Facility not created in db')
+        self.assertEqual(resp.json, 'OK', 'Should return "OK"')
+
+    def test_add_facility_duplicate_name(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Adam', 'Test', 'adam@example.com', 'pass')
+        facility = self.add_facility(acct.id, 'Steve')
+        data = {
+            'name': facility.name
+        }
+        self.login('adam@example.com', 'pass')
+        resp = self.client.post(url_for('dash.add_facility'), data=data)
+        self.assert200(resp, 'Should return 200')
+
 
 
 if __name__ == '__main__':
