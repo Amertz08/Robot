@@ -1,8 +1,9 @@
+from flask_login import current_user
 from flask_wtf import FlaskForm
 from wtforms.fields import StringField, SubmitField, PasswordField
 from wtforms.validators import DataRequired, Length, Email, ValidationError, EqualTo
 
-from models import User, Account
+from models import User, Account, Facility
 from utils import log_message
 
 class LoginForm(FlaskForm):
@@ -49,3 +50,15 @@ class ResetPasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm')])
     confirm = PasswordField('Confirm', validators=[DataRequired()])
     submit = SubmitField('Update')
+
+
+class AddFacilityForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    submit = SubmitField('Save Facility')
+
+    def validate_name(self, field):
+        if Facility.query.filter(
+            Facility.name == field.data,
+            Facility.acct_id == current_user.acct_id
+        ).first():
+            raise ValidationError('Facility with that name already exists')
