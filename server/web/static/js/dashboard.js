@@ -68,8 +68,9 @@ $(document).ready(function() {
       'csrf_token': token,
       'facility_id': id
     };
+    var url = form.attr("action");
 
-    $.post('/dashboard/facility/edit', data)
+    $.post(url, data)
     .success(function(resp) {
       if (resp !== 'OK') {
         console.log(resp);
@@ -101,6 +102,7 @@ $(document).ready(function() {
   .on("click", function(event) {
     event.preventDefault();
     var token = $(this).data("csrf");
+    var url = $(this).data("url");
     var row = $(this).parents("tr");
     var name = row.data("name");
     var id = row.data("id");
@@ -109,7 +111,7 @@ $(document).ready(function() {
       'csrf_token': token
     };
 
-    $.post('/dashboard/facility/delete', data)
+    $.post(url, data)
     .success(function(resp) {
       if (resp !== 'OK') {
         console.log(resp);
