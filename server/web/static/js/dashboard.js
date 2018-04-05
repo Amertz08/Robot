@@ -8,18 +8,18 @@ $(document).ready(function() {
   // Handle add facility
   $(this).on("submit", "#add-facility-form", function(event) {
     event.preventDefault();
-    $.post('/dashboard/facility/add', $(this).serialize())
+    $.post("/dashboard/facility/add", $(this).serialize())
     .success(function(resp) {
-      if (resp !== 'OK') {
+      if (resp !== "OK") {
         if (resp.name) {
           var div = $("#add-facility-form").find("#name").parent();
           div.addClass("has-error");
 
           // Get all errors and append
           var help = $.map(resp.name, function(entry) {
-            var span = '<span id="help" class="help-block">';
+            var span = "<span id=\"help\" class=\"help-block\">";
             span += entry;
-            span += '</span>';
+            span += "</span>";
             return span;
           });
           div.append(help);
@@ -64,14 +64,14 @@ $(document).ready(function() {
     var id = form.find("#facility_id").val();
     var token = form.find("#csrf_token").val();
     var data = {
-      'name': name,
-      'csrf_token': token,
-      'facility_id': id
+      "name": name,
+      "csrf_token": token,
+      "facility_id": id
     };
 
     $.post('/dashboard/facility/edit', data)
     .success(function(resp) {
-      if (resp !== 'OK') {
+      if (resp !== "OK") {
         console.log(resp);
         if (resp.name) {
           var nameDiv = form.find("#name").parent();
@@ -79,16 +79,16 @@ $(document).ready(function() {
 
           // Get all errors and append
           var help = $.map(resp.name, function(entry) {
-            var span = '<span id="help" class="help-block">';
+            var span = "<span id=\"help\" class=\"help-block\">";
             span += entry;
-            span += '</span>';
+            span += "</span>";
             return span;
           });
           nameDiv.append(help);
         } else if (resp.facility_id) {
 
         } else {
-          alert('Unable to update facility. Check console');
+          alert("Unable to update facility. Check console");
         }
       } else {
         location.reload();
@@ -105,15 +105,15 @@ $(document).ready(function() {
     var name = row.data("name");
     var id = row.data("id");
     var data = {
-      'name': name,
-      'csrf_token': token
+      "name": name,
+      "csrf_token": token
     };
 
-    $.post('/dashboard/facility/delete', data)
+    $.post("/dashboard/facility/delete", data)
     .success(function(resp) {
-      if (resp !== 'OK') {
+      if (resp !== "OK") {
         console.log(resp);
-        alert('Unable to delete facility. Check console');
+        alert("Unable to delete facility. Check console");
       } else {
         location.reload();
       }
