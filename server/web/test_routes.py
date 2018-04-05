@@ -247,6 +247,7 @@ class TestDash(BaseTest):
         self.login('adam@example.com', 'pass')
         resp = self.client.post(url_for('dash.add_facility'), data=data)
         self.assert200(resp, 'Should return 200')
+        self.assertDictEqual(resp.json, {'name': ['Facility with that name already exists']}, f'Errors did not return correct: {resp.json}')
 
 
 
