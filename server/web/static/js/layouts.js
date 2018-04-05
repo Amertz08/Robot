@@ -10,6 +10,11 @@ $(document).ready(function() {
   $(this).on("click", "#add-dismiss-btn", function(event) {
     event.preventDefault();
     $("#add-layout-modal").modal("hide");
+    var form = $("#add-layout-form");
+    form.find("#name").val("");
+    form.find("#layout").val("");
+    form.find(".has-error").find("span").remove();
+    form.find(".has-error").removeClass("has-error");
   });
 
   // Handle add layout form submit
@@ -18,7 +23,7 @@ $(document).ready(function() {
     var form = $(this);
     // Get rid of errors
     form.find(".has-error").find("span").remove();
-    
+
     var url = form.attr("action");
     var name = form.find("#name");
     var layout = form.find("#layout");
