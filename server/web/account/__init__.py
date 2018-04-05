@@ -29,7 +29,7 @@ def add_user():
             log_message(f'acct_id: {acct.id} just signed up') #TODO: maybe not acct.id?
         else:
             flash('Invalid company name')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('dash.index'))
     return render_template('account/add-user.html.j2', form=form)
 
 @acct.route('/remove-user', methods=['GET', 'POST'])
@@ -51,5 +51,5 @@ def rm_user():
                 flash('User doesn\'t exist')
         else:
             flash('Invalid company name')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('dash.index'))
     render_template('account/rm-user.html.j2', form=form)

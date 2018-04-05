@@ -329,7 +329,7 @@ class TestAcct(BaseTest):
             'confirm': 'pass'}
 
         resp = self.client.post(url_for('acct.add_user'), data=data)
-        self.assertRedirects(resp, url_for('main.index'))
+        self.assertRedirects(resp, url_for('dash.index'))
 
         resp = self.client.post(url_for('acct.add_user'), data=data, follow_redirects=True)
         self.assertIn(b'Invalid company name', resp.data, 'No invalid company')
@@ -358,7 +358,7 @@ class TestAcct(BaseTest):
         self.login(user.email, 'pass')
 
         resp = self.client.post(url_for('acct.rm_user'), data=data)
-        self.assertRedirects(resp, url_for('main.index'))
+        self.assertRedirects(resp, url_for('dash.index'))
 
         resp = self.client.post(url_for('acct.rm_user'), data=data, follow_redirects=True)
         self.assertIn(b'Invalid company name', resp.data, 'No invalid company')
