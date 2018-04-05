@@ -8,7 +8,8 @@ $(document).ready(function() {
   // Handle add facility
   $(this).on("submit", "#add-facility-form", function(event) {
     event.preventDefault();
-    $.post("/dashboard/facility/add", $(this).serialize())
+    var url = $("#add-facility-form").attr("action");
+    $.post(url, $(this).serialize())
     .success(function(resp) {
       if (resp !== "OK") {
         if (resp.name) {
@@ -101,7 +102,7 @@ $(document).ready(function() {
   facilityRows.find("i.glyphicon-remove")
   .on("click", function(event) {
     event.preventDefault();
-    var token = $(this).data("csrf");
+    var token = $(this).siblings("input#csrf_token").val()
     var url = $(this).data("url");
     var row = $(this).parents("tr");
     var name = row.data("name");

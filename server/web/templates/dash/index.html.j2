@@ -27,7 +27,8 @@
         <td>{{ f.layouts | length }}</td>
         <td>
           <i class="glyphicon glyphicon-edit"></i>
-          <i data-csrf="{{ delete_form.csrf_token._value() }}" data-url="{{ url_for('dash.delete_facility') }}" class="glyphicon glyphicon-remove"></i>
+          <i data-url="{{ url_for('dash.delete_facility') }}" class="glyphicon glyphicon-remove"></i>
+          {{ delete_form.csrf_token }}
         </td>
       </tr>
       {% endfor %}
