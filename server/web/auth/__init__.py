@@ -95,7 +95,7 @@ def reset():
         user = User.deserialize(token)
     except SignatureExpired:
         flash('Expired Token', 'danger')
-        log_message(f'user_id: {user.id} expired token reset attempt')
+        log_message('expired token reset attempt')
         return redirect(url_for('main.index'))
     except BadSignature:
         flash('Invalid token', 'danger')
@@ -141,7 +141,7 @@ def confirm():
     return redirect(url_for('main.index'))
 
 
-@auth.route('/confirm')
+@auth.route('/resend-confirm')
 @login_required
 def resend_confirm():
     token = current_user.generate_token()
