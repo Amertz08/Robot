@@ -76,7 +76,13 @@ def delete_facility():
         return jsonify(form.errors)
 
 
-@dash.route('/layouts', methods=['GET', 'POST'])
+@dash.route('/facility/<facility_id>/layouts', methods=['GET', 'POST'])
 @login_required
-def layouts():
-    return render_template('dash/layouts.html.j2')
+def layouts(facility_id):
+    facility = Facility.query.filter(
+        Facility.acct_id == current_user.acct_id,
+        Facility.id == facility_id
+    ).first()
+    if not facility:
+        abort(404)
+    return render_template('dash/layouts.html.j2', facility=facility)

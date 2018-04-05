@@ -306,10 +306,10 @@ class TestDash(BaseTest):
         acct = self.add_acct('Test Company')
         user = self.add_user(acct.id, 'Adam', 'Test', 'adam@example.com', 'pass')
         facility = self.add_facility(acct.id, 'Factory')
-        resp = self.client.get(url_for('dash.layouts'))
-        self.assertRedirects(resp, url_for('auth.login', next=url_for('dash.layouts')))
+        resp = self.client.get(url_for('dash.layouts', facility_id=facility.id))
+        self.assertRedirects(resp, url_for('auth.login', next=url_for('dash.layouts', facility_id=facility.id)))
         self.login('adam@example.com', 'pass')
-        resp = self.client.get(url_for('dash.layouts'))
+        resp = self.client.get(url_for('dash.layouts', facility_id=facility.id))
         self.assert200(resp, 'Should be 200 on dash.layouts route')
 
 
