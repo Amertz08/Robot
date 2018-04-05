@@ -14,8 +14,7 @@ $(document).ready(function() {
     var form = $("#add-layout-form");
     form.find("#name").val("");
     form.find("#layout").val("");
-    form.find(".has-error").find("span").remove();
-    form.find(".has-error").removeClass("has-error");
+    removeHelp(form);
   });
 
   // Handle add layout form submit
@@ -23,7 +22,7 @@ $(document).ready(function() {
     event.preventDefault();
     var form = $(this);
     // Get rid of errors
-    form.find(".has-error").find("span").remove();
+    removeHelp(form);
 
     var url = form.attr("action");
     var name = form.find("#name");

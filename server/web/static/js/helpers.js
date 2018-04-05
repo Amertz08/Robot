@@ -8,3 +8,9 @@ function addHelp(helpMessages, div) {
   });
   div.append(help);
 }
+
+function removeHelp(form) {
+  console.log("HELLO");
+  form.find(".has-error").find("span").remove();
+  form.find(".has-error").removeClass("has-error");
+}

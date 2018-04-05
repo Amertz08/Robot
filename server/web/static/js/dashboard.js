@@ -41,9 +41,7 @@ $(document).ready(function() {
   $(this).on("click", "#edit-dismiss-btn", function(event) {
     event.preventDefault();
     var form = $("#edit-facility-form");
-    var divs = form.find(".has-error");
-    divs.removeClass("has-error");
-    divs.find("span").remove();
+    removeHelp(form);
     $("#edit-facility-modal").modal("hide");
   });
 
