@@ -25,7 +25,7 @@ def login():
             link = f'<a href="{url}">Resend</a>'
             flash(f'Your account is still not verified. {link}', 'danger')
         flash('Login Successful', 'success')
-        return redirect(url_for('main.index'))  # TODO: Should redirect to dash index
+        return redirect(url_for('dash.index'))
     return render_template('auth/login.html.j2', form=form)
 
 
@@ -54,13 +54,13 @@ def signup():
         db.session.commit()
         token = user.generate_token()
         print_debug(url_for('auth.confirm', token=token, _external=True))
+        log_message(f'acct_id: {acct.id} just signed up')
         send_email(user.email, 'Confirm Your Account',
                    'confirm', 'info@example.com', user=user, token=token)
         flash('You have been registered. A confirmation email is sent to your email address. \
                You have 24 hours to verify your account.')
         login_user(user)
-        log_message(f'acct_id: {acct.id} just signed up')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('dash.index'))
     return render_template('auth/signup.html.j2', form=form)
 
 
@@ -80,7 +80,7 @@ def send_reset():
         else:
             log_message(f'{form.email.data} is an invalid email')
         flash('An email will be sent with a link to reset your password', 'success')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('dash.index'))
     return render_template('auth/send-reset.html.j2', form=form)
 
 
@@ -110,7 +110,7 @@ def reset():
         db.session.commit()
         flash('Password reset', 'success')
         login_user(user)
-        return redirect(url_for('main.index'))
+        return redirect(url_for('dash.index'))
     return render_template('auth/reset.html.j2', form=form)
 
 
@@ -124,14 +124,14 @@ def confirm():
         user = User.deserialize(token)
         if user.verified:
             flash('Your account is already verified')
-            return redirect(url_for('main.index'))
+            return redirect(url_for('dash.index'))
         user.verified = True
         user.verified_date = datetime.datetime.utcnow()
         db.session.add(user)
         db.session.commit()
         flash('You have verified your account!')
         log_message(f'user_id: {user.id} verified their account')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('dash.index'))
     except SignatureExpired:
         flash('The confirmation link is expired')
         log_message('expired token on account verification')
