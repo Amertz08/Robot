@@ -111,11 +111,7 @@ $(document).ready(function() {
       "csrf_token": token
     };
 
-<<<<<<< HEAD
-    $.post("/dashboard/facility/delete", data)
-=======
     $.post(url, data)
->>>>>>> 20c47fad934c5c09bdfe6b145af3815bc41319dd
     .success(function(resp) {
       if (resp !== "OK") {
         console.log(resp);
