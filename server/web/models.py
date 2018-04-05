@@ -1,4 +1,5 @@
 import datetime
+import enum
 
 from flask import current_app
 from flask_sqlalchemy import SQLAlchemy
@@ -17,6 +18,7 @@ class Account(db.Model):
     create_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     active = db.Column(db.Boolean, default=True)
     users = db.relationship('User', backref='account', lazy=True)
+    facilites = db.relationship('Facility', backref='account', lazy=True)
 
     def __init__(self, company_name):
         self.company_name = company_name
@@ -86,3 +88,45 @@ class User(UserMixin, db.Model):
         s = Serializer(current_app.config['SECRET_KEY'])
         data = s.loads(token)
         return cls.get(data.get('confirm'))
+
+
+class Facility(db.Model):
+    __tablename__ = 'facilities'
+    id = db.Column(db.Integer, primary_key=True)
+    acct_id = db.Column(db.Integer, db.ForeignKey('accounts.id'), nullable=False)
+    name = db.Column(db.String(255), nullable=False)
+    layouts = db.relationship('Layout', backref='facility', lazy=True)
+
+    def __init__(self, acct_id, name):
+        self.acct_id = acct_id
+        self.name = name
+
+
+class Layout(db.Model):
+    __tablename__ = 'layouts'
+    id = db.Column(db.Integer, primary_key=True)
+    facility_id = db.Column(db.Integer, db.ForeignKey('facilities.id'), nullable=False)
+    name = db.Column(db.String(255), nullable=False)
+    nodes = db.relationship('Node', backref='layout', lazy=True)
+
+class DirectionType(enum.Enum):
+    '''Read left to right and thus node_a to node_b'''
+    ns = 'north/south'
+    ew = 'east/west'
+
+node_connections = db.Table('node_connections',
+    db.Column('node_a', db.Integer, db.ForeignKey('nodes.id'), primary_key=True),
+    db.Column('node_b', db.Integer, db.ForeignKey('nodes.id'), primary_key=True),
+    db.Column('direction', db.Enum(DirectionType), nullable=False)
+)
+
+class Node(db.Model):
+    __tablename__ = 'nodes'
+    id = db.Column(db.Integer, primary_key=True)
+    layout_id = db.Column(db.Integer, db.ForeignKey('layouts.id'), nullable=False)
+    name = db.Column(db.String(255), nullable=False)
+    connections = db.relationship('Node',
+        secondary=node_connections,
+        primaryjoin=node_connections.c.node_a==id,
+        secondaryjoin=node_connections.c.node_b==id
+    )

@@ -11,6 +11,7 @@ from utils import mail
 
 def create_app(config_name):
     app = Flask(__name__)
+    print(f'Config level: {config_name}')
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
     mail.init_app(app)
@@ -28,7 +29,8 @@ def create_app(config_name):
     app.logger.addHandler(handler)
 
     if not app.debug:
-        file_handler = logging.handlers.RotatingFileHandler(app.config['LOG_FILE'], maxBytes=10000)
+        from logging.handlers import RotatingFileHandler
+        file_handler = RotatingFileHandler(app.config['LOG_FILE'], maxBytes=10000)
         file_handler.setLevel(logging.INFO)
         file_handler.setFormatter(fmt)
         app.logger.addHandler(handler)
@@ -48,5 +50,7 @@ def create_app(config_name):
     app.register_blueprint(auth, url_prefix='/auth')
     from account import acct
     app.register_blueprint(acct, url_prefix='/acct')
+    from dash import dash
+    app.register_blueprint(dash, url_prefix='/dashboard')
 
     return app
