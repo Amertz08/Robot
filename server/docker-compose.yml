@@ -38,17 +38,21 @@ services:
       - MYSQL_PASSWORD=pass
       - MYSQL_DATABASE=Development
     volumes:
-      - "db-data:/data/db"
+      - "db-data:/var/lib/mysql"
 
   web:
     build: ./web
     volumes:
       - source: ./web
-        target: /app
+        target: /web
         type: bind
+      - "web-logs:/var/log"
     ports:
       - "5000:5000"
+    dns:
+      - 8.8.8.8
 
 volumes:
   db-data:
   bot-logs:
+  web-logs:
