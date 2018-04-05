@@ -24,7 +24,7 @@
       {% for f in facilities %}
       <tr id="facility_{{ f.id }}" data-name="{{ f.name }}" data-id="{{ f.id }}">
         <td>{{ f.name }}</td>
-        <td>{{ f.layouts | length }}</td>
+        <td><a href="{{ url_for('dash.layouts') }}">{{ f.layouts | length }}</a></td>
         <td>
           <i class="glyphicon glyphicon-edit"></i>
           <i data-url="{{ url_for('dash.delete_facility') }}" class="glyphicon glyphicon-remove"></i>
