@@ -2,7 +2,7 @@ import datetime
 import time
 import unittest
 
-from flask import url_for
+from flask import url_for, Flask
 from flask_testing import TestCase
 from flask_login import login_user
 
@@ -31,6 +31,16 @@ class BaseTest(TestCase):
 
     def logout(self, follow=True):
         return self.client.get(url_for('auth.logout'), follow_redirects=follow)
+
+    def signup(self, company_name, first_name, last_name, email, password, confirm, follow=True):
+        return self.client.post(url_for('auth.signup'), data={
+            'company_name': company_name,
+            'first_name': first_name,
+            'last_name': last_name,
+            'email': email,
+            'password': password,
+            'confirm': confirm},
+            follow_redirects=follow)
 
     @staticmethod
     def add_acct(company_name):
@@ -196,6 +206,41 @@ class TestAuth(BaseTest):
         self.assertRedirects(resp, url_for('main.index'))
         resp = self.client.get(url_for('auth.reset', token=token), follow_redirects=True)
         self.assertIn(b'Expired Token', resp.data, 'Expired token message not appearing')
+
+    def test_signup(self):
+        resp = self.signup('Test Company', 'Haozhan', 'Huang', 'hhz@example.com', 'pass', 'pass')
+        self.assertIn(b'You have been registered. A confirmation email is sent to your email address.',
+                      resp.data, 'Sign up message not shown')
+
+    def test_confirm(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Haozhan', 'Test', 'hhz@example.com', 'pass')
+
+        token = user.generate_token(1)
+        resp = self.client.get(url_for('auth.confirm', token=token), follow_redirects=True)
+        self.assertIn(b'You have verified your account!', resp.data, 'No verified message')
+
+    def test_confirm_no_token(self):
+        resp = self.client.get(url_for('auth.confirm'))
+        self.assert404(resp)
+
+    def test_confirm_invalid_token(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Haozhan', 'Test', 'hhz@example.com', 'pass')
+
+        token = user.generate_token(1)
+        time.sleep(2)
+        resp = self.client.get(url_for('auth.confirm', token=token), follow_redirects=True)
+        self.assertIn(b'The confirmation link is expired', resp.data, 'No expire message')
+
+    def test_resend_confirm(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Haozhan', 'Test', 'hhz@example.com', 'pass')
+        self.verify(user)
+        self.login(user.email, 'pass')
+
+        resp = self.client.get(url_for('auth.resend_confirm'), follow_redirects=True)
+        self.assertIn(b'A new confirmation email is sent to your email address.', resp.data, 'No new confirm message')
 
 
 class TestAcct(BaseTest):
