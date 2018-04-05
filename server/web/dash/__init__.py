@@ -74,3 +74,9 @@ def delete_facility():
         return jsonify('OK')
     else:
         return jsonify(form.errors)
+
+
+@dash.route('/layouts', methods=['GET', 'POST'])
+@login_required
+def layouts():
+    return render_template('dash/layouts.html.j2')
