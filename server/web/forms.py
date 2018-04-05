@@ -100,7 +100,19 @@ class UpdateFacilityForm(FlaskForm):
 class AddLayoutForm(FlaskForm):
     facility_id = HiddenField('facility_id', validators=[DataRequired()])
     name = StringField('Name', validators=[DataRequired()])
-    layout = TextAreaField('Layout', validators=[DataRequired()])
+    layout = TextAreaField('Layout', validators=[DataRequired()], default=yaml.dump({
+        'nodes': [
+            {
+                'name': '',
+                'connections': [
+                    {
+                        'name': '',
+                        'direction': ''
+                    }
+                ]
+            }
+        ]
+    }, default_flow_style=False))
     submit = SubmitField('Create layout')
 
     def validate_facility_id(self, field):
