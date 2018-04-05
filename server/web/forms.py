@@ -123,11 +123,24 @@ class AddLayoutForm(FlaskForm):
             print('Yaml data', data)
             if not isinstance(data, dict):
                 raise ValidationError('Invalid YAML')
+
             if 'nodes' not in data.keys():
                 raise ValidationError('"nodes:" missing from layout definition')
-
             if not isinstance(data['nodes'], list):
                 raise ValidationError('nodes: should be a list')
+
+            # Validate each node entry
+            for i, node in enumerate(data['nodes']):
+                if not isinstance(node, dict):
+                    raise ValidationError(f'Value "{n}" in nodes is not a dictionary')
+                if 'name' not in node.keys():
+                    raise ValidationError(f'"name:" should be a field in node {i}')
+                if not isinstance(node['name'], str):
+                    raise ValidationError(f'"name:" should be a string in node {i}')
+                if 'connections' not in node.keys():
+                    raise ValidationError(f'"connections:" should be a field in node {i}')
+                if not isinstance(node['connections'], list):
+                    raise ValidationError(f'"connections:" should be a list in node {i}')
         except yaml.YAMLError as e:
             if hasattr(e, 'problem_mark'):
                 mark = e.problem_mark
