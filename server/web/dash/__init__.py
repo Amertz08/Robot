@@ -1,8 +1,11 @@
+import yaml
+
 from flask import Blueprint, render_template, redirect, url_for, \
                     flash, jsonify, request, abort
 from flask_login import login_required, current_user
 
-from forms import AddFacilityForm, DeleteFacilityForm, UpdateFacilityForm
+from forms import AddFacilityForm, DeleteFacilityForm, \
+                UpdateFacilityForm, AddLayoutForm
 from models import db, Facility
 from utils import log_message
 
@@ -76,7 +79,7 @@ def delete_facility():
         return jsonify(form.errors)
 
 
-@dash.route('/facility/<facility_id>/layouts', methods=['GET', 'POST'])
+@dash.route('/facility/<facility_id>/layouts')
 @login_required
 def layouts(facility_id):
     facility = Facility.query.filter(
@@ -85,4 +88,20 @@ def layouts(facility_id):
     ).first()
     if not facility:
         abort(404)
-    return render_template('dash/layouts.html.j2', facility=facility)
+
+    form = AddLayoutForm()
+    form.facility_id.data = facility.id
+    ctx = {
+        'facility': facility,
+        'form': form
+    }
+    return render_template('dash/layouts.html.j2', **ctx)
+
+@dash.route('/facility/<facility_id>/layouts/add', methods=['GET', 'POST'])
+@login_required
+def add_layout(facility_id):
+    form = AddLayoutForm()
+    if form.validate_on_submit():
+        return jsonify('OK'), 201
+    else:
+        return jsonify(form.errors)

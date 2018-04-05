@@ -1,9 +1,12 @@
+import yaml
+
 from flask_login import current_user
 from flask_wtf import FlaskForm
-from wtforms.fields import StringField, SubmitField, PasswordField, HiddenField
+from wtforms.fields import StringField, SubmitField, PasswordField, \
+                        HiddenField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, ValidationError, EqualTo
 
-from models import User, Account, Facility
+from models import User, Account, Facility, Layout
 from utils import log_message
 
 class LoginForm(FlaskForm):
@@ -92,3 +95,42 @@ class UpdateFacilityForm(FlaskForm):
             Facility.acct_id == current_user.acct_id
         ).first():
             raise ValidationError('Facility with that name already exists')
+
+
+class AddLayoutForm(FlaskForm):
+    facility_id = HiddenField('facility_id', validators=[DataRequired()])
+    name = StringField('Name', validators=[DataRequired()])
+    layout = TextAreaField('Layout', validators=[DataRequired()])
+    submit = SubmitField('Create layout')
+
+    def validate_facility_id(self, field):
+        if not Facility.query.filter(
+            Facility.id == field.data,
+            Facility.acct_id == current_user.acct_id
+        ).first():
+            raise ValidationError(f'facility_id: {field.data} does not exist')
+
+    def validate_name(self, field):
+        if Layout.query.filter(
+            Layout.facility_id == self.facility_id.data,
+            Layout.name == field.data
+        ).first():
+            raise ValidationError('Layout name already exists')
+
+    def validate_layout(self, field):
+        try:
+            data = yaml.load(field.data)
+            print('Yaml data', data)
+            if not isinstance(data, dict):
+                raise ValidationError('Invalid YAML')
+            if 'nodes' not in data.keys():
+                raise ValidationError('"nodes:" missing from layout definition')
+
+            if not isinstance(data['nodes'], list):
+                raise ValidationError('nodes: should be a list')
+        except yaml.YAMLError as e:
+            if hasattr(e, 'problem_mark'):
+                mark = e.problem_mark
+                raise ValidationError(f'Parse error line: {mark.line} column: {mark.column + 1}')
+            else:
+                raise ValidationError('Invalid YAML layout')

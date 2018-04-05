@@ -1,15 +1,63 @@
 {% extends "base.html.j2" %}
+{% from "bootstrap/wtf.html" import form_field %}
 
 {% block title %}Layouts{% endblock %}
 
 {% block page_content %}
-<div class="col-md-6 col-md-offset-3">
-  <h1>Layouts for {{ facility.name }}</h1>
-  {% if facility.layouts %}
-    <table class="table table-striped">
-    </table>
-  {% else %}
-    <p>You have no layouts for this facility</p>
-  {% endif %}
-</div>
+  <div class="col-md-6 col-md-offset-3">
+    <h1>Layouts for {{ facility.name }}</h1>
+    <button class="btn btn-default" id="add-layout-btn">Add Layout</button>
+    {% if facility.layouts %}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Node Count</th>
+            <th>Admin</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for l in facility.layouts %}
+          <tr>
+            <td>{{ l.id }}</td>
+            <td>{{ l.name }}</td>
+            <td>{{ l.nodes | length }}</td>
+            <td>ADMIN</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>You have no layouts for this facility</p>
+    {% endif %}
+  </div>
+
+  <!-- Add layout modal -->
+  <div class="modal fade" id="add-layout-modal" tabindex="-1" role="dialog" aria-labelledby="add-layout-modal-label">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="add-layout-modal-label">Add Layout</h4>
+        </div>
+        <form class="form" role="form" action="{{ url_for('dash.add_layout', facility_id=facility.id) }}" id="add-layout-form" name="add-layout-form">
+          <div class="modal-body">
+              {{ form.hidden_tag() }}
+              {{ form_field(form.name) }}
+              {{ form_field(form.layout, rows="20") }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" id="add-dismiss-btn">Close</button>
+            {{ form_field(form.submit) }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/layouts.js') }}"></script>
 {% endblock %}
