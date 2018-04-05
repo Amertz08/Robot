@@ -1,5 +1,18 @@
 $(document).ready(function() {
   var addModal = $("#add-layout-modal");
+
+  // TODO: add to own file and import on base
+  function addHelp(helpMessages, div) {
+    div.addClass("has-error");
+    var help = $.map(helpMessages, function(entry) {
+      var span = "<span id=\"help\" class=\"help-block\">";
+      span += entry;
+      span += "</span>";
+      return span;
+    });
+    div.append(help);
+  }
+
   // Show add layout modal
   $(this).on("click", "#add-layout-btn", function(event) {
     event.preventDefault();
@@ -36,31 +49,13 @@ $(document).ready(function() {
         location.reload();
       } else {
         var div;
-        var help;
         if (resp.name) {
           div = name.parent();
-          div.addClass("has-error");
-
-          help = $.map(resp.name, function(entry) {
-            var span = "<span id=\"help\" class=\"help-block\">";
-            span += entry;
-            span += "</span>";
-            return span;
-          });
-          div.append(help);
+          addHelp(resp.name, div);
         }
-
         if (resp.layout) {
           div = layout.parent();
-          div.addClass("has-error");
-
-          help = $.map(resp.layout, function(entry) {
-            var span = "<span id=\"help\" class=\"help-block\">";
-            span += entry;
-            span += "</span>";
-            return span;
-          });
-          div.append(help);
+          addHelp(resp.layout, div);
         }
       }
     });
