@@ -312,6 +312,13 @@ class TestDash(BaseTest):
         resp = self.client.get(url_for('dash.layouts', facility_id=facility.id))
         self.assert200(resp, 'Should be 200 on dash.layouts route')
 
+    def test_layouts_404_on_invalid_facility(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Adam', 'Test', 'adam@example.com', 'pass')
+        self.login('adam@example.com', 'pass')
+        resp = self.client.get(url_for('dash.layouts', facility_id=20))
+        self.assert404(resp, 'Should 404 on invalid facility_id')
+
 
 
 
