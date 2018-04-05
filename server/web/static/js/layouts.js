@@ -1,18 +1,6 @@
 $(document).ready(function() {
   var addModal = $("#add-layout-modal");
 
-  // TODO: add to own file and import on base
-  function addHelp(helpMessages, div) {
-    div.addClass("has-error");
-    var help = $.map(helpMessages, function(entry) {
-      var span = "<span id=\"help\" class=\"help-block\">";
-      span += entry;
-      span += "</span>";
-      return span;
-    });
-    div.append(help);
-  }
-
   // Show add layout modal
   $(this).on("click", "#add-layout-btn", function(event) {
     event.preventDefault();

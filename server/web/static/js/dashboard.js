@@ -14,16 +14,7 @@ $(document).ready(function() {
       if (resp !== "OK") {
         if (resp.name) {
           var div = $("#add-facility-form").find("#name").parent();
-          div.addClass("has-error");
-
-          // Get all errors and append
-          var help = $.map(resp.name, function(entry) {
-            var span = "<span id=\"help\" class=\"help-block\">";
-            span += entry;
-            span += "</span>";
-            return span;
-          });
-          div.append(help);
+          addHelp(resp.name, div);
         }
       } else {
         location.reload();
@@ -77,16 +68,7 @@ $(document).ready(function() {
         console.log(resp);
         if (resp.name) {
           var nameDiv = form.find("#name").parent();
-          nameDiv.addClass("has-error");
-
-          // Get all errors and append
-          var help = $.map(resp.name, function(entry) {
-            var span = "<span id=\"help\" class=\"help-block\">";
-            span += entry;
-            span += "</span>";
-            return span;
-          });
-          nameDiv.append(help);
+          addHelp(resp.name, nameDiv);
         } else if (resp.facility_id) {
 
         } else {
