@@ -27,7 +27,7 @@
         <td>{{ f.layouts | length }}</td>
         <td>
           <i class="glyphicon glyphicon-edit"></i>
-          <i data-csrf="{{ delete_form.csrf_token._value() }}" class="glyphicon glyphicon-remove"></i>
+          <i data-csrf="{{ delete_form.csrf_token._value() }}" data-url="{{ url_for('dash.delete_facility') }}" class="glyphicon glyphicon-remove"></i>
         </td>
       </tr>
       {% endfor %}
@@ -66,7 +66,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="edit-facility-modal-label">Edit Facility</h4>
         </div>
-        <form class="form" role="form"  id="edit-facility-form" name="edit-facility-form">
+        <form class="form" role="form" action="{{ url_for('dash.update_facility') }}" id="edit-facility-form" name="edit-facility-form">
           <div class="modal-body">
               {{ update_form.csrf_token }}
               {{ update_form.facility_id }}

@@ -89,6 +89,10 @@ class Facility(db.Model):
     name = db.Column(db.String(255), nullable=False)
     layouts = db.relationship('Layout', backref='facility', lazy=True)
 
+    def __init__(self, acct_id, name):
+        self.acct_id = acct_id
+        self.name = name
+
 
 class Layout(db.Model):
     __tablename__ = 'layouts'

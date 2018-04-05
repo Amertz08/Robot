@@ -37,7 +37,7 @@ def add_facility():
         db.session.commit()
         log_message(f'user_id: {current_user.id} added facility: {facility.id}')
         flash('Facility created', 'success')
-        return jsonify('OK')
+        return jsonify('OK'), 201
     else:
         return jsonify(form.errors)
 
