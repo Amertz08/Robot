@@ -62,7 +62,6 @@ void setup() {
 }
 
 void loop() {
-  //writeSpeed(motor_arduino_address, m_leftDirection, m_leftSpeed, m_rightDirection, m_rightSpeed);
   uint8_t nextState = state;
   uint8_t prevState = state;
     switch (state) {
@@ -83,6 +82,7 @@ void loop() {
         }
       }
       else if(mySensorBar.getDensity() == 0) {
+        stopMotors();
         nextState = findLine();
       }
       else {
@@ -114,7 +114,6 @@ void loop() {
     break;
   }
   state = nextState;
-  delay(100);
 }
 
 /*Send speed and direction instructions to motor arduino*/
@@ -133,15 +132,16 @@ void stopMotors() {
 
 /*drive bot in a straight line*/
 void driveBot(int16_t driveInput) {
-  uint8_t leftVar;
-  uint8_t rightVar;
-  uint8_t directionVar = 0;
-  if(driveInput < 0) {
-    directionVar = 1;
-    driveInput = driveInput * -1;
-  }
-  leftVar = (uint8_t)driveInput;
-  rightVar = (uint8_t)driveInput;
+  writeSpeed(motor_arduino_address, FWD, MAX_SPEED, FWD, MAX_SPEED);
+  // uint8_t leftVar;
+  // uint8_t rightVar;
+  // uint8_t directionVar = 0;
+  // if(driveInput < 0) {
+  //   directionVar = 1;
+  //   driveInput = driveInput * -1;
+  // }
+  // leftVar = (uint8_t)driveInput;
+  // rightVar = (uint8_t)driveInput;
 }
 
 void leftTurn() {
