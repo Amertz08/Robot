@@ -331,34 +331,43 @@ class TestAcct(BaseTest):
         resp = self.client.post(url_for('acct.add_user'), data=data)
         self.assertRedirects(resp, url_for('dash.index'))
 
-    def test_rm_user(self):
+    def test_rm_user_follow(self):
         acct = self.add_acct('Test Company')
         user = self.add_user(acct.id, 'Haozhan', 'Test', 'hhz@example.com', 'pass')
+        user_rm = self.add_user(acct.id, 'Hz', 'Test', 'hz@example.com', 'pass')
         self.verify(user)
-        data = {
-            'company_name': acct.company_name,
-            'email': user.email,
-            'password': 'pass'}
         self.login(user.email, 'pass')
+
+        data = {'email': user_rm.email}
 
         resp = self.client.post(url_for('acct.rm_user'), data=data, follow_redirects=True)
         self.assertIn(b'User has been removed', resp.data, 'No removed message')
 
-    def test_rm_user_invalid_company(self):
+    def test_rm_user_no_follow(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Haozhan', 'Test', 'hhz@example.com', 'pass')
+        user_rm = self.add_user(acct.id, 'Hz', 'Test', 'hz@example.com', 'pass')
+        self.verify(user)
+        self.login(user.email, 'pass')
+
+        data = {'email': user_rm.email}
+
+        resp = self.client.post(url_for('acct.rm_user'), data=data)
+        self.assertRedirects(resp, url_for('dash.index'))
+
+    def test_rm_user_invalid_user(self):
         acct = self.add_acct('Test Company')
         user = self.add_user(acct.id, 'Haozhan', 'Test', 'hhz@example.com', 'pass')
         self.verify(user)
-        data = {
-            'company_name': 'Not existing company',
-            'email': 'hhz@example.com',
-            'password': 'pass'}
         self.login(user.email, 'pass')
+
+        data = {'email': 'h@example.com'}
 
         resp = self.client.post(url_for('acct.rm_user'), data=data)
         self.assertRedirects(resp, url_for('dash.index'))
 
         resp = self.client.post(url_for('acct.rm_user'), data=data, follow_redirects=True)
-        self.assertIn(b'Invalid company name', resp.data, 'No invalid company')
+        self.assertIn(b'User doesn\'t exis', resp.data, 'No invalid user message')
 
 
 if __name__ == '__main__':
