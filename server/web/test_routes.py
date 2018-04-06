@@ -367,7 +367,7 @@ class TestAcct(BaseTest):
         self.assertRedirects(resp, url_for('dash.index'))
 
         resp = self.client.post(url_for('acct.rm_user'), data=data, follow_redirects=True)
-        self.assertIn(b'User doesn\'t exis', resp.data, 'No invalid user message')
+        self.assertIn(b'User doesn\'t exist', resp.data, 'No invalid user message')
 
 
 if __name__ == '__main__':
