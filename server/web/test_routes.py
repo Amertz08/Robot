@@ -303,36 +303,33 @@ class TestDash(BaseTest):
         self.assertDictEqual(resp.json, {'name': ['Facility with that name already exists']}, f'Errors did not return correct: {resp.json}')
 
 
-
 class TestAcct(BaseTest):
 
-    def test_add_user(self):
+    def test_add_user_follow(self):
         acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Haozhan', 'Test', 'hhz@example.com', 'pass')
+        self.login(user.email, 'pass')
+
         data = {
-            'company_name': acct.company_name,
-            'first_name': 'Haozhan',
+            'first_name': 'Hz',
             'last_name': 'Test',
-            'email': 'hhz@example.com',
-            'password': 'pass',
-            'confirm': 'pass'}
+            'email': 'h@example.com'}
 
         resp = self.client.post(url_for('acct.add_user'), data=data, follow_redirects=True)
-        self.assertIn(b'New user have been added.', resp.data, 'No new user added message')
+        self.assertIn(b'New user has been added.', resp.data, 'No new user added message')
 
-    def test_add_user_invalid_company(self):
+    def test_add_user_no_follow(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Haozhan', 'Test', 'hhz@example.com', 'pass')
+        self.login(user.email, 'pass')
+
         data = {
-            'company_name': 'Test Company',
-            'first_name': 'Haozhan',
+            'first_name': 'Hz',
             'last_name': 'Test',
-            'email': 'hhz@example.com',
-            'password': 'pass',
-            'confirm': 'pass'}
+            'email': 'h@example.com'}
 
         resp = self.client.post(url_for('acct.add_user'), data=data)
         self.assertRedirects(resp, url_for('dash.index'))
-
-        resp = self.client.post(url_for('acct.add_user'), data=data, follow_redirects=True)
-        self.assertIn(b'Invalid company name', resp.data, 'No invalid company')
 
     def test_rm_user(self):
         acct = self.add_acct('Test Company')
