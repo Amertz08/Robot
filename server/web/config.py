@@ -46,6 +46,7 @@ class TestingConfig(Config):
     DB_PASS = 'pass'
     DB_NAME = 'Testing'
     TESTING = True
+    MAIL_SUPPRESS_SEND = True
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}'
 
