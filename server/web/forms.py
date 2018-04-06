@@ -95,22 +95,15 @@ class UpdateFacilityForm(FlaskForm):
 
 
 class AddUserForm(FlaskForm):
-    company_name = StringField('Company Name', validators=[DataRequired(), Length(max=64)])
     first_name = StringField('First Name', validators=[DataRequired(), Length(max=64)])
     last_name = StringField('Last Name', validators=[DataRequired(), Length(max=64)])
     email = StringField('Email Address', validators=[DataRequired(), Email(), Length(max=64)])
-    password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm')])
-    confirm = PasswordField('Repeat Password')
 
     submit = SubmitField('Add')
 
     def validate_email(self, field):
         if User.query.filter_by(email=field.data).first():
             raise ValidationError('Email already exists')
-
-    def validate_company(self, field):
-        if Account.query.filter_by(company_name=field.data) == None :
-            raise ValidationError('Company doesn\'t exist')
 
 
 class RemoveUserForm(FlaskForm):
@@ -123,3 +116,9 @@ class RemoveUserForm(FlaskForm):
     def validate_email(self, field):
         if User.query.filter_by(email=field.data) == None:
             raise ValidationError('User doesn\'t exist')
+
+class SetPassword(FlaskForm):  # For new added user
+    password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm')])
+    confirm = PasswordField('Repeat Password')
+
+    submit = SubmitField('Set Password')
