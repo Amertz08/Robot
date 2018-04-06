@@ -38,20 +38,14 @@ def add_user():
 def rm_user():
     form = RemoveUserForm()
     if form.validate_on_submit():
-        acct = Account.get(form.company_name.data)
-        if acct:
-            user = User.get(form.email.data)
-            if user:
-                db.session.delete(user)
-                db.session.commit()
-                log_message(f'acct_id: {acct.id},\t user: {user.first_name} has been removed')
-                flash('User has been removed')
-                if user == current_user:
-                    logout_user()
-            else:
-                flash('User doesn\'t exist')
+        user = User.get(form.email.data)
+        if user:
+            db.session.delete(user)
+            db.session.commit()
+            log_message(f'acct_id: {user.acct_id},\t user: {user.first_name} has been removed')
+            flash('User has been removed')
         else:
-            flash('Invalid company name')
+            flash('User doesn\'t exist')
         return redirect(url_for('dash.index'))
     return render_template('account/rm-user.html.j2', form=form)
 
