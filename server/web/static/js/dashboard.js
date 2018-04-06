@@ -22,6 +22,15 @@ $(document).ready(function() {
     });
   });
 
+  // Close add facility modal
+  $(this).on("click", ".add-dismiss-btn", function(event) {
+    event.preventDefault();
+    var form = $("#add-facility-form");
+    removeHelp(form);
+    form.find("#name").val("");
+    $("#add-facility-modal").modal("hide");
+  })
+
   var facilityRows = $(this).find("[id^=facility_]");
 
   // Show edit modal
@@ -38,7 +47,7 @@ $(document).ready(function() {
   });
 
   // Close edit modal
-  $(this).on("click", "#edit-dismiss-btn", function(event) {
+  $(this).on("click", ".edit-dismiss-btn", function(event) {
     event.preventDefault();
     var form = $("#edit-facility-form");
     removeHelp(form);
