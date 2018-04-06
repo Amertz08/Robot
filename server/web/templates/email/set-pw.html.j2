@@ -1,11 +1,11 @@
-{% extends "base.html.j2" %}
-{% import "bootstrap/wtf.html" as wtf %}
-
-{% block title %}Set Password{% endblock %}
-
-{% block page_content %}
-  <div class="col-md-6 col-md-offset-3">
-    <h1>Set Password</h1>
-    {{ wtf.quick_form(form) }}
-  </div>
-{% endblock %}
+<div>
+  <h3>Dear {{ user.first_name }},</h3>
+  <p>
+    Welcome! To set your password please click on the following link: <a href="{{ url_for('acct.set-pw', token=token, _external=True) }}" >link.</a>
+  </p>
+  <p>
+    Sincerely,<br>
+    Our team<br>
+    <small>Note: replies to this email address are not monitored.</small>
+  </p>
+</div>
