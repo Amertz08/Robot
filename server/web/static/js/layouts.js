@@ -8,7 +8,7 @@ $(document).ready(function() {
   });
 
   // Dismiss add layout modal
-  $(this).on("click", "#add-dismiss-btn", function(event) {
+  $(this).on("click", ".add-dismiss-btn", function(event) {
     event.preventDefault();
     $("#add-layout-modal").modal("hide");
     var form = $("#add-layout-form");

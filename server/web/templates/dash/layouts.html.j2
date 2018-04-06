@@ -38,7 +38,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close add-dismiss-btn" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="add-layout-modal-label">Add Layout</h4>
         </div>
         <form class="form" role="form" action="{{ url_for('dash.add_layout', facility_id=facility.id) }}" id="add-layout-form" name="add-layout-form">
@@ -48,7 +48,7 @@
               {{ form_field(form.layout, rows="20") }}
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" id="add-dismiss-btn">Close</button>
+            <button type="button" class="btn btn-default add-dismiss-btn">Close</button>
             {{ form_field(form.submit) }}
           </div>
         </form>
