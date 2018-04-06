@@ -17,7 +17,7 @@ def add_user():
                     first_name=form.first_name.data,
                     last_name=form.last_name.data,
                     email=form.email.data,
-                    password=None)
+                    password='pass')
         db.session.add(user)
         db.session.commit()
         token = user.generate_token()
@@ -26,9 +26,9 @@ def add_user():
 
         send_email(user.email, 'Confirm Your Account', 'set-pw', 'info@example.com', user=user, token=token)
 
-        flash('New user have been added. A confirmation email is sent to user\'s email address. \
+        flash('New user has been added. A confirmation email is sent to user\'s email address. \
                 The link will expire after 24 hours.')
-        log_message(f'acct_id: {acct.id}, {user.first_name} has been added')
+        log_message(f'acct_id: {current_user.acct_id}, {user.first_name} has been added')
         return redirect(url_for('dash.index'))
     return render_template('account/add-user.html.j2', form=form)
 
@@ -87,4 +87,4 @@ def set_pw():
         flash('Password set', 'success')
         login_user(user)
         return redirect(url_for('dash.index'))
-    return render_template('email/set-pw.html.j2', form=form)
+    return render_template('account/set-pw.html.j2', form=form)
