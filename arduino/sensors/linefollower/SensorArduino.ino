@@ -9,6 +9,7 @@
 #define GO_FORWARD 2
 #define GO_LEFT 3
 #define GO_RIGHT 4
+#define PI_REQUEST_PIN 11
 
 //Pins
 const unit8_t TRIG_PIN = 12;
@@ -54,6 +55,8 @@ void setup() {
   Serial.println();
 
   Wire.begin(10);
+  Wire.onReceive(receiveEvent);
+  Wire.onRequest(requestEvent);
   m_leftDirection = FWD;
   m_leftSpeed = 0;
   m_rightDirection = FWD;
@@ -86,6 +89,7 @@ void loop() {
         nextState = findLine();
       }
       else {
+        askForDirection();
         nextState = IDLE_STATE;
       }
     }
@@ -191,4 +195,21 @@ uint16_t ultraSonic() {
   cm = pulse_width / 58;
   average = ultraSmooth.smooth(cm);
   return average;
+}
+
+/*
+* Interrupt pi to get next direction
+*/
+void askForDirection() {
+  digitalWrite(PI_REQUEST_PIN, HIGH);
+  delay(10);
+  digitalWrite(PI_REQUEST_PIN, LOW);
+}
+
+void receiveEvent(int BytesToRead) {
+  //Do something with instructions from Pi
+}
+
+void requestEvent() {
+  //Send data to Pi
 }
