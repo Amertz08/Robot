@@ -153,6 +153,15 @@ class AddLayoutForm(FlaskForm):
                     raise ValidationError(f'"connections:" should be a field in node {i}')
                 if not isinstance(node['connections'], list):
                     raise ValidationError(f'"connections:" should be a list in node {i}')
+                    for j, conn in enumerate(node['connections']):
+                        if 'name' not in conn.keys():
+                            raise ValidationError(f'Connection: {j} in node: {i} is missing "name:"')
+                        if not isinstance(conn['name'], str):
+                            raise ValidationError(f'Connection: {j} name in node: {i} should be a string')
+                        if 'direction' not in conn.keys():
+                            raise ValidationError(f'Connection: {j} in node: {i} is missing "direction:"')
+                        if not isinstance(conn['direction'], str):
+                            raise ValidationError(f'Connection: {j} direction in node: {i} should be a string')
         except yaml.YAMLError as e:
             if hasattr(e, 'problem_mark'):
                 mark = e.problem_mark
