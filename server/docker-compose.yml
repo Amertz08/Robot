@@ -51,6 +51,8 @@ services:
       - "5000:5000"
     dns:
       - 8.8.8.8
+    environment:
+      - SUPPRESS_MAIL=True
 
 volumes:
   db-data:

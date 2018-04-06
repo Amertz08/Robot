@@ -1,6 +1,8 @@
 import os
+import pprint
 
 import click
+from flask import current_app
 from flask.cli import FlaskGroup
 
 from factory import create_app
@@ -39,6 +41,9 @@ def test_user():
     db.session.commit()
     click.echo('User Created')
 
+@cli.command(help='Prints application config')
+def config():
+    pprint.pprint(current_app.config)
 
 
 if __name__ == '__main__':

@@ -23,6 +23,7 @@ class Config(object):
     MAIL_USE_SSL = True
     MAIL_USERNAME = SMTP['user']
     MAIL_PASSWORD = SMTP['pw']
+    MAIL_SUPPRESS_SEND = os.getenv('SUPPRESS_MAIL') or False
 
     LOG_FILE = '/var/log/web.log'
     LOG_FORMAT = '[%(asctime)s] [%(remote_addr)s] [%(url)s] [%(levelname)s] [%(message)s]'
