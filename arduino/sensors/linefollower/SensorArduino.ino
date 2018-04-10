@@ -70,7 +70,6 @@ void setup() {
 
   Wire.begin(10);
   Wire.onReceive(receiveEvent);
-  Wire.onRequest(requestEvent);
   m_leftDirection = FWD;
   m_leftSpeed = 0;
   m_rightDirection = FWD;
@@ -131,7 +130,7 @@ void loop() {
     prevState = GO_RIGHT;
     break;
   default:
-    stopMotors();       // Stops both motors
+    stopMotors();
     break;
   }
   state = nextState;
@@ -257,8 +256,4 @@ void receiveEvent(int BytesToRead) {
         turnAround();
         break;
   }
-}
-
-void requestEvent() {
-  //Send data to Pi
 }
