@@ -58,17 +58,6 @@ def read_number():
     # number = bus.read_byte_data(address, 1)
     return number
 
-def my_callback(channel):
-    # read QR from Camera
-    barcode = read_barcode()
-    # confirm correct node
-
-    # determine left right straight 
-    arduino_direction = find_relative(next_direction) #TODO get next_direction after confirming we're at the correct node
-    #tell arduino left right straight
-    write_number(arduino_direction)
-    return -1;
-
 def read_barcode():
     camera = PiCamera()
 
@@ -91,8 +80,20 @@ def read_barcode():
     #     print('decoded', symbol.type, 'symbol', '"%s"' % symbol.data)
     return symbol.data
 
+def my_callback(channel):
+    # read QR from Camera
+    barcode = read_barcode()
+    # confirm correct node
+    next_direction = #TODO
+    # determine left right straight 
+    arduino_direction = find_relative(next_direction)
+    #tell arduino left right straight
+    write_number(arduino_direction)
+    return -1;
 
 def main():
+    #call route solver
+    #
     GPIO.add_event_detect(INTERRUPT_PIN, GPIO.RISING, callback=my_callback)
 
 if __name__ == '__main__':
