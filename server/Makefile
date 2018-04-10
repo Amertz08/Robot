@@ -81,6 +81,10 @@ wlogweb:
 bashweb:
 	$(DC) exec web bash
 
+# Creates tables
+db:
+	$(DC) exec web python cli.py createdb
+
 # Run tests on web container
 testroutes:
 	$(DC) exec web python test_routes.py
