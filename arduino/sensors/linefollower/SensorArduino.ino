@@ -40,9 +40,9 @@ const uint8_t MAX_SPEED = 150;
 
 const uint8_t MAX_OBSTACLE_DISTANCE = 8;
 
-const double TURN_DELAY = 2;
-const double TURN_AROUND_DELAY = 2;
-const double STRAIGHT_DELAY = 2;
+const uint16_t TURN_DELAY = 2000;
+const uint16_t TURN_AROUND_DELAY = 2000;
+const uint16_t STRAIGHT_DELAY = 2000;
 
 SensorBar mySensorBar(SX1509_ADDRESS);
 SMOOTHING ultraSmooth = SMOOTHING(5);
