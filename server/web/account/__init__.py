@@ -28,7 +28,7 @@ def add_user():
 
         flash('New user has been added. A confirmation email is sent to user\'s email address. \
                 The link will expire after 24 hours.')
-        log_message(f'acct_id: {current_user.acct_id}, {user.first_name} has been added')
+        log_message(f'User: {user.last_name}, {user.first_name} has been added')
         return redirect(url_for('dash.index'))
     return render_template('account/add-user.html.j2', form=form)
 
