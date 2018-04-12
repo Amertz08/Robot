@@ -6,7 +6,7 @@ from wtforms.fields import StringField, SubmitField, PasswordField, \
                         HiddenField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, ValidationError, EqualTo
 
-from models import User, Account, Facility, Layout
+from models import User, Account, Facility, Layout, DirectionType
 from utils import log_message
 
 class LoginForm(FlaskForm):
@@ -140,6 +140,9 @@ class AddLayoutForm(FlaskForm):
                 raise ValidationError('"nodes:" missing from layout definition')
             if not isinstance(data['nodes'], list):
                 raise ValidationError('nodes: should be a list')
+            if not len(data['nodes']):
+                raise ValidationError("nodes: has no nodes defined")
+
 
             # Validate each node entry
             for i, node in enumerate(data['nodes']):
@@ -149,19 +152,26 @@ class AddLayoutForm(FlaskForm):
                     raise ValidationError(f'"name:" should be a field in node {i}')
                 if not isinstance(node['name'], str):
                     raise ValidationError(f'"name:" should be a string in node {i}')
+                if node['name'] == '':
+                    raise ValidationError(f'"name:" must provide a name cannot equal \'\'')
                 if 'connections' not in node.keys():
                     raise ValidationError(f'"connections:" should be a field in node {i}')
                 if not isinstance(node['connections'], list):
                     raise ValidationError(f'"connections:" should be a list in node {i}')
-                    for j, conn in enumerate(node['connections']):
-                        if 'name' not in conn.keys():
-                            raise ValidationError(f'Connection: {j} in node: {i} is missing "name:"')
-                        if not isinstance(conn['name'], str):
-                            raise ValidationError(f'Connection: {j} name in node: {i} should be a string')
-                        if 'direction' not in conn.keys():
-                            raise ValidationError(f'Connection: {j} in node: {i} is missing "direction:"')
-                        if not isinstance(conn['direction'], str):
-                            raise ValidationError(f'Connection: {j} direction in node: {i} should be a string')
+                for j, conn in enumerate(node['connections']):
+                    if 'name' not in conn.keys():
+                        raise ValidationError(f'Connection: {j} in node: {i} is missing "name:"')
+                    if not isinstance(conn['name'], str):
+                        raise ValidationError(f'Connection: {j} name in node: {i} should be a string')
+                    if conn['name'] == '':
+                        raise ValidationError(f'Connection: {j} "name:" in node: {i} must provide a name cannot equal \'\'')
+                    if 'direction' not in conn.keys():
+                        raise ValidationError(f'Connection: {j} in node: {i} is missing "direction:"')
+                    if not isinstance(conn['direction'], str):
+                        raise ValidationError(f'Connection: {j} direction in node: {i} should be a string')
+                    if not DirectionType.valid_dir(conn['direction']):
+                        raise ValidationError(f'Connection: {j} direction in node: {i} should be either {DirectionType.ns} or {DirectionType.ew}')
+
         except yaml.YAMLError as e:
             if hasattr(e, 'problem_mark'):
                 mark = e.problem_mark

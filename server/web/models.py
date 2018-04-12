@@ -106,6 +106,13 @@ class DirectionType(enum.Enum):
     ns = 'north/south'
     ew = 'east/west'
 
+    def __str__(self):
+        return self.value
+
+    @classmethod
+    def valid_dir(cls, val):
+        return val in (item.value for item in cls)
+
 node_connections = db.Table('node_connections',
     db.Column('node_a', db.Integer, db.ForeignKey('nodes.id'), primary_key=True),
     db.Column('node_b', db.Integer, db.ForeignKey('nodes.id'), primary_key=True),
