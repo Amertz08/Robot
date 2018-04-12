@@ -49,7 +49,7 @@ def create_app(config_name):
     from auth import auth
     app.register_blueprint(auth, url_prefix='/auth')
     from account import acct
-    app.register_blueprint(acct, url_prefix='/acct')
+    app.register_blueprint(acct, url_prefix='/account')
     from dash import dash
     app.register_blueprint(dash, url_prefix='/dashboard')
 

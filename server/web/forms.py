@@ -112,8 +112,9 @@ class RemoveUserForm(FlaskForm):
     submit = SubmitField('Remove')
 
     def validate_email(self, field):
-        if User.query.filter_by(email=field.data) == None:
+        if not User.query.filter_by(email=field.data).first:
             raise ValidationError('User doesn\'t exist')
+
 
 class SetPassword(FlaskForm):  # For new added user
     password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm')])

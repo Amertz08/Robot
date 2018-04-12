@@ -1,12 +1,13 @@
 import datetime
 from flask import Blueprint, url_for, flash, render_template, redirect, request, abort
 from forms import AddUserForm, RemoveUserForm, SetPassword
-from models import db, User, Account
+from models import db, User
 from utils import send_email, print_debug, log_message
-from flask_login import login_user, logout_user, login_required, current_user
+from flask_login import login_user, login_required, current_user
 from itsdangerous import SignatureExpired, BadSignature
 
 acct = Blueprint('acct', __name__)
+
 
 @acct.route('/add-user', methods=['GET', 'POST'])
 @login_required
@@ -62,7 +63,7 @@ def set_pw():
     except SignatureExpired:
         flash('The link has expired')
         log_message('expired token on account verification')
-        return redirect(url_for('dash.index'))
+        return redirect(url_for('main.index'))
     except BadSignature:
         flash('Invalid token', 'danger')
         log_message('bad signature verification attempt')
