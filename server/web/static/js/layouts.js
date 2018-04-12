@@ -13,7 +13,7 @@ $(document).ready(function() {
     $("#add-layout-modal").modal("hide");
     var form = $("#add-layout-form");
     form.find("#name").val("");
-    form.find("#layout").val("");
+    form.find("#layout").val(form.find(".modal-body").data("layout-default"));
     removeHelp(form);
   });
 
@@ -29,9 +29,7 @@ $(document).ready(function() {
     var layout = form.find("#layout");
     $.post(url, form.serialize())
     .success(function(resp) {
-      if (resp == "OK") {
-        name.val("");
-        layout.val("");
+      if (resp === "OK") {
         addModal.modal("hide");
         location.reload();
       } else {

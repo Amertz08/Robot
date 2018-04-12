@@ -42,7 +42,7 @@
           <h4 class="modal-title" id="add-layout-modal-label">Add Layout</h4>
         </div>
         <form class="form" role="form" action="{{ url_for('dash.add_layout', facility_id=facility.id) }}" id="add-layout-form" name="add-layout-form">
-          <div class="modal-body">
+          <div class="modal-body" data-layout-default="{{ form.layout.data }}">
               {{ form.hidden_tag() }}
               {{ form_field(form.name) }}
               {{ form_field(form.layout, rows="20") }}
