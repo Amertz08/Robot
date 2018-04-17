@@ -11,8 +11,9 @@
 #define GO_RIGHT 4
 
 //Pins
-const unit8_t TRIG_PIN = 12;
-const unit8_t ECHO_PIN = 13;
+const uint8_t TRIG_PIN = 12;
+const uint8_t ECHO_PIN = 13;
+const uint8_t PI_REQUEST_PIN = 11;
 
 const uint8_t SX1509_ADDRESS = 0x3E;
 
@@ -25,10 +26,23 @@ uint8_t m_leftSpeed;
 uint8_t m_rightDirection;
 uint8_t m_rightSpeed;
 
-const uint8_t FWD = 0;
-const uint8_t BKWD = 1;
+//relative direction from Raspberry Pi
+const uint8_t STRAIGHT = 0;
+const uint8_t RIGHT = 1;
+const uint8_t LEFT = 2;
+const uint8_t REVERSE = 3;
+
+//Instructions for motors
+const uint8_t STOP = 0;
+const uint8_t FWD = 1;
+const uint8_t BKWD = 2;
 const uint8_t MAX_SPEED = 150;
+
 const uint8_t MAX_OBSTACLE_DISTANCE = 8;
+
+const uint16_t TURN_DELAY = 2000;
+const uint16_t TURN_AROUND_DELAY = 2000;
+const uint16_t STRAIGHT_DELAY = 2000;
 
 SensorBar mySensorBar(SX1509_ADDRESS);
 SMOOTHING ultraSmooth = SMOOTHING(5);
@@ -37,6 +51,8 @@ void setup() {
   Serial.begin(9600);
   Serial.println("Program started.");
   Serial.println();
+  pinMode(PI_REQUEST_PIN, OUTPUT);
+  digitalWrite(PI_REQUEST_PIN, LOW);
 
   pinMode(TRIG_PIN, OUTPUT);
   digitalWrite(TRIG_PIN, LOW);
@@ -53,6 +69,7 @@ void setup() {
   Serial.println();
 
   Wire.begin(10);
+  Wire.onReceive(receiveEvent);
   m_leftDirection = FWD;
   m_leftSpeed = 0;
   m_rightDirection = FWD;
@@ -61,7 +78,6 @@ void setup() {
 }
 
 void loop() {
-  //writeSpeed(motor_arduino_address, m_leftDirection, m_leftSpeed, m_rightDirection, m_rightSpeed);
   uint8_t nextState = state;
   uint8_t prevState = state;
     switch (state) {
@@ -82,9 +98,14 @@ void loop() {
         }
       }
       else if(mySensorBar.getDensity() == 0) {
+        stopMotors();
         nextState = findLine();
       }
       else {
+        if(prevState != IDLE_STATE){
+            findBarcodePosition();
+            askForDirection();
+        }
         nextState = IDLE_STATE;
       }
     }
@@ -109,11 +130,10 @@ void loop() {
     prevState = GO_RIGHT;
     break;
   default:
-    stopMotors();       // Stops both motors
+    stopMotors();
     break;
   }
   state = nextState;
-  delay(100);
 }
 
 /*Send speed and direction instructions to motor arduino*/
@@ -127,20 +147,21 @@ void writeSpeed(int writeAddress, uint8_t leftDirection, uint8_t leftSpeed, uint
 }
 
 void stopMotors() {
-  writeSpeed(motor_arduino_address, FWD, 0, FWD, 0);
+  writeSpeed(motor_arduino_address, STOP, 0, STOP, 0);
 }
 
 /*drive bot in a straight line*/
 void driveBot(int16_t driveInput) {
-  uint8_t leftVar;
-  uint8_t rightVar;
-  uint8_t directionVar = 0;
-  if(driveInput < 0) {
-    directionVar = 1;
-    driveInput = driveInput * -1;
-  }
-  leftVar = (uint8_t)driveInput;
-  rightVar = (uint8_t)driveInput;
+  writeSpeed(motor_arduino_address, FWD, driveInput, FWD, driveInput);
+  // uint8_t leftVar;
+  // uint8_t rightVar;
+  // uint8_t directionVar = 0;
+  // if(driveInput < 0) {
+  //   directionVar = 1;
+  //   driveInput = driveInput * -1;
+  // }
+  // leftVar = (uint8_t)driveInput;
+  // rightVar = (uint8_t)driveInput;
 }
 
 void leftTurn() {
@@ -157,11 +178,25 @@ uint8_t findLine() {
   }
   stopMotors();
   if(mySensorBar.getPosition() < -50) {
-        return GO_LEFT;
+    return GO_LEFT;
   }
   if(mySensorBar.getPosition() > 50) {
-        return GO_RIGHT;
+    return GO_RIGHT;
   }
+}
+
+void findBarcodePosition() {
+  writeSpeed(motor_arduino_address, BKWD, MAX_SPEED * 0.75, BKWD, MAX_SPEED * 0.75);
+  while(mySensorBar.getPosition() > 7){}
+  driveBot(MAX_SPEED * 0.75);
+  //May need delay here
+  stopMotors();
+}
+
+void turnAround() {
+  writeSpeed(motor_arduino_address, FWD, MAX_SPEED * 0.5, BKWD, MAX_SPEED * 0.5);
+  delay(TURN_AROUND_DELAY);
+  stopMotors();
 }
 
 uint16_t ultraSonic() {
@@ -190,4 +225,35 @@ uint16_t ultraSonic() {
   cm = pulse_width / 58;
   average = ultraSmooth.smooth(cm);
   return average;
+}
+
+/*
+* Interrupt pi to get next direction
+*/
+void askForDirection() {
+  digitalWrite(PI_REQUEST_PIN, HIGH);
+  delay(10);
+  digitalWrite(PI_REQUEST_PIN, LOW);
+}
+
+void receiveEvent(int BytesToRead) {
+  //continue through intersection with instructions from Pi
+  uint8_t nextDirection = Wire.read();
+  switch (nextDirection) {
+      case STRAIGHT:
+        driveBot(MAX_SPEED);
+        delay(STRAIGHT_DELAY);
+        break;
+      case RIGHT:
+        rightTurn();
+        delay(TURN_DELAY);
+        break;
+      case LEFT:
+        leftTurn();
+        delay(TURN_DELAY);
+        break;
+      case REVERSE:
+        turnAround();
+        break;
+  }
 }

@@ -1,4 +1,10 @@
+#include <Monster.h>
 #include <Wire.h>
+
+#define LEFT_MOTOR 1
+#define RIGHT_MOTOR 0
+
+Monster shield = Monster(MIXED);
 
 uint8_t m_leftDirection;
 uint8_t m_leftSpeed;
@@ -13,7 +19,7 @@ void setup() {
   m_leftSpeed = 0;
   m_rightDirection = 0;
   m_rightSpeed = 0;
-
+  shield.stop();
 }
 
 void loop() {
@@ -25,7 +31,6 @@ void loop() {
   Serial.print(" ");
   Serial.print(m_rightSpeed);
   Serial.println();
-  delay(100);
 }
 
 void receiveEvent(int bytesToRead) {
@@ -34,5 +39,6 @@ void receiveEvent(int bytesToRead) {
   m_rightDirection = Wire.read();
   m_rightSpeed = Wire.read();
 
-  /*Set speed here*/
+  shield.driveMotor(LEFT_MOTOR, m_leftDirection, m_leftSpeed);
+  shield.driveMotor(RIGHT_MOTOR, m_rightDirection, m_rightSpeed);
 }
