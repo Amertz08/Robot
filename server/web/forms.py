@@ -112,7 +112,7 @@ class RemoveUserForm(FlaskForm):
     submit = SubmitField('Remove')
 
     def validate_email(self, field):
-        if not User.query.filter_by(email=field.data).first:
+        if not User.query.filter_by(email=field.data).first():
             raise ValidationError('User doesn\'t exist')
 
 
