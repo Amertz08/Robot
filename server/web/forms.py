@@ -92,3 +92,32 @@ class UpdateFacilityForm(FlaskForm):
             Facility.acct_id == current_user.acct_id
         ).first():
             raise ValidationError('Facility with that name already exists')
+
+
+class AddUserForm(FlaskForm):
+    first_name = StringField('First Name', validators=[DataRequired(), Length(max=64)])
+    last_name = StringField('Last Name', validators=[DataRequired(), Length(max=64)])
+    email = StringField('Email Address', validators=[DataRequired(), Email(), Length(max=64)])
+
+    submit = SubmitField('Add')
+
+    def validate_email(self, field):
+        if User.query.filter_by(email=field.data).first():
+            raise ValidationError('Email already exists')
+
+
+class RemoveUserForm(FlaskForm):
+    email = StringField('Email Address', validators=[DataRequired(), Email(), Length(max=64)])
+
+    submit = SubmitField('Remove')
+
+    def validate_email(self, field):
+        if not User.query.filter_by(email=field.data).first():
+            raise ValidationError('User doesn\'t exist')
+
+
+class SetPassword(FlaskForm):  # For new added user
+    password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm')])
+    confirm = PasswordField('Repeat Password')
+
+    submit = SubmitField('Set Password')

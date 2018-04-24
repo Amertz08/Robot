@@ -1,4 +1,5 @@
 import logging
+import logging.handlers
 
 from flask import Flask, render_template
 from flask_login import LoginManager
@@ -47,6 +48,8 @@ def create_app(config_name):
     app.register_blueprint(main)
     from auth import auth
     app.register_blueprint(auth, url_prefix='/auth')
+    from account import acct
+    app.register_blueprint(acct, url_prefix='/account')
     from dash import dash
     app.register_blueprint(dash, url_prefix='/dashboard')
 

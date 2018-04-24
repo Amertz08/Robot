@@ -1,0 +1,11 @@
+<div>
+  <h3>Dear {{ user.first_name }},</h3>
+  <p>
+    Welcome! To set your password please click on the following link: <a href="{{ url_for('acct.set_pw', token=token, _external=True) }}" >link.</a>
+  </p>
+  <p>
+    Sincerely,<br>
+    Our team<br>
+    <small>Note: replies to this email address are not monitored.</small>
+  </p>
+</div>

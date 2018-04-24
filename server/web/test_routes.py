@@ -303,6 +303,72 @@ class TestDash(BaseTest):
         self.assertDictEqual(resp.json, {'name': ['Facility with that name already exists']}, f'Errors did not return correct: {resp.json}')
 
 
+class TestAcct(BaseTest):
+
+    def test_add_user_follow(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Haozhan', 'Test', 'hhz@example.com', 'pass')
+        self.login(user.email, 'pass')
+
+        data = {
+            'first_name': 'Hz',
+            'last_name': 'Test',
+            'email': 'h@example.com'}
+
+        resp = self.client.post(url_for('acct.add_user'), data=data, follow_redirects=True)
+        self.assertIn(b'New user has been added.', resp.data, 'No new user added message')
+
+    def test_add_user_no_follow(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Haozhan', 'Test', 'hhz@example.com', 'pass')
+        self.login(user.email, 'pass')
+
+        data = {
+            'first_name': 'Hz',
+            'last_name': 'Test',
+            'email': 'h@example.com'}
+
+        resp = self.client.post(url_for('acct.add_user'), data=data)
+        self.assertRedirects(resp, url_for('dash.index'))
+
+    def test_rm_user_follow(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Haozhan', 'Test', 'hhz@example.com', 'pass')
+        user_rm = self.add_user(acct.id, 'Hz', 'Test', 'hz@example.com', 'pass')
+        self.verify(user)
+        self.login(user.email, 'pass')
+
+        data = {'email': user_rm.email}
+
+        resp = self.client.post(url_for('acct.rm_user'), data=data, follow_redirects=True)
+        self.assertIn(b'User has been removed', resp.data, 'No removed message')
+
+    def test_rm_user_no_follow(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Haozhan', 'Test', 'hhz@example.com', 'pass')
+        user_rm = self.add_user(acct.id, 'Hz', 'Test', 'hz@example.com', 'pass')
+        self.verify(user)
+        self.login(user.email, 'pass')
+
+        data = {'email': user_rm.email}
+
+        resp = self.client.post(url_for('acct.rm_user'), data=data)
+        self.assertRedirects(resp, url_for('dash.index'))
+
+    def test_rm_user_invalid_user(self):
+        acct = self.add_acct('Test Company')
+        user = self.add_user(acct.id, 'Haozhan', 'Test', 'hhz@example.com', 'pass')
+        self.verify(user)
+        self.login(user.email, 'pass')
+
+        data = {'email': 'h@example.com'}
+
+        resp = self.client.post(url_for('acct.rm_user'), data=data)
+        self.assertRedirects(resp, url_for('dash.index'))
+
+        resp = self.client.post(url_for('acct.rm_user'), data=data, follow_redirects=True)
+        self.assertIn(b'User doesn\'t exist', resp.data, 'No invalid user message')
+
 
 if __name__ == '__main__':
     unittest.main()

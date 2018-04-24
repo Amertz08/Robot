@@ -26,6 +26,14 @@ class Account(db.Model):
     def __repr__(self):
         return f'<Account id: {self.id} company: {self.company_name} >'
 
+    @classmethod
+    def get(cls, company_name):
+        """
+        Returns user model or None with the given email
+        """
+        return cls.query.filter_by(company_name=company_name).first()
+
+
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
