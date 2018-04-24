@@ -1,0 +1,74 @@
+{% extends "base.html.j2" %}
+{% from "bootstrap/wtf.html" import form_field %}
+
+{% block title %}Manage Users{% endblock %}
+
+{% block page_content %}
+  <div class="col-md-6 col-md-offset-3">
+    <h1>Manage Users</h1>
+    <p>
+      <button type="button" class="btn btn-default" id="add-user-btn">
+        Add User
+      </button>
+    </p>
+
+    {% if users %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Verify Status</th>
+          <th>Admin</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in users %}
+        <tr id="users_{{ u.id }}" data-email="{{ u.email }}" data-id="{{ u.id }}">
+          <td>{{ u.first_name }}</td>
+          <td>{{ u.last_name }}</td>
+          <td>{{ u.email }}</td>
+          <td>{{ u.verified }}</td>
+          <td>
+            <i data-url="{{ url_for('acct.rm_user') }}" class="glyphicon glyphicon-remove"></i>
+            {{ rm_form.csrf_token }}
+          </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>You have not added any users.</p>
+    {% endif %}
+
+    <!-- Add User Modal -->
+    <div class="modal fade" id="add-user-modal" tabindex="-1" role="dialog" aria-labelledby="add-user-modal-label">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="add-user-modal-label">Add User</h4>
+          </div>
+          <form id="add-user-form" action="{{ url_for('acct.add_user') }}" method="POST" class="form" role="form" name="add-user-form">
+            <div class="modal-body">
+              {{ add_form.hidden_tag() }}
+              {{ form_field(add_form.first_name) }}
+              {{ form_field(add_form.last_name) }}
+              {{ form_field(add_form.email) }}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              {{ form_field(add_form.submit) }}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- End Add User Modal -->
+  </div>
+
+{% endblock %}
+{% block scripts %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='js/acct-manage.js') }}"></script>
+{% endblock %}

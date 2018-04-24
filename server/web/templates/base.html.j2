@@ -27,10 +27,9 @@
             {% if current_user.is_authenticated %}
               <li><a href="{{ url_for('dash.index') }}">Dashboard</a></li>
               <li class="dropdown">
-                <a data-toggle="dropdown" role="button">Manage Account<span class="caret"></span></a>
+                <a data-toggle="dropdown" role="button">Account<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="{{ url_for('acct.add_user') }}">Add User</a></li>
-                  <li><a href="{{ url_for('acct.rm_user') }}">Remove User</a></li>
+                  <li><a href="{{ url_for('acct.index') }}">Manage Users</a></li>
                 </ul>
               </li>
             {% endif %}
