@@ -58,7 +58,7 @@ def rm_user():
         db.session.delete(user)
         db.session.commit()
         log_message(f'acct_id: {user.acct_id},\t user: {user.first_name} has been removed')
-        flash('User has been removed')
+        flash(f'User: {user.first_name} has been removed', 'danger')
         return jsonify('OK')
     else:
         return jsonify(form.errors)
