@@ -127,7 +127,7 @@ void loop() {
             findBarcodePosition();
             stopMotors();
             is_driving = false;
-            delay(15);
+            delay(45);
             askForDirection();
         }
         nextState = WAITING;
@@ -224,6 +224,9 @@ void findBarcodePosition() {
 }
 
 void turnAround() {
+  driveBot(MAX_SPEED);
+  delay(STRAIGHT_DELAY-50);
+  stopMotors();
   writeSpeed(motor_arduino_address, FWD, MAX_SPEED*1.5, BKWD, MAX_SPEED*1.5);
   delay(TURN_AROUND_DELAY);
   stopMotors();
