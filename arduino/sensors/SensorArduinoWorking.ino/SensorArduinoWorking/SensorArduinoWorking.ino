@@ -1,6 +1,6 @@
 #include <Wire.h>
 #include "sensorbar.h"
-#include "smoothing.h" //not sure how we're including with the make file
+#include "smoothing.h"
 
 #define motor_arduino_address 8
 
@@ -48,7 +48,7 @@ const uint8_t TURN_MULTIPLIER = 2;
 
 const uint8_t MAX_OBSTACLE_DISTANCE = 8;
 
-const int TURN_DELAY = 1300;
+const int TURN_DELAY = 1500;
 const int TURN_AROUND_DELAY = 2600;
 const int STRAIGHT_DELAY = 1000;
 
@@ -88,6 +88,7 @@ void setup() {
   prevState = WAITING;
   is_driving = false;
   barcode_direction = 0;
+  stopMotors();
 }
 
 void loop() {
@@ -126,7 +127,7 @@ void loop() {
             findBarcodePosition();
             stopMotors();
             is_driving = false;
-            delay(5);
+            delay(15);
             askForDirection();
         }
         nextState = WAITING;
@@ -228,6 +229,19 @@ void turnAround() {
   stopMotors();
 }
 
+void turnOverBarcode(uint8_t direction) {
+  driveBot(MAX_SPEED);
+  delay(STRAIGHT_DELAY-50);
+  if(direction == RIGHT) {
+    writeSpeed(motor_arduino_address, FWD, MAX_SPEED*1.5, BKWD, MAX_SPEED*1.5);
+  }
+  else {
+    writeSpeed(motor_arduino_address, BKWD, MAX_SPEED*1.5, FWD, MAX_SPEED*1.5);
+  }
+  delay(TURN_AROUND_DELAY/2);
+  stopMotors();
+}
+
 uint16_t ultraSonic() {
 //  unsigned long t1;
 //  unsigned long t2;
@@ -273,12 +287,14 @@ void driveAfterRead() {
         delay(STRAIGHT_DELAY);
         break;
       case RIGHT:
-        rightTurn();
-        delay(TURN_DELAY);
+        turnOverBarcode(barcode_direction);
+        //rightTurn();
+        //delay(TURN_DELAY);
         break;
       case LEFT:
-        leftTurn();
-        delay(TURN_DELAY);
+        turnOverBarcode(barcode_direction);
+        //leftTurn();
+        //delay(TURN_DELAY);
         break;
       case REVERSE:
         turnAround();
